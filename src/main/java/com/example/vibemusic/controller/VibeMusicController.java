@@ -18,7 +18,7 @@ public class VibeMusicController {
 
     private final VibeMusicService vibeMusicService;
 
-    @GetMapping({"/index","/blog","/contact","/elements","/login","/event","/blog","/albums-store"})
+    @GetMapping({"/index","/blog","/contact","/elements","/login","/event","/blog","/albums-store" ,"/testIndex", "layout","playerbar"})
     public void main() {
 
     }

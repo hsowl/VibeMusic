@@ -1,10 +1,10 @@
 @import url(//db.onlinewebfonts.com/c/860c3ec7bbc5da3e97233ccecafe512e?family=Circular+Std+Book);
 
-* {
-    position: fixed;
-    box-sizing: border-box;
-    font-family: "circular std book", sans-serif;
-}
+/** {*/
+/*    position: fixed;*/
+/*    box-sizing: border-box;*/
+/*    font-family: "circular std book", sans-serif;*/
+/*}*/
 
 body {
     margin: 0;
@@ -14,6 +14,10 @@ body {
 }
 
 .music-player {
+    position: fixed;
+    box-sizing: border-box;
+    font-family: "circular std book", sans-serif;
+
     --primary-color: #ddd;
     --secondary-color: #999;
     --green-color: #2d5;
