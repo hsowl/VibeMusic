@@ -22,10 +22,10 @@ public class Music {
     @Column(name = "m_sound")
     private String m_sound;
 
-    @Column(name = "m_title", nullable = false)
+    @Column(name = "m_title")
     private String m_title;
 
-    @Column(name = "m_artist", nullable = false)
+    @Column(name = "m_artist")
     private String m_artist;
 
     @Column(name = "m_genre")
@@ -52,4 +52,8 @@ public class Music {
 
     @ManyToMany(mappedBy = "music")
     private List<PlayList> playLists;
+
+    public void updateImgUrl(String m_image){
+        this.m_image = m_image;
+    }
 }

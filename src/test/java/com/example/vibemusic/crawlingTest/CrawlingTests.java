@@ -1,6 +1,7 @@
 package com.example.vibemusic.crawlingTest;
 
 import com.example.vibemusic.domain.Music;
+import com.example.vibemusic.dto.MusicDTO;
 import com.example.vibemusic.repository.VibeMusicRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.jaudiotagger.audio.AudioFile;
@@ -8,11 +9,16 @@ import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.mp3.MP3AudioHeader;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.File;
+import java.util.Optional;
 
 @SpringBootTest
 @Slf4j
@@ -58,9 +64,32 @@ class CrawlingTests {
                 e.printStackTrace();
             }
         }
-
-
-
     }
+
+    @Test
+    public void imgCrawling() {
+        try {
+            Long count = 1L;  // 초기값 설정
+            for (int i = 1; i < 10; i++) {
+                Document doc = Jsoup.connect("https://www.genie.co.kr/newest/song?GenreCode=hot&pg=" + i).get();
+                Elements posters = doc.select("div.newest-list div.music-list-wrap table.list-wrap tbody tr.list td a.cover img");
+                for (Element poster : posters) {
+                    String imgUrl = poster.attr("src");
+
+                    Optional<Music> byId = vibeMusicRepository.findById(count);
+                    Music music = byId.orElseThrow();
+
+                    music.updateImgUrl(imgUrl);
+
+                    vibeMusicRepository.save(music);
+                    count++;  // count 증가
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 }
