@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="one-music-songs-area mb-70">
+    <div class="container">
+        <div class="row">
+
+            <!-- Single Song Area -->
+            <div class="col-12">
+                <div class="single-song-area mb-30 d-flex flex-wrap align-items-end">
+                    <div class="song-thumbnail">
+                        <img th:src="${dto.m_image}">
+                    </div>
+                    <div class="song-play-area">
+                        <div class="song-name">
+                            <p th:text="${dto.m_title}"></p>
+                        </div>
+                        <audio preload="auto" controls>
+                            <source th:src="${dto.m_sound}">
+                        </audio>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

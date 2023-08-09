@@ -31,9 +31,8 @@ public class Music {
     @Column(name = "m_genre")
     private String m_genre;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "m_rDate")
-    private Date m_rDate;
+    private int m_rDate;
 
     @Column(name = "m_playtime")
     private String m_playtime;

@@ -42,6 +42,8 @@ class CrawlingTests {
             return;
         }
 
+        int count = 1;
+
         for(File mp3File : mp3Files){
             try{
                 AudioFile audioFile = AudioFileIO.read(mp3File);
@@ -54,10 +56,14 @@ class CrawlingTests {
                         .m_artist(tag.getFirst(FieldKey.ARTIST))
                         .m_genre(tag.getFirst(FieldKey.GENRE))
                         .m_playtime(audioHeader.getTrackLengthAsString())
+                        .m_rDate((int)(Math.random()*40)+1980)
+                        .m_sound("audio/song"+count+".mp3")
                         .build();
 
                 Music result = vibeMusicRepository.save(music);
                 log.info("mno : {}",result.getM_no());
+
+                count++;
 
             }catch (Exception e){
                 e.printStackTrace();
