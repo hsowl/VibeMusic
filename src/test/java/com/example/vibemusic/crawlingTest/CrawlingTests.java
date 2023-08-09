@@ -1,7 +1,7 @@
 package com.example.vibemusic.crawlingTest;
 
 import com.example.vibemusic.domain.Music;
-import com.example.vibemusic.repository.VibeMusicRepository;
+import com.example.vibemusic.repository.MusicRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -24,7 +24,7 @@ import java.util.Optional;
 class CrawlingTests {
 
     @Autowired
-    private VibeMusicRepository vibeMusicRepository;
+    private MusicRepository musicRepository;
 
     @Test
     public void extractMp3Metadata(){
@@ -60,8 +60,8 @@ class CrawlingTests {
                         .m_sound("audio/song"+count+".mp3")
                         .build();
 
-                Music result = vibeMusicRepository.save(music);
-                log.info("mno : {}",result.getM_no());
+                Music result = musicRepository.save(music);
+                log.info("mno : {}",result.getNo());
 
                 count++;
 
@@ -81,12 +81,12 @@ class CrawlingTests {
                 for (Element poster : posters) {
                     String imgUrl = poster.attr("src");
 
-                    Optional<Music> byId = vibeMusicRepository.findById(count);
+                    Optional<Music> byId = musicRepository.findById(count);
                     Music music = byId.orElseThrow();
 
                     music.updateImgUrl(imgUrl);
 
-                    vibeMusicRepository.save(music);
+                    musicRepository.save(music);
                     count++;  // count 증가
                 }
             }

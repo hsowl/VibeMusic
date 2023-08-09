@@ -16,34 +16,33 @@ public class Music {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "m_no")
-    private Long m_no;
+    @Column
+    private Long no;
 
-    @Column(name = "m_sound")
     private String m_sound;
 
-    @Column(name = "m_title")
+    @Column
     private String m_title;
 
-    @Column(name = "m_artist")
+    @Column
     private String m_artist;
 
-    @Column(name = "m_genre")
+    @Column
     private String m_genre;
 
-    @Column(name = "m_rDate")
+    @Column
     private int m_rDate;
 
-    @Column(name = "m_playtime")
+    @Column
     private String m_playtime;
 
-    @Column(name = "m_image")
+    @Column
     private String m_image;
 
-    @Column(name = "m_playCount")
+    @Column
     private int m_playCount;
 
-    @Column(name = "m_Recommend")
+    @Column
     private String m_Recommend;
 
     @OneToMany(mappedBy = "music", cascade = CascadeType.ALL)

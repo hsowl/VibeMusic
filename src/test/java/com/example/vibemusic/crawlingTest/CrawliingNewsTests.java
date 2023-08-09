@@ -1,11 +1,9 @@
 package com.example.vibemusic.crawlingTest;
 
-import com.example.vibemusic.controller.VibeMusicController;
-import com.example.vibemusic.repository.VibeMusicRepository;
+import com.example.vibemusic.repository.MusicRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class CrawliingNewsTests {
 
     @Autowired
-    private VibeMusicRepository vibeMusicRepository;
+    private MusicRepository musicRepository;
 
     @Test
     public void crawlingNews(){

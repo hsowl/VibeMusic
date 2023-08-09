@@ -11,7 +11,7 @@ import java.util.Date;
 @Builder
 @ToString
 public class MusicDTO {
-    private Long m_no;
+    private Long no;
     private String m_sound;
     private String m_title;
     private String m_artist;

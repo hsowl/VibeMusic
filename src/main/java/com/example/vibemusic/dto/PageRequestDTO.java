@@ -17,14 +17,17 @@ import java.net.URLEncoder;
 public class PageRequestDTO {
 
     public void PageRequestDTO(int page, int size, String type, String keyword){
-
+        this.page = page;
+        this.size = size;
+        this.type = type;
+        this.keyword = keyword;
     }
 
     @Builder.Default
     private int page = 1;
 
     @Builder.Default
-    private int size = 10;
+    private int size = 12;
 
     private String type;
     private String keyword;
@@ -37,7 +40,7 @@ public class PageRequestDTO {
     }
 
     public Pageable getPageable(String ...props){
-        return PageRequest.of(this.page -1,this.size, Sort.by(props).descending());
+        return PageRequest.of(this.page -1,this.size, Sort.by(props).ascending());
     }
 
     private String link;
