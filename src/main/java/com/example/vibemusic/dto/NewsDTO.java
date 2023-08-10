@@ -12,11 +12,11 @@ import java.util.Date;
 @ToString
 public class NewsDTO {
 
-    private Long n_no;
-    private String n_title;
-    private String n_article;
-    private String n_image;
-    private int n_viewCount;
-    private Date n_regDate;
+    private Long nNo;
+    private String nTitle;
+    private String nContent;
+    private String nImage;
+    private int nViewCount;
+    private String nRegDate;
 
 }

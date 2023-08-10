@@ -1,9 +1,10 @@
 package com.example.vibemusic.domain;
 
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Builder
@@ -16,21 +17,21 @@ public class News {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long n_no;
+    private Long nNo;
+
+    @Column (length = 500)
+    private String nTitle;
+
+    @Column (length = 5000)
+    private String nContent;
+
+    @Column (length = 5000)
+    private String nImage;
 
     @Column
-    private String n_title;
+    private int nViewCount;
 
     @Column
-    private String n_content;
-
-    @Column
-    private String n_image;
-
-    @Column
-    private int n_viewCount;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date n_regDate;
+    private String nRegDate;
 
 }
