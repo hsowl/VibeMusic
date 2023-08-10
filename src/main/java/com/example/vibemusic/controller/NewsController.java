@@ -22,6 +22,29 @@ public class NewsController {
         this.newsService = newsService;
     }
 
+    /**
+     GET	Get 메소드는 서버로부터 정보를 가져올 때 사용이 됩니다.(Read)
+     */
 
+
+
+
+    /**
+     POST	리소스를 생성할 때 사용이 됩니다.(Create)
+     */
+
+
+
+
+    /**
+     PUT	리소스를 수정(update) 할 때 사용이 됩니다.(Update)
+     */
+
+
+
+
+    /**
+     DELETE	리소스를 제거할 때 사용이 됩니다.(Delete)
+     */
 
 }
