@@ -31,7 +31,7 @@ public class Music {
     private String m_genre;
 
     @Column
-    private int m_rDate;
+    private int rDate;
 
     @Column
     private String m_playtime;

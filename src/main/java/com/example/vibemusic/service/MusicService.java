@@ -11,5 +11,7 @@ public interface MusicService {
 
     PageResponseDTO<MusicDTO> listWithPaging(PageRequestDTO pageRequestDTO);
 
+    PageResponseDTO<MusicDTO> listWithNewMusic(PageRequestDTO pageRequestDTO);
+
 
 }

@@ -56,7 +56,7 @@ class CrawlingTests {
                         .m_artist(tag.getFirst(FieldKey.ARTIST))
                         .m_genre(tag.getFirst(FieldKey.GENRE))
                         .m_playtime(audioHeader.getTrackLengthAsString())
-                        .m_rDate((int)(Math.random()*40)+1980)
+                        .rDate((int)(Math.random()*40)+1980)
                         .m_sound("audio/song"+count+".mp3")
                         .build();
 
