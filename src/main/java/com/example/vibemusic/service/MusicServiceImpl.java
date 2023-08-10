@@ -32,6 +32,7 @@ public class MusicServiceImpl implements MusicService {
         Optional<Music> result = musicRepository.findById(bno);
         Music music = result.orElseThrow();
         MusicDTO musicDTO = modelMapper.map(music,MusicDTO.class);
+        log.info("rDate = {}",musicDTO.getRDate());
 
         return musicDTO;
     }
@@ -42,6 +43,22 @@ public class MusicServiceImpl implements MusicService {
         String[] types = pageRequestDTO.getTypes();
         String keyword = pageRequestDTO.getKeyword();
         Pageable pageable = pageRequestDTO.getPageable("no");
+
+        Page<Music> result = musicRepository.searchAll(types, keyword, pageable);
+
+        List<MusicDTO> dtoList = result.getContent().stream().map(music -> modelMapper.map(music, MusicDTO.class)).collect(Collectors.toList());
+
+        PageResponseDTO<MusicDTO> pageResponseDTO = new PageResponseDTO<>(pageRequestDTO, dtoList, (int)result.getTotalElements());
+
+        return pageResponseDTO;
+    }
+
+    @Override
+    public PageResponseDTO<MusicDTO> listWithNewMusic(PageRequestDTO pageRequestDTO) {
+
+        String[] types = pageRequestDTO.getTypes();
+        String keyword = pageRequestDTO.getKeyword();
+        Pageable pageable = pageRequestDTO.getPageable("rDate");
 
         Page<Music> result = musicRepository.searchAll(types, keyword, pageable);
 

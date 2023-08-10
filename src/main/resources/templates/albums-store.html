@@ -71,18 +71,48 @@
                 </div>
             </div>
 
+            <!-- ##### SearchBar Area Start ###### -->
+
+            <div class="row mt-3" style="justify-content: center">  <!-- 아주 깔끔해 좋아 -->
+                <form accept-charset="/albums-store" method="get">
+                    <div class="col">
+                        <input th:type="hidden" name="size" th:value="${pageRequestDTO.size}">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <select class="form-select" name="type">
+                                    <option value="">---</option>
+                                    <option value="t" th:selected="${pageRequestDTO.type == 't'}">제목</option>
+                                    <option value="a" th:selected="${pageRequestDTO.type == 'a'}">가수</option>
+                                    <option value="g" th:selected="${pageRequestDTO.type == 'g'}">장르</option>
+                                    <option value="ta" th:selected="${pageRequestDTO.type == 'tc'}">제목 / 가수</option>
+                                    <option value="tag" th:selected="${pageRequestDTO.type == 'tcw'}">제목 / 가수 / 장르
+                                    </option>
+                                </select>
+                            </div>
+                            <input type="text" class="form-control" name="keyword" th:value="${pageRequestDTO.keyword}">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary searchBtn" type="submit">Search</button>
+                                <button class="btn btn-outline-secondary clearBtn" type="button">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
             <div class="row oneMusic-albums">
+                <!-- ##### SearchBar Area End ###### -->
 
                 <!-- Single Album -->
                 <!--                <tbody th: th:with="link=${pageRequestDTO.getLink()}">-->
                 <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item t c p"
-                     th:each="dto:${responseDTO.dtoList}">
+                     th:each="dto:${responseDTO.dtoList}"
+                     th:with="link=${pageRequestDTO.getLink()}">
                     <div class="single-album">
-                        <img th:src="${dto.m_image}">
+                        <a style="text-decoration: none" th:href="|@{/read(no=${dto.no})}&${link}|">
+                            <img th:src="${dto.m_image}">
+                        </a>
                         <div class="album-info">
-                            <a href="#">
-                                <h5 th:text="${dto.m_title}"></h5>
-                            </a>
+                            <h5 th:text="${dto.m_title}"></h5>
                             <p th:text="${dto.m_artist}"></p>
                         </div>
                     </div>
@@ -361,6 +391,14 @@
         formObj.innerHTML += `<input type='hidden' name='page' value='${num}'>`;
         formObj.submit();
     }, false);
+
+    document.querySelector(".clearBtn").addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        self.location = '/albums-store'
+
+    }, false)
 </script>
 </html>
 

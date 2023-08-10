@@ -20,7 +20,7 @@ public class MusicController {
 
     private final MusicService musicService;
 
-    @GetMapping({"/index","/blog","/contact","/elements","/login","/event","/blog","/testIndex", "layout","playerbar"})
+    @GetMapping({"/blog","/contact","/elements","/login","/event","/blog","/testIndex", "layout","playerbar"})
     public void main() {
 
     }
@@ -34,8 +34,20 @@ public class MusicController {
     @GetMapping("/albums-store")
     public void list(PageRequestDTO pageRequestDTO, Model model){
         PageResponseDTO<MusicDTO> responseDTO = musicService.listWithPaging(pageRequestDTO);
-        log.info("responseDTO : {}",responseDTO.getDtoList());
         model.addAttribute("responseDTO", responseDTO);
+    }
+
+    @GetMapping("/read")
+    public void readOne(Long no, Model model){
+        MusicDTO musicDTO = musicService.readOne(no);
+        model.addAttribute("dto",musicDTO);
+    }
+
+    @GetMapping("/index")
+    public void listWithNewMusic(PageRequestDTO pageRequestDTO, Model model){
+        PageResponseDTO<MusicDTO> responseDTO = musicService.listWithNewMusic(pageRequestDTO);
+        model.addAttribute("responseDTO",responseDTO);
+
     }
 
 }

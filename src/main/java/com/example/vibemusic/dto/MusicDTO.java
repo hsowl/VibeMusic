@@ -16,7 +16,7 @@ public class MusicDTO {
     private String m_title;
     private String m_artist;
     private String m_genre;
-    private Date m_rDate;
+    private int rDate;
     private String m_playtime;
     private String m_image;
     private int m_playCount;
