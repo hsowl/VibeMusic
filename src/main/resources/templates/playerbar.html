@@ -1,12 +1,12 @@
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/412379eca8.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/css/playerbar.css">
     <title>음악 플레이어</title>
 </head>
 
@@ -15,14 +15,14 @@
     <h1>음악 플레이어</h1>
     <div class="music-container" id="musicContainer">
         <div class="music-info">
-            <h4 id="title" th:text="${dto.m_title}">노래 제목</h4>
+            <h4 id="title">노래 제목</h4>
             <div class="progress-container" id="progress-container">
                 <div class="progress" id="progress"></div>
             </div>
         </div>
-        <audio id="audio" th:src="${dto.m_sound}" onloadstart="this.volume=0.005"></audio>
+        <audio id="audio" src="/audio/song1.mp3" onloadstart="this.volume=0.005"></audio>
         <div class="img-container">
-            <img th:src="${dto.m_image}" alt="cover" id="cover">
+            <img src="/img/bg-img/a1.jpg" alt="cover" id="cover">
         </div>
         <div class="navigation">
             <button id="prev" class="action-btn"><i class="fa-sharp fa-solid fa-backward"></i></button>
@@ -34,7 +34,13 @@
     </div>
 
 </div>
-<script src="main.js"> </script>
+<script th:inline="javascript" src="/js/main.js">
+    <![CDATA[
+    var songTitle = [[${dto.m_title}]]; // 첫 번째 노래의 제목
+    var songSound = [[${dto.m_sound}]]; // 첫 번째 노래의 소리
+    var songImage = [[${dto.m_image}]]; // 첫 번째 노래의 이미지
+    ]]>
+</script>
 </body>
 
 </html>

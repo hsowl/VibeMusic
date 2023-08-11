@@ -20,12 +20,12 @@ public class MusicController {
 
     private final MusicService musicService;
 
-    @GetMapping({"/blog","/contact","/elements","/login","/event","/blog","/testIndex", "layout","playerbar"})
+    @GetMapping({"/blog","/contact","/elements","/login","/event","/blog","/testIndex", "layout"})
     public void main() {
 
     }
 
-    @GetMapping("/test")
+    @GetMapping("/playerbard")
     public void test(Model model) {
         MusicDTO musicDTO = musicService.readOne(1L);
         model.addAttribute("dto",musicDTO);
@@ -49,5 +49,11 @@ public class MusicController {
         model.addAttribute("responseDTO",responseDTO);
 
     }
+    @GetMapping("/playerbar")
+    public void readPlayerBar(Long no, Model model){
+        MusicDTO musicDTO = musicService.readOne(no);
+        model.addAttribute("dto",musicDTO);
+    }
+
 
 }

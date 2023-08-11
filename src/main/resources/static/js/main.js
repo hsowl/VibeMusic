@@ -4,34 +4,35 @@ const audio = document.getElementById("audio");
 const prevBtn = document.getElementById("prev");
 const nextBtn = document.getElementById("next");
 const progress = document.getElementById("progress");
-const progressContainer = document.getElementById('progress-container');
+const progressContainer = document.getElementById("progress-container");
 const imgCover = document.getElementById("cover");
 const title = document.getElementById("title");
 
-const songs = ["hey", "summer", "ukulele"];
+const songs = {
+    titles: songTitle,
+    sounds: songSound,
+    images: songImage
+};
 
 let songIndex = 2;
 
-loadSong(songs[songIndex]);
+loadSong(songIndex);
 
-function loadSong(song) {
-    title.innerText = song;
-    audio.src = `http://127.0.0.1:5500/music/${song}.mp3`;
-    imgCover.src = `http://127.0.0.1:5500/images/${song}.jpg`;
+function loadSong(index) {
+    title.innerText = songs.titles[index];
+    audio.src = songs.sounds[index];
+    imgCover.src = songs.images[index];
 }
 
 function playMusic() {
     musicContainer.classList.add("play");
-
     playBtn.innerHTML = `<i class="fa-solid fa-pause"></i>`;
-
     audio.play();
 }
 
-function pauseMusic(){
+function pauseMusic() {
     musicContainer.classList.remove('play');
     playBtn.innerHTML = `<i class="fa-solid fa-play"></i>`;
-
     audio.pause();
 }
 
@@ -39,51 +40,43 @@ function playPrevSong() {
     songIndex--;
 
     if (songIndex < 0) {
-        songIndex = songs.length - 1;
+        songIndex = songs.titles.length - 1;
     }
 
-    loadSong(songs[songIndex]);
-
+    loadSong(songIndex);
     playMusic();
 }
 
-function playNextSong (){
+function playNextSong() {
     songIndex++;
 
-    if(songIndex > 2){
+    if (songIndex >= songs.titles.length) {
         songIndex = 0;
     }
 
-    loadSong(songs[songIndex]);
+    loadSong(songIndex);
     playMusic();
 }
 
-function updateProgress(e){
+function updateProgress(e) {
     const {duration, currentTime} = e.srcElement;
-
     const progressPer = (currentTime / duration) * 100;
-
     progress.style.width = `${progressPer}%`;
 }
 
-function changeProgress(e){
-
-    const width = e.target.clientWidth; // 전체 넓이
-
-    const offsetX = e.offsetX; // 현재 x 좌표;
-
-    const duration = audio.duration; // 재생길이
-
+function changeProgress(e) {
+    const width = e.target.clientWidth;
+    const offsetX = e.offsetX;
+    const duration = audio.duration;
     audio.currentTime = (offsetX / width) * duration;
-
 }
 
 playBtn.addEventListener("click", () => {
     const isPlaying = musicContainer.classList.contains('play');
 
-    if(isPlaying){
+    if (isPlaying) {
         pauseMusic();
-    } else{
+    } else {
         playMusic();
     }
 });
