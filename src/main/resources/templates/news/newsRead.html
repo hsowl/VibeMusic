@@ -18,13 +18,11 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="/css/style.css">
+
 </head>
 
 <body>
 <div layout:fragment="content">
-    <form action="/blog" method="get">
-
-
     <!-- Preloader -->
     <div class="preloader d-flex align-items-center justify-content-center">
         <div class="lds-ellipsis">
@@ -37,22 +35,27 @@
 
 
     <!-- ##### Breadcumb Area Start ##### -->
-<!--    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(img/bg-img/breadcumb3.jpg);">-->
-<!--        <div class="bradcumbContent">-->
-<!--            <p>See what’s new</p>-->
-<!--            <h2>News</h2>-->
-<!--        </div>-->
-<!--    </section>-->
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(img/bg-img/breadcumb3.jpg);">
+        <div class="bradcumbContent">
+            <p>See what’s new</p>
+            <h2>News</h2>
+        </div>
+    </section>
     <!-- ##### Breadcumb Area End ##### -->
 
     <!-- ##### Blog Area Start ##### -->
-    <div class="blog-area section-padding-100">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-lg-9">
 
-                    <!-- Single Post Start -->
 
+                    <!-- Pagination -->
+                    <div class="oneMusic-pagination-area wow fadeInUp" data-wow-delay="300ms">
+                        <nav>
+                            <ul class="pagination">
+                                <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                                <li class="page-item"><a class="page-link" href="#">02</a></li>
+                                <li class="page-item"><a class="page-link" href="#">03</a></li>
+                            </ul>
+                        </nav>
+                    </div>
 
                 <div class="col-12 col-lg-3">
                     <div class="blog-sidebar-area">
@@ -126,7 +129,6 @@
     <!-- ##### Blog Area End ##### -->
 
     </div>
-    </form>
 </div>
 </body>
 
