@@ -11,7 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ReReply {
+public class ReReply extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,11 +28,4 @@ public class ReReply {
     @Column(name = "rr_replyText", nullable = false)
     private String rr_replyText; // 대댓글 내용
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "rr_regDate")
-    private Date rr_regDate; // 대댓글 등록 날짜
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "rr_modDate")
-    private Date rr_modDate; // 대댓글 수정 날짜
 }

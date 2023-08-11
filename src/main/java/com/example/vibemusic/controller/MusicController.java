@@ -1,12 +1,17 @@
 package com.example.vibemusic.controller;
 
+import com.example.vibemusic.domain.Reply;
 import com.example.vibemusic.dto.MusicDTO;
 import com.example.vibemusic.dto.PageRequestDTO;
 import com.example.vibemusic.dto.PageResponseDTO;
 import com.example.vibemusic.service.MusicService;
+import com.example.vibemusic.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MusicController {
 
     private final MusicService musicService;
+    private final ReplyService replyService;
 
     @GetMapping({"/blog","/contact","/elements","/login","/event","/blog","/testIndex", "layout","playerbar"})
     public void main() {
@@ -32,7 +38,7 @@ public class MusicController {
     }
 
     @GetMapping("/albums-store")
-    public void list(PageRequestDTO pageRequestDTO, Model model){
+    public void list(PageRequestDTO pageRequestDTO, Model model, Pageable pageable){
         PageResponseDTO<MusicDTO> responseDTO = musicService.listWithPaging(pageRequestDTO);
         model.addAttribute("responseDTO", responseDTO);
     }
