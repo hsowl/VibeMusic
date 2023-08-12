@@ -1,6 +1,8 @@
 package com.example.vibemusic.service;
 
+import com.example.vibemusic.domain.Music;
 import com.example.vibemusic.domain.News;
+import com.example.vibemusic.dto.MusicDTO;
 import com.example.vibemusic.dto.NewsDTO;
 import com.example.vibemusic.dto.PageRequestDTO;
 import com.example.vibemusic.dto.PageResponseDTO;
@@ -37,12 +39,27 @@ public class NewsServiceImpl implements NewsService{
         return newsDTO;
     }
 
+    @Override
+    public List list() {
+        List list = newsRepository.findAll();
+
+        log.info("list ===> {}", list);
+        return list;
+    }
+
 //    @Override
-//    public List list() {
-//        List list = newsRepository.findAll();
+//    public PageResponseDTO<NewsDTO> listWithPaging(PageRequestDTO pageRequestDTO) {
+//        String[] types = pageRequestDTO.getTypes();
+//        String keyword = pageRequestDTO.getKeyword();
+//        Pageable pageable = pageRequestDTO.getPageable("nNo");
 //
-//        log.info("list => {}", list);
-//        return list;
+//        Page<News> result = newsRepository.searchAll(types, keyword, pageable);
+//
+//        List<NewsDTO> dtoList = result.getContent().stream().map(news -> modelMapper.map(news, NewsDTO.class)).collect(Collectors.toList());
+//
+//        PageResponseDTO<NewsDTO> pageResponseDTO = new PageResponseDTO<>(pageRequestDTO, dtoList, (int)result.getTotalElements());
+//
+//        return pageResponseDTO;
 //    }
 
 
