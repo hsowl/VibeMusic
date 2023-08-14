@@ -1279,7 +1279,7 @@ img {
     z-index: 1; }
     .single-blog-post .blog-post-thumb .post-date {
       width: 76px;
-      height: 106px;
+      height: 72px;
       border: 1px solid #000000;
       text-align: center;
       background-color: #fff;
@@ -1287,7 +1287,7 @@ img {
       z-index: 10;
       top: -30px;
       left: 30px;
-      padding: 17px 0; }
+      padding: 5px 0; }
       .single-blog-post .blog-post-thumb .post-date span {
         display: block;
         font-size: 14px;

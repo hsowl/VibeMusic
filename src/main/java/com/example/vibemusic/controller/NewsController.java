@@ -41,7 +41,7 @@ public class NewsController {
     }
 
     @GetMapping("/blog")
-    public String list(PageRequestDTO pageRequestDTO, Model model, Pageable pageable){
+    public String list(Pageable pageable, Model model){
 
         // Set the number of items per page
         int pageSize = 5;
@@ -54,7 +54,8 @@ public class NewsController {
         model.addAttribute("newsPage", newsPage);
 
         // Return the view name for rendering
-        return "blog"; // blog.html
+        return "blog";  // blog.html
+
     }
 
     /**

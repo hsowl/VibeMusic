@@ -6,7 +6,6 @@ import com.example.vibemusic.dto.PageRequestDTO;
 import com.example.vibemusic.dto.PageResponseDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
@@ -20,4 +19,6 @@ public interface NewsService {
     Page<News> list(Pageable pageable);
 
 //    PageResponseDTO<NewsDTO> listWithPaging(PageRequestDTO pageRequestDTO);
+
+
 }
