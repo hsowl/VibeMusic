@@ -10,4 +10,5 @@ public interface NewsRepository extends JpaRepository<News, Long> {
 
 
 //    Page<News> searchAll(String[] types, String keyword, Pageable pageable);
+
 }

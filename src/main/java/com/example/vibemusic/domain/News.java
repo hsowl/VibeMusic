@@ -28,6 +28,9 @@ public class News {
     @Column (length = 5000)
     private String nImage;
 
+    @Column (length = 100000)
+    private String nFullNews;
+
     @Column
     private int nViewCount;
 

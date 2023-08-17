@@ -30,7 +30,8 @@
         </div>
     </section>
 
-    <section class="featured-artist-area section-padding-100 bg-img bg-overlay bg-fixed" style="background-image: url(img/bg-img/bg-4.jpg);">
+    <section class="featured-artist-area section-padding-100 bg-img bg-overlay bg-fixed"
+             style="background-image: url(img/bg-img/bg-4.jpg);">
         <div class="container">
             <div class="row align-items-end">
                 <div class="col-12 col-md-5 col-lg-4">
@@ -82,55 +83,82 @@
         </tr>
     </table>
 
-    <section class="contact-area section-padding-100 bg-img bg-overlay bg-fixed has-bg-img" style="background-image: url(img/bg-img/bg-3.jpg);">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-heading white wow fadeInUp" data-wow-delay="100ms">
-                        <p>See what’s new</p>
-                        <h2>Get In Touch</h2>
-                    </div>
-                </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="my-4">
+                <button class="btn btn-info addReplyBtn">댓글 추가</button>
             </div>
-
-            <div class="row">
-                <div class="col-12">
-                    <!-- Contact Form Area -->
-                    <div class="contact-form-area">
-                        <form action="#" method="post">
-                            <div class="row">
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="form-group wow fadeInUp" data-wow-delay="100ms">
-                                        <input type="text" class="form-control" id="name" placeholder="Name">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="form-group wow fadeInUp" data-wow-delay="200ms">
-                                        <input type="email" class="form-control" id="email" placeholder="E-mail">
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group wow fadeInUp" data-wow-delay="300ms">
-                                        <input type="text" class="form-control" id="subject" placeholder="Subject">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group wow fadeInUp" data-wow-delay="400ms">
-                                        <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">
-                                    <button class="btn oneMusic-btn mt-30" type="submit">Send <i class="fa fa-angle-double-right"></i></button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            <ul class="list-group replyList">
+            </ul>
         </div>
-    </section>
+    </div>
+    <div class="row mt-3">
+        <div class="col">
+            <ul class="pagination replyPaging">
+            </ul>
+        </div>
+    </div>
+
+    <script src="http://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="/js/reply.js"></script>
 
 </div>
+
+<script layout:fragment="script" th:inline="javascript">
+
+    const no = [[${dto.no}]]
+
+    console.log(no);
+
+    const replyList = document.querySelector('.replyList')
+    const replyPaging = document.querySelector('.replyPaging')
+
+    function printList(dtoList) {
+        let str = '';
+
+        if (dtoList && dtoList.length > 0) {
+            for (const dto of dtoList) {
+                str += `<li class="list-group-item d-flex replyItem">` +
+                    `<span class="col-2">${dto.rno}</span>` +
+                    `<span class="col-6" data-rno="${dto.rno}">${dto.r_replyText}</span>` +
+                    `<span class="col-2">${dto.rreplyer}</span>` +
+                    `<span class="col-2">${dto.regDate}</span> ` +
+                    `</li>`
+            }
+        }
+        replyList.innerHTML = str;
+    }
+
+    function printPages(data){
+        let pageStr = '';
+
+        if(data.prev){
+            pageStr += `<li class="page-item"><a class="page-link" data-page="${data.start-1}">PREV</a></li>`
+        }
+        for(let i = data.start; i <= data.end; i++){
+            pageStr += `<li class="page-item ${i == data.page?"active":""} "><a class="page-link" data-page="${i}">${i}</a></li>`
+        }
+        if(data.next){
+            pageStr += `<li class="page-item"><a class="page-link" data-page="${data.end+1}">NEXT</a></li>`
+        }
+        replyPaging.innerHTML = pageStr;
+    }
+
+    function printReplies(page, size, goLast) {
+        getList({no, page, size, goLast}).then(
+            data => {
+                printList(data.dtoList)
+                printPages(data)
+            }
+        ).catch(e => {
+            console.error(e);
+        })
+    }
+
+    printReplies(1, 10)
+
+</script>
 
 </body>
 </html>

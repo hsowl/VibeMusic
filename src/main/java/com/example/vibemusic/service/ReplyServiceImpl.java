@@ -47,7 +47,12 @@ public class ReplyServiceImpl implements ReplyService{
     @Override
     public Long register(ReplyDTO replyDTO) {
         Reply reply = modelMapper.map(replyDTO, Reply.class);
+//        reply.builder().music().build();
+
+
+
         Long rno = replyRepository.save(reply).getRno();
+        log.info("reply.getMusic : {}",reply.getMusic());
         return rno;
     }
 
@@ -55,7 +60,7 @@ public class ReplyServiceImpl implements ReplyService{
     public void modify(ReplyDTO replyDTO) {
         Optional<Reply> byId = replyRepository.findById(replyDTO.getRno());
         Reply reply = byId.orElseThrow();
-        reply.change(replyDTO.getRreplyText());
+        reply.change(replyDTO.getR_replyText());
         replyRepository.save(reply);
 
     }
@@ -71,5 +76,17 @@ public class ReplyServiceImpl implements ReplyService{
         Page<Reply> result = replyRepository.replyListOfMusic(no, pageable);
 
         return result;
+    }
+
+    @Override
+    public PageResponseDTO getListOfMusic(Long no, PageRequestDTO pageRequestDTO) {
+
+        Pageable pageable = PageRequest.of(pageRequestDTO.getPage() <= 0 ? 0 : pageRequestDTO.getPage() -1, pageRequestDTO.getSize(), Sort.by("rno").ascending());
+
+        Page<Reply> result = replyRepository.replyListOfMusic(no, pageable);
+
+        List<ReplyDTO> dtoList = result.getContent().stream().map(reply -> modelMapper.map(reply, ReplyDTO.class)).collect(Collectors.toList());
+
+        return PageResponseDTO.<ReplyDTO>withAll().pageRequestDTO(pageRequestDTO).dtoList(dtoList).total((int)result.getTotalElements()).build();
     }
 }
