@@ -52,15 +52,13 @@
                     <div class="col-12 col-lg-9">
 
                         <!-- Single Post Start -->
-                        <div th:each="dto:${list}" class="single-blog-post mb-100 wow fadeInUp" data-wow-delay="100ms">
+                        <div th:each="dto:${newsPage}" class="single-blog-post mb-100 wow fadeInUp" data-wow-delay="100ms">
                             <!-- Post Thumb -->
                             <div class="blog-post-thumb mt-30">
-
                                 <img th:src="${dto.nImage}">
-                                </a>
                                 <!-- Post Date -->
                                 <div class="post-date">
-                                    <span>[[${dto.nRegDate}]]</span>
+                                    <p>[[${dto.nRegDate}]]</p>
                                 </div>
                             </div>
 
@@ -81,15 +79,25 @@
                         </div>
 
                         <!-- Pagination -->
-                        <div class="oneMusic-pagination-area wow fadeInUp" data-wow-delay="300ms">
+                        <div th:if="${newsPage}" class="oneMusic-pagination-area wow fadeInUp" data-wow-delay="300ms">
                             <nav>
                                 <ul class="pagination">
-                                    <li class="page-item active"><a class="page-link" href="#">01</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">02</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">03</a></li>
+                                    <li th:class="${newsPage.first ? 'disabled' : ''}" class="page-item active">
+                                        <a th:href="@{/blog(page=0, size=${newsPage.size})}">◀◀ First Page</a>
+                                    </li>
+                                    <li th:class="${newsPage.hasPrevious ? '' : 'disabled'}" class="page-item">
+                                        <a th:href="@{/blog(page=${newsPage.number - 1}, size=${newsPage.size})}">◀ Previous Page</a>
+                                    </li>
+                                    <li th:class="${newsPage.hasNext ? '' : 'disabled'}" class="page-item">
+                                        <a th:href="@{/blog(page=${newsPage.number + 1}, size=${newsPage.size})}">Next Page ▶</a>
+                                    </li>
+                                    <li th:class="${newsPage.last ? 'disabled' : ''}" class="page-item">
+                                        <a th:href="@{/blog(page=${newsPage.totalPages - 1}, size=${newsPage.size})}">Last Page ▶▶</a>
+                                    </li>
                                 </ul>
                             </nav>
                         </div>
+                    </div>
 
                         <div class="col-12 col-lg-3">
                             <div class="blog-sidebar-area">
@@ -150,14 +158,13 @@
                                     <a href="#"><img src="img/bg-img/add2.gif" alt=""></a>
                                 </div>
 
-                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- ##### Blog Area End ##### -->
-
         </div>
+            <!-- ##### Blog Area End ##### -->
     </form>
 </div>
 </body>

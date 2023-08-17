@@ -1,5 +1,6 @@
 package com.example.vibemusic.controller;
 
+import com.example.vibemusic.domain.News;
 import com.example.vibemusic.dto.NewsDTO;
 import com.example.vibemusic.dto.PageRequestDTO;
 import com.example.vibemusic.dto.PageResponseDTO;
@@ -8,6 +9,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,14 +41,20 @@ public class NewsController {
     }
 
     @GetMapping("/blog")
-    public void list(PageRequestDTO pageRequestDTO, Model model, Pageable pageable){
-//        PageResponseDTO<NewsDTO> responseDTO = newsService.listWithPaging(pageRequestDTO);
-//        model.addAttribute("responseDTO", responseDTO);
-//        log.info("responseDTO ======> : {}", responseDTO);
+    public String list(PageRequestDTO pageRequestDTO, Model model, Pageable pageable){
 
-        List list = newsService.list();
-        model.addAttribute("list", list);
-        log.info("News ======> : {}", list);
+        // Set the number of items per page
+        int pageSize = 5;
+        pageable = PageRequest.of(pageable.getPageNumber(), pageSize);
+
+        // Retrieve a Page of news items using the NewsService
+        Page<News> newsPage = newsService.list(pageable);
+
+        // Add the Page of news items to the model
+        model.addAttribute("newsPage", newsPage);
+
+        // Return the view name for rendering
+        return "blog"; // blog.html
     }
 
     /**
