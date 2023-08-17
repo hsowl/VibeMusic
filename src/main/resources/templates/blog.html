@@ -40,7 +40,7 @@
         <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(img/bg-img/breadcumb3.jpg);">
             <div class="bradcumbContent">
                 <p>See what’s new</p>
-                <h2>News</h2>
+                <h2> News</h2>
             </div>
         </section>
         <!-- ##### Breadcumb Area End ##### -->
@@ -81,7 +81,7 @@
                         <!-- Pagination -->
                         <div th:if="${newsPage}" class="oneMusic-pagination-area wow fadeInUp" data-wow-delay="300ms">
                             <nav>
-                                <ul class="pagination">
+                                <ul class="news-pagination">
                                     <li th:class="${newsPage.first ? 'disabled' : ''}" class="page-item active">
                                         <a th:href="@{/blog(page=0, size=${newsPage.size})}">◀◀ First Page</a>
                                     </li>
