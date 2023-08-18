@@ -184,3 +184,10 @@
     document.getElementById("subject").value = "";
     document.getElementById("message").value = "";
 }
+function showMessage() {
+    var textContainer = document.querySelector('.text-container');
+    var messageBox = document.querySelector('.thankyou_message');
+
+    textContainer.classList.add('active'); // .active 클래스 추가
+    messageBox.classList.add('visible');
+}
