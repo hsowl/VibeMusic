@@ -20,4 +20,5 @@ public interface NewsService {
     Page<News> list(Pageable pageable);
 
 
+    void increaseViewCount(Long nNo);
 }

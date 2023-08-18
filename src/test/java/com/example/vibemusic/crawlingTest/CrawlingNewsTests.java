@@ -206,8 +206,17 @@ public class CrawlingNewsTests {
     private String crawlNewsContent(String newsLink) {
         try {
             Document doc = Jsoup.connect(newsLink).get();
-            String contents = doc.select("div.w_ctma_text p").text();
-            return contents;
+            Elements paragraphs = doc.select("div.w_ctma_text p");
+
+            StringBuilder newsContentBuilder = new StringBuilder();
+
+            for (Element paragraph : paragraphs) {
+                newsContentBuilder.append(paragraph.text());
+                newsContentBuilder.append("<br>");
+            }
+
+            String fullNews = newsContentBuilder.toString();
+            return fullNews;
         } catch (Exception e) {
             e.printStackTrace();
             return null;

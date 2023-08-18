@@ -33,8 +33,18 @@ public class NewsController {
      GET	Get 메소드는 서버로부터 정보를 가져올 때 사용이 됩니다.(Read)
      */
     @GetMapping("/newsRead")
-    public void read(Long nNo, Model model){
+    public void read(Long nNo, Integer nViewCount, Model model){
         log.info("nNo=============> : {}", nNo);
+        log.info("nViewCount=============> : {}", nViewCount);
+
+        if (nViewCount == null) {
+            nViewCount = 0; // 기본값을 0으로 설정.
+        }
+
+        // Increase the view count for the news
+        newsService.increaseViewCount(nNo);
+
+        // Retrieve the news information
         NewsDTO newsDTO = newsService.read1news(nNo);
 
         model.addAttribute("dto", newsDTO);

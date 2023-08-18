@@ -41,4 +41,16 @@ public class NewsServiceImpl implements NewsService {
         return newsRepository.findAll(pageable);
     }
 
+    @Transactional
+    @Override
+    public void increaseViewCount(Long nNo) {
+        News news = newsRepository.findById(nNo)
+                .orElseThrow(() -> new IllegalArgumentException("News not found with nNo: " + nNo));
+
+        int currentViewCount = news.getNViewCount();
+        news.setNViewCount(currentViewCount + 1);
+
+        newsRepository.save(news);
+    }
+
 }
