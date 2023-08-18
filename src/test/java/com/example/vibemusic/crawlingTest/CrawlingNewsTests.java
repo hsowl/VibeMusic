@@ -2,7 +2,9 @@ package com.example.vibemusic.crawlingTest;
 
 import com.example.vibemusic.domain.Music;
 import com.example.vibemusic.domain.News;
+import com.example.vibemusic.dto.NewsDTO;
 import com.example.vibemusic.repository.NewsRepository;
+import com.example.vibemusic.service.NewsService;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -12,10 +14,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+
+import static com.example.vibemusic.domain.QNews.news;
 
 @SpringBootTest
 @Slf4j
@@ -23,6 +28,10 @@ public class CrawlingNewsTests {
 
     @Autowired
     private NewsRepository newsRepository;
+
+    @Autowired
+    private NewsService newsService;
+
 
     @Test
     public void crawlingNews1() {
@@ -163,12 +172,12 @@ public class CrawlingNewsTests {
                 }
 
                 for (Element newsDetail : newsDetails) {
-                    String newsDetailUrl = newsDetail.attr("href");
+                    String newsDetailUrl = "https://ent.sbs.co.kr" + newsDetail.attr("href");
 
                     Optional<News> byId = newsRepository.findById(count);
                     News news = byId.orElseThrow();
 
-                    news.setNFullNews(newsDetailUrl);
+                    news.setNNewsLinks(newsDetailUrl);
 
                     newsRepository.save(news);
                     count++;  // count 증가
@@ -176,6 +185,32 @@ public class CrawlingNewsTests {
             }
         }catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void crawlingNewsDetail2() {
+        List<News> newsList = newsRepository.findAll();
+
+        for (News news : newsList) {
+            String newsLink = news.getNNewsLinks();
+            String newsContent = crawlNewsContent(newsLink);
+
+            if (newsContent != null && !newsContent.isEmpty()) {
+                news.setNFullNews(newsContent);
+                newsRepository.save(news);
+            }
+        }
+    }
+
+    private String crawlNewsContent(String newsLink) {
+        try {
+            Document doc = Jsoup.connect(newsLink).get();
+            String contents = doc.select("div.w_ctma_text p").text();
+            return contents;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

@@ -32,7 +32,7 @@ public class NewsController {
     /**
      GET	Get 메소드는 서버로부터 정보를 가져올 때 사용이 됩니다.(Read)
      */
-    @GetMapping("/news/newsRead")
+    @GetMapping("/newsRead")
     public void read(Long nNo, Model model){
         log.info("nNo=============> : {}", nNo);
         NewsDTO newsDTO = newsService.read1news(nNo);
