@@ -42,8 +42,8 @@ public class User {
     private boolean u_adult;
 
     // playList와 연결
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<PlayList> playLists;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private PlayList playLists;
 
 
 
