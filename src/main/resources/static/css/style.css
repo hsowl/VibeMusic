@@ -1503,6 +1503,14 @@ img {
     border-bottom: 1px solid #000000; }
 .contact-form-area textarea.form-control {
   height: 160px; }
+/*메일 전송후 뜨는 메시지창*/
+.thankyou_message {
+  padding-top: 20px; /* 원하는 간격을 설정 */
+  position: relative;
+  z-index: 1;
+  margin-bottom: 100px;
+  text-align: center; }
+
 
 .has-bg-img {
   position: relative;
