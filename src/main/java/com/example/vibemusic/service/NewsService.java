@@ -19,5 +19,6 @@ public interface NewsService {
 
     Page<News> list(Pageable pageable);
 
-//    PageResponseDTO<NewsDTO> listWithPaging(PageRequestDTO pageRequestDTO);
+
+    void increaseViewCount(Long nNo);
 }

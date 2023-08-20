@@ -32,16 +32,26 @@ public class NewsController {
     /**
      GET	Get 메소드는 서버로부터 정보를 가져올 때 사용이 됩니다.(Read)
      */
-    @GetMapping("/news/newsRead")
-    public void read(Long nNo, Model model){
+    @GetMapping("/newsRead")
+    public void read(Long nNo, Integer nViewCount, Model model){
         log.info("nNo=============> : {}", nNo);
+        log.info("nViewCount=============> : {}", nViewCount);
+
+        if (nViewCount == null) {
+            nViewCount = 0; // 기본값을 0으로 설정.
+        }
+
+        // Increase the view count for the news
+        newsService.increaseViewCount(nNo);
+
+        // Retrieve the news information
         NewsDTO newsDTO = newsService.read1news(nNo);
 
         model.addAttribute("dto", newsDTO);
     }
 
     @GetMapping("/blog")
-    public String list(PageRequestDTO pageRequestDTO, Model model, Pageable pageable){
+    public String list(Pageable pageable, Model model){
 
         // Set the number of items per page
         int pageSize = 5;
@@ -54,7 +64,8 @@ public class NewsController {
         model.addAttribute("newsPage", newsPage);
 
         // Return the view name for rendering
-        return "blog"; // blog.html
+        return "blog";  // blog.html
+
     }
 
     /**

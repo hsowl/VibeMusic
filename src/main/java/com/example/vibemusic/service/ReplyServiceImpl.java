@@ -1,10 +1,12 @@
 package com.example.vibemusic.service;
 
+import com.example.vibemusic.domain.Music;
 import com.example.vibemusic.domain.Reply;
 import com.example.vibemusic.dto.MusicDTO;
 import com.example.vibemusic.dto.PageRequestDTO;
 import com.example.vibemusic.dto.PageResponseDTO;
 import com.example.vibemusic.dto.ReplyDTO;
+import com.example.vibemusic.repository.MusicRepository;
 import com.example.vibemusic.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +28,7 @@ public class ReplyServiceImpl implements ReplyService{
 
     private final ReplyRepository replyRepository;
     private final ModelMapper modelMapper;
+    private final MusicRepository musicRepository;
 
 
     @Override
@@ -46,13 +49,15 @@ public class ReplyServiceImpl implements ReplyService{
 
     @Override
     public Long register(ReplyDTO replyDTO) {
-        Reply reply = modelMapper.map(replyDTO, Reply.class);
-//        reply.builder().music().build();
-
-
+        Optional<Music> byId = musicRepository.findById(replyDTO.getNo());
+        Music music = byId.orElseThrow();
+        Reply reply = Reply.builder()
+                .music(music)
+                .rreplyer(replyDTO.getRreplyer())
+                .r_replyText(replyDTO.getR_replyText())
+                .build();
 
         Long rno = replyRepository.save(reply).getRno();
-        log.info("reply.getMusic : {}",reply.getMusic());
         return rno;
     }
 

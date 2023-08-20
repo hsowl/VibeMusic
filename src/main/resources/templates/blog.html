@@ -11,7 +11,7 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title -->
-    <title>One Music - Modern Music HTML5 Template</title>
+    <title>VibeMusic - News</title>
 
     <!-- Favicon -->
     <link rel="icon" href="img/core-img/favicon.ico">
@@ -22,7 +22,7 @@
 
 <body>
 <div layout:fragment="content">
-    <form action="/blog" method="get">
+    <form action="/newsRead" method="get">
 
 
         <!-- Preloader -->
@@ -55,7 +55,9 @@
                         <div th:each="dto:${newsPage}" class="single-blog-post mb-100 wow fadeInUp" data-wow-delay="100ms">
                             <!-- Post Thumb -->
                             <div class="blog-post-thumb mt-30">
-                                <img th:src="${dto.nImage}">
+                                <a th:href="|@{newsRead(nNo=${dto.nNo})}|" method="get">
+                                    <img th:src="${dto.nImage}">
+                                </a>
                                 <!-- Post Date -->
                                 <div class="post-date">
                                     <p>[[${dto.nRegDate}]]</p>
@@ -65,20 +67,20 @@
                             <!-- Blog Content -->
                             <div class="blog-content">
                                 <!-- Post Title -->
-                                <a th:href="|@{news/newsRead(nNo=${dto.nNo})}|" method="get" class="post-title">[[${dto.nTitle}]]</a>
+                                <a th:href="|@{newsRead(nNo=${dto.nNo})}|" method="get" class="post-title">[[${dto.nTitle}]]</a>
 
                                 <!-- Post Meta -->
                                 <div class="post-meta d-flex mb-30">
-                                    <p class="post-author">By<a href="#"> Admin</a></p>
-                                    <p class="tags">in<a href="#"> Events</a></p>
-                                    여기 Comments 채워넣어야함<p class="tags"><a href="여기다가 댓글 read 링크 넣기"><!--[[${dto.nViewCount}]]--> Comments</a>
+                                    <p class="tags">in Events</p>
+                                    <p class="tags">[[${dto.nViewCount}]] Views</p>
+                                    <p class="tags"><a th:href="|@{newsRead(nNo=${dto.nNo})}|" method="get">[[${dto.nViewCount}]] Comments</a></p>
                                 </div>
                                 <!-- Post Excerpt -->
                                 <p>[[${dto.nContent}]]</p>
                             </div>
-                        </div>
+                        </div> <!-- Single Post End -->
 
-                        <!-- Pagination -->
+                        <!-- Pagination Start-->
                         <div th:if="${newsPage}" class="oneMusic-pagination-area wow fadeInUp" data-wow-delay="300ms">
                             <nav>
                                 <ul class="news-pagination">
@@ -96,7 +98,7 @@
                                     </li>
                                 </ul>
                             </nav>
-                        </div>
+                        </div> <!-- Pagination End -->
                     </div>
 
                         <div class="col-12 col-lg-3">
@@ -125,11 +127,11 @@
                                     </div>
                                     <div class="widget-content">
                                         <ul>
-                                            <li><a href="#">February 2018</a></li>
-                                            <li><a href="#">March 2018</a></li>
-                                            <li><a href="#">April 2018</a></li>
-                                            <li><a href="#">May 2018</a></li>
-                                            <li><a href="#">June 2018</a></li>
+                                            <li><a href="#">August 2023</a></li>
+                                            <li><a href="#">July 2023</a></li>
+                                            <li><a href="#">June 2023</a></li>
+                                            <li><a href="#">May 2023</a></li>
+                                            <li><a href="#">April 2023</a></li>
                                         </ul>
                                     </div>
                                 </div>

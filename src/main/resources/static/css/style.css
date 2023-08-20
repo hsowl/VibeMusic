@@ -1279,7 +1279,7 @@ img {
     z-index: 1; }
     .single-blog-post .blog-post-thumb .post-date {
       width: 76px;
-      height: 106px;
+      height: 72px;
       border: 1px solid #000000;
       text-align: center;
       background-color: #fff;
@@ -1287,7 +1287,7 @@ img {
       z-index: 10;
       top: -30px;
       left: 30px;
-      padding: 17px 0; }
+      padding: 5px 0; }
       .single-blog-post .blog-post-thumb .post-date span {
         display: block;
         font-size: 14px;
@@ -1503,6 +1503,14 @@ img {
     border-bottom: 1px solid #000000; }
 .contact-form-area textarea.form-control {
   height: 160px; }
+/*메일 전송후 뜨는 메시지창*/
+.thankyou_message {
+  padding-top: 20px; /* 원하는 간격을 설정 */
+  position: relative;
+  z-index: 1;
+  margin-bottom: 100px;
+  text-align: center; }
+
 
 .has-bg-img {
   position: relative;
