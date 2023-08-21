@@ -16,6 +16,7 @@ public class NewsDTO {
     private String nTitle;
     private String nContent;
     private String nImage;
+    private String nNewsLinks;
     private String nFullNews;
     private int nViewCount;
     private String nRegDate;

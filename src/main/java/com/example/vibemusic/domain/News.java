@@ -28,6 +28,9 @@ public class News {
     @Column (length = 5000)
     private String nImage;
 
+    @Column (length = 5000)
+    private String nNewsLinks;
+
     @Column (length = 100000)
     private String nFullNews;
 
@@ -37,4 +40,8 @@ public class News {
     @Column
     private String nRegDate;
 
+
+    public String getNNewsLinks() {
+        return nNewsLinks;
+    }
 }
