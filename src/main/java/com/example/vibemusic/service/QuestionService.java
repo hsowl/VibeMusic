@@ -21,10 +21,15 @@ public interface QuestionService {
 
     void removeQuest(Long qno);
 
-    PageResponseDTO<QuestionDTO> qList(PageRequestDTO pageRequestDTO);
+    void increaseQViewCount(Long qNo);
+
+    Page<Question> questionListPage(Pageable pageable);
+
+    PageResponseDTO<QuestionDTO> listWithNewQuestion(PageRequestDTO pageRequestDTO);
+
+
+    Page<Question> qlist(Pageable pageable);
 
     //question 리스트 불러오는 메소드 qList라고 선언
-    PageResponseDTO<QuestionDTO> qListPaging(PageRequestDTO pageRequestDTO);
 
-//    Page<Question> list(Pageable pageable);
 }

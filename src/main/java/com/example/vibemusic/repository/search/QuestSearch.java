@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface QuestSearch {
 
-    Page<Question> read1Quest(Pageable pageable);
+    Page<Question> searchOneQuest(Pageable pageable);
 
     Page<Question> searchAll(String[] types, String keyword, Pageable pageable);
 }

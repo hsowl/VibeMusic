@@ -27,7 +27,7 @@ class QuestionServiceTests {
                     .qWriter("질문자" + (i % 10))
                     .build();
             Question result = questionRepository.save(question);
-            log.info("BNO : " + result.getQNo());
+            log.info("QNO : " + result.getQNo());
 
         });
 

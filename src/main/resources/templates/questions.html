@@ -66,7 +66,7 @@
 
                                         <div class="my-4">
                                             <div class="float-end">
-                                                <a th:href="|@{/templates/board/register}|" class="text-decoration-none">
+                                                <a th:href="|@{/templates/questionRegister}|" class="text-decoration-none">
                                                     <button type="button" class="btn btn-primary regBtn">Register</button>
                                                 </a>
                                             </div>
@@ -82,14 +82,13 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr th:each="dto:${qList}">
-                                                <th scope="row">[[${dto.qno}]]</th>
+                                            <tr th:each="dto:${qList.dtoList}">
+                                                <th scope="row">[[${dto.qNo}]]</th>
                                                 <td>
                                                     <a class = "text-decoration-none"
-                                                       th:href="|@{/templates/questionList/qRead(bno=${dto.qno})}|">[[${dto.qTitle}]]</a>
+                                                       th:href="|@{/templates/questions/qRead(qNo=${dto.qNo})}|">[[${dto.qTitle}]]</a>
                                                 </td>
                                                 <td>[[${dto.qWriter}]]</td>
-                                                <td>[[${dto.regDate}]]</td>
                                             </tr>
 
                                             </tbody>
