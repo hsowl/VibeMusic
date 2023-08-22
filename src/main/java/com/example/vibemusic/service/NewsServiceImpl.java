@@ -5,9 +5,12 @@ import com.example.vibemusic.dto.NewsDTO;
 import com.example.vibemusic.repository.NewsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +21,7 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 @Transactional
-public class NewsServiceImpl implements NewsService{
+public class NewsServiceImpl implements NewsService {
 
     private final NewsRepository newsRepository;
     private final ModelMapper modelMapper;
@@ -38,20 +41,16 @@ public class NewsServiceImpl implements NewsService{
         return newsRepository.findAll(pageable);
     }
 
-//    @Override
-//    public PageResponseDTO<NewsDTO> listWithPaging(PageRequestDTO pageRequestDTO) {
-//        String[] types = pageRequestDTO.getTypes();
-//        String keyword = pageRequestDTO.getKeyword();
-//        Pageable pageable = pageRequestDTO.getPageable("nNo");
-//
-//        Page<News> result = newsRepository.searchAll(types, keyword, pageable);
-//
-//        List<NewsDTO> dtoList = result.getContent().stream().map(news -> modelMapper.map(news, NewsDTO.class)).collect(Collectors.toList());
-//
-//        PageResponseDTO<NewsDTO> pageResponseDTO = new PageResponseDTO<>(pageRequestDTO, dtoList, (int)result.getTotalElements());
-//
-//        return pageResponseDTO;
-//    }
+    @Transactional
+    @Override
+    public void increaseViewCount(Long nNo) {
+        News news = newsRepository.findById(nNo)
+                .orElseThrow(() -> new IllegalArgumentException("News not found with nNo: " + nNo));
 
+        int currentViewCount = news.getNViewCount();
+        news.setNViewCount(currentViewCount + 1);
+
+        newsRepository.save(news);
+    }
 
 }

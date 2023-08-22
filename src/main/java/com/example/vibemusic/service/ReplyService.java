@@ -20,4 +20,6 @@ public interface ReplyService {
 
     Page<Reply> replyListOfMusic(Long no, Pageable pageable);
 
+    PageResponseDTO getListOfMusic(Long no, PageRequestDTO pageRequestDTO);
+
 }

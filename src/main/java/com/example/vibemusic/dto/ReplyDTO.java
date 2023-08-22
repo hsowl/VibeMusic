@@ -1,5 +1,7 @@
 package com.example.vibemusic.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
@@ -16,16 +18,18 @@ public class ReplyDTO {
     private Long rno;
 
     @NotEmpty
-    private String rreplyer;
+    public String rreplyer;
 
     @NotEmpty
-    private String rreplyText;
+    private String r_replyText;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime regDate;
 
+    @JsonIgnore
     private LocalDateTime modDate;
 
     @NotNull
-    private Long mno;
+    private Long no;
     // 필요한 경우 다른 관계 필드도 추가
 }

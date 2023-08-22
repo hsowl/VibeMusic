@@ -1,10 +1,12 @@
 package com.example.vibemusic.service;
 
+import com.example.vibemusic.domain.Music;
 import com.example.vibemusic.domain.Reply;
 import com.example.vibemusic.dto.MusicDTO;
 import com.example.vibemusic.dto.PageRequestDTO;
 import com.example.vibemusic.dto.PageResponseDTO;
 import com.example.vibemusic.dto.ReplyDTO;
+import com.example.vibemusic.repository.MusicRepository;
 import com.example.vibemusic.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +28,7 @@ public class ReplyServiceImpl implements ReplyService{
 
     private final ReplyRepository replyRepository;
     private final ModelMapper modelMapper;
+    private final MusicRepository musicRepository;
 
 
     @Override
@@ -46,7 +49,14 @@ public class ReplyServiceImpl implements ReplyService{
 
     @Override
     public Long register(ReplyDTO replyDTO) {
-        Reply reply = modelMapper.map(replyDTO, Reply.class);
+        Optional<Music> byId = musicRepository.findById(replyDTO.getNo());
+        Music music = byId.orElseThrow();
+        Reply reply = Reply.builder()
+                .music(music)
+                .rreplyer(replyDTO.getRreplyer())
+                .r_replyText(replyDTO.getR_replyText())
+                .build();
+
         Long rno = replyRepository.save(reply).getRno();
         return rno;
     }
@@ -55,7 +65,7 @@ public class ReplyServiceImpl implements ReplyService{
     public void modify(ReplyDTO replyDTO) {
         Optional<Reply> byId = replyRepository.findById(replyDTO.getRno());
         Reply reply = byId.orElseThrow();
-        reply.change(replyDTO.getRreplyText());
+        reply.change(replyDTO.getR_replyText());
         replyRepository.save(reply);
 
     }
@@ -71,5 +81,17 @@ public class ReplyServiceImpl implements ReplyService{
         Page<Reply> result = replyRepository.replyListOfMusic(no, pageable);
 
         return result;
+    }
+
+    @Override
+    public PageResponseDTO getListOfMusic(Long no, PageRequestDTO pageRequestDTO) {
+
+        Pageable pageable = PageRequest.of(pageRequestDTO.getPage() <= 0 ? 0 : pageRequestDTO.getPage() -1, pageRequestDTO.getSize(), Sort.by("rno").ascending());
+
+        Page<Reply> result = replyRepository.replyListOfMusic(no, pageable);
+
+        List<ReplyDTO> dtoList = result.getContent().stream().map(reply -> modelMapper.map(reply, ReplyDTO.class)).collect(Collectors.toList());
+
+        return PageResponseDTO.<ReplyDTO>withAll().pageRequestDTO(pageRequestDTO).dtoList(dtoList).total((int)result.getTotalElements()).build();
     }
 }

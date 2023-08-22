@@ -1,4 +1,4 @@
-package com.example.vibemusic;
+package com.example.vibemusic.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

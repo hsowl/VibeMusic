@@ -20,12 +20,9 @@ public class PlayList {
 
     private String pl_name;
 
-    private String pl_Recommend;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "u_no")
     private User user; // User 엔터티와의 관계
-
 
     // fk키
     @ManyToMany
