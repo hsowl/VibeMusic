@@ -18,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.File;
 import java.util.Optional;
+import java.util.Random;
 
 @SpringBootTest
 @Slf4j
@@ -44,6 +45,46 @@ class CrawlingTests {
 
         int count = 1;
 
+        // Array of genres
+        String[] genres = {"Ballade", "dance", "hiphop", "pop"};
+
+        // Array of sample artist names
+        String[] artists = {
+                "Liam Johnson",
+                "Olivia Wilson",
+                "Noah Martinez",
+                "Emma Anderson",
+                "Aiden Lee",
+                "Sophia White",
+                "Lucas Harris",
+                "Ava Clark",
+                "Ethan Lewis",
+                "Mia Robinson",
+                "Alexander Walker",
+                "Charlotte Hall",
+                "Benjamin Young",
+                "Harper Turner",
+                "William King",
+                "Madison Wright",
+                "James Lopez",
+                "Ella Scott",
+                "Elijah Adams",
+                "Amelia Baker",
+                "Daniel Gonzalez",
+                "Lily Taylor",
+                "Henry Allen",
+                "Chloe Carter",
+                "Joseph Perez",
+                "Isabella Mitchell",
+                "Samuel Garcia",
+                "Emily Davis",
+                "Jackson Phillips",
+                "Sophie Torres"
+        };
+
+
+        Random random = new Random(); // Random generator
+
         for(File mp3File : mp3Files){
             try{
                 AudioFile audioFile = AudioFileIO.read(mp3File);
@@ -51,10 +92,14 @@ class CrawlingTests {
 
                 MP3AudioHeader audioHeader = (MP3AudioHeader) audioFile.getAudioHeader();
 
+                // Pick a random genre and artist for each file
+                String randomGenre = genres[random.nextInt(genres.length)];
+                String randomArtist = artists[random.nextInt(artists.length)];
+
                 Music music = Music.builder()
                         .m_title(tag.getFirst(FieldKey.TITLE))
-                        .m_artist(tag.getFirst(FieldKey.ARTIST))
-                        .m_genre(tag.getFirst(FieldKey.GENRE))
+                        .m_artist(randomArtist)  // Set the random artist
+                        .mGenre(randomGenre)  // Set the random genre
                         .m_playtime(audioHeader.getTrackLengthAsString())
                         .rDate((int)(Math.random()*40)+1981)
                         .m_sound("audio/song"+count+".mp3")
@@ -70,6 +115,7 @@ class CrawlingTests {
             }
         }
     }
+
 
     @Test
     public void imgCrawling() {

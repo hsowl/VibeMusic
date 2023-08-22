@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface MusicRepository extends JpaRepository<Music, Long> , MusicSearch {
 
+    // 장르 넣으면 찾아올 수 있음
+    List<Music> findBymGenre(String genre);
 }

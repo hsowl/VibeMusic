@@ -9,9 +9,21 @@ import java.util.List;
 public interface MusicService {
     MusicDTO readOne(Long bno);
 
+    //music_no 기준 내림차순 정렬
     PageResponseDTO<MusicDTO> listWithPaging(PageRequestDTO pageRequestDTO);
 
+
+    // rdate 정렬기준 (최신순)
     PageResponseDTO<MusicDTO> listWithNewMusic(PageRequestDTO pageRequestDTO);
+
+    // 장르 구분
+    List<MusicDTO> DanceGenre(Long no);
+
+    List<MusicDTO> BalladGenre(Long no);
+
+    List<MusicDTO> HipHopGenre(Long no);
+
+    List<MusicDTO> PopGenre(Long no);
 
 
 }

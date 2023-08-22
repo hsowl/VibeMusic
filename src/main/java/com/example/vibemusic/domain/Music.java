@@ -28,7 +28,7 @@ public class Music {
     private String m_artist;
 
     @Column
-    private String m_genre;
+    private String mGenre;
 
     @Column
     private int rDate;

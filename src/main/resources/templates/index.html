@@ -3,6 +3,9 @@
       xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
       layout:decorate="~{layout/layout.html}">
 
+<script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+<div class="elfsight-app-1133a280-e93c-4f1f-b875-ba78ffd67d62"></div>
+
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="">
@@ -166,106 +169,106 @@
     <!--    </section>-->
     <!--    &lt;!&ndash; ##### Featured Artist Area End ##### &ndash;&gt;-->
 
-    <!-- ##### Miscellaneous Area Start ##### -->
-    <section class="miscellaneous-area section-padding-100-0">
-        <div class="container">
-            <div class="row">
-                <!-- ***** Weeks Top ***** -->
-                <div class="col-12 col-lg-4">
-                    <div class="weeks-top-area mb-100">
-                        <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
-                            <p></p>
-                            <h2> 알고리즘 1 </h2>
-                        </div>
+<!--    &lt;!&ndash; ##### Miscellaneous Area Start ##### &ndash;&gt;-->
+<!--    <section class="miscellaneous-area section-padding-100-0">-->
+<!--        <div class="container">-->
+<!--            <div class="row">-->
+<!--                &lt;!&ndash; ***** Weeks Top ***** &ndash;&gt;-->
+<!--                <div class="col-12 col-lg-4">-->
+<!--                    <div class="weeks-top-area mb-100">-->
+<!--                        <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">-->
+<!--                            <p></p>-->
+<!--                            <h2> 알고리즘 1 </h2>-->
+<!--                        </div>-->
 
-                        <!-- Single Top Item -->
-                        <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="100ms" th:each="dto:${responseDTO.dtoList}">
+<!--                        &lt;!&ndash; Single Top Item &ndash;&gt;-->
+<!--                        <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="100ms" th:each="dto:${responseDTO.dtoList}">-->
 
-                            <div class="thumbnail">
-                                <a th:href="|@{/read(no=${dto.no})}|">
-                                    <img th:src="${dto.m_image}">
-                                </a>
-                            </div>
-
-
-                            <div class="content-">
-                                <a th:href="|@{/read(no=${dto.no})}|">
-                                    <h5 th:text="${dto.m_title}"></h5>
-                                </a>
-                                <p th:text="${dto.m_artist}"></p>
-
-                            </div>
-                        </div>
+<!--                            <div class="thumbnail">-->
+<!--                                <a th:href="|@{/read(no=${dto.no})}|">-->
+<!--                                    <img th:src="${dto.m_image}">-->
+<!--                                </a>-->
+<!--                            </div>-->
 
 
+<!--                            <div class="content-">-->
+<!--                                <a th:href="|@{/read(no=${dto.no})}|">-->
+<!--                                    <h5 th:text="${dto.m_title}"></h5>-->
+<!--                                </a>-->
+<!--                                <p th:text="${dto.m_artist}"></p>-->
 
-
-                    </div>
-                </div>
+<!--                            </div>-->
+<!--                        </div>-->
 
 
 
-                <!-- ***** New Hits Songs ***** -->
-                <div class="col-12 col-lg-4">
-                    <div class="new-hits-area mb-100">
-                        <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
-                            <p></p>
-                            <h2>시대별 인기 차트</h2>
-                        </div>
 
-                        <!-- Single Top Item -->
-                        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
-                             data-wow-delay="100ms" th:each="dto:${responseDTO.dtoList}">
-                            <div class="first-part d-flex align-items-center">
-                                <div class="thumbnail">
-                                    <a th:href="|@{/read(no=${dto.no})}|">
-                                        <img th:src="${dto.m_image}">
-                                    </a>
-                                </div>
+<!--                    </div>-->
+<!--                </div>-->
 
 
-                                <div class="content-">
-                                    <a th:href="|@{/read(no=${dto.no})}|">
-                                        <h5 th:text="${dto.m_title}"></h5>
-                                    </a>
-                                    <p th:text="${dto.m_artist}"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+<!--                &lt;!&ndash; ***** New Hits Songs ***** &ndash;&gt;-->
+<!--                <div class="col-12 col-lg-4">-->
+<!--                    <div class="new-hits-area mb-100">-->
+<!--                        <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">-->
+<!--                            <p></p>-->
+<!--                            <h2>시대별 인기 차트</h2>-->
+<!--                        </div>-->
+
+<!--                        &lt;!&ndash; Single Top Item &ndash;&gt;-->
+<!--                        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"-->
+<!--                             data-wow-delay="100ms" th:each="dto:${responseDTO.dtoList}">-->
+<!--                            <div class="first-part d-flex align-items-center">-->
+<!--                                <div class="thumbnail">-->
+<!--                                    <a th:href="|@{/read(no=${dto.no})}|">-->
+<!--                                        <img th:src="${dto.m_image}">-->
+<!--                                    </a>-->
+<!--                                </div>-->
 
 
-                <!-- ***** Popular Artists ***** -->
-                <div class="col-12 col-lg-4">
-                    <div class="popular-artists-area mb-100">
-                        <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
-                            <p></p>
-                            <h2>xxx님을 위한 추천 곡 (playlist 안에 노래 기반으로 가장 많은 장르로 추천)</h2>
-                        </div>
-
-                        <!-- Single Artist -->
-                        <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="100ms" th:each="dto:${responseDTO.dtoList}">
-                            <div class="thumbnail">
-                                <a th:href="|@{/read(no=${dto.no})}|">
-                                    <img th:src="${dto.m_image}">
-                                </a>
-                            </div>
+<!--                                <div class="content-">-->
+<!--                                    <a th:href="|@{/read(no=${dto.no})}|">-->
+<!--                                        <h5 th:text="${dto.m_title}"></h5>-->
+<!--                                    </a>-->
+<!--                                    <p th:text="${dto.m_artist}"></p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
 
 
-                            <div class="content-">
-                                <a th:href="|@{/read(no=${dto.no})}|">
-                                    <h5 th:text="${dto.m_title}"></h5>
-                                </a>
-                                <p th:text="${dto.m_artist}"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
+<!--                &lt;!&ndash; ***** Popular Artists ***** &ndash;&gt;-->
+<!--                <div class="col-12 col-lg-4">-->
+<!--                    <div class="popular-artists-area mb-100">-->
+<!--                        <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">-->
+<!--                            <p></p>-->
+<!--                            <h2>xxx님을 위한 추천 곡 (playlist 안에 노래 기반으로 가장 많은 장르로 추천)</h2>-->
+<!--                        </div>-->
+
+<!--                        &lt;!&ndash; Single Artist &ndash;&gt;-->
+<!--                        <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="100ms" th:each="dto:${responseDTO.dtoList}">-->
+<!--                            <div class="thumbnail">-->
+<!--                                <a th:href="|@{/read(no=${dto.no})}|">-->
+<!--                                    <img th:src="${dto.m_image}">-->
+<!--                                </a>-->
+<!--                            </div>-->
+
+
+<!--                            <div class="content-">-->
+<!--                                <a th:href="|@{/read(no=${dto.no})}|">-->
+<!--                                    <h5 th:text="${dto.m_title}"></h5>-->
+<!--                                </a>-->
+<!--                                <p th:text="${dto.m_artist}"></p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
+<!--</div>-->
 
 
 
