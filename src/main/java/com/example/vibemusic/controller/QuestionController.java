@@ -2,6 +2,7 @@ package com.example.vibemusic.controller;
 
 
 
+import com.example.vibemusic.domain.News;
 import com.example.vibemusic.domain.Question;
 
 import com.example.vibemusic.dto.MusicDTO;
@@ -27,38 +28,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class QuestionController {
 
     private final QuestionService questionService;
+
     @GetMapping("/questionRead")
-    public void qRead(Long qNo, Model model){
+    public void qRead(Long qNo, Model model) {
         log.info("nNo=============> : {}", qNo);
         QuestionDTO questionDTO = questionService.read1Quest(qNo);
 
         model.addAttribute("dto", questionDTO);
     }
 
-    @GetMapping("/questions")
-    public void list(PageRequestDTO pageRequestDTO, Model model, Pageable pageable){
-        PageResponseDTO<QuestionDTO> responseDTO = questionService.listWithNewQuestion(pageRequestDTO);
-        model.addAttribute("qList", responseDTO);
-    }
-
-
 //    @GetMapping("/questions")
-//    public String qRead(Pageable pageable, Model model){
-//
-//        // Set the number of items per page
-//        int pageSize = 5;
-//        pageable = PageRequest.of(pageable.getPageNumber(), pageSize);
-//
-//        // Retrieve a Page of news items using the NewsService
-//        Page<Question> questionsPage = questionService.qlist(pageable);
-//
-//        // Add the Page of news items to the model
-//        model.addAttribute("questPage", questionsPage);
-//
-//        // Return the view name for rendering
-//        return "questions";  //
+//    public void list(PageRequestDTO pageRequestDTO, Model model, Pageable pageable) {
+//        PageResponseDTO<QuestionDTO> responseDTO = questionService.listWithNewQuestion(pageRequestDTO);
+//        model.addAttribute("qList", responseDTO);
+//    }
+
+
+    @GetMapping("/questions") // DTO포함해야 표까지 정상적인 출력 가능
+    public String list(Pageable pageable, Model model, PageRequestDTO pageRequestDTO) {
+
+        // Set the number of items per page
+        int pageSize = 5;
+        pageable = PageRequest.of(pageable.getPageNumber(), pageSize);
+
+        // Retrieve a Page of news items using the NewsService
+        Page<Question> questionPage = questionService.list(pageable);
+
+        // Add the Page of news items to the model
+        model.addAttribute("questionPage", questionPage);
+
+        PageResponseDTO<QuestionDTO> responseDTO = questionService.listWithNewQuestion(pageRequestDTO);
+
+        model.addAttribute("qList", responseDTO);
+
+//         Return the view name for rendering
+        return "questions";  // questions.html
 
     }
-
-
+}
 
