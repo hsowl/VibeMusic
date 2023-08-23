@@ -15,11 +15,11 @@ public class MusicDTO {
     private String m_sound;
     private String m_title;
     private String m_artist;
-    private String mgenre;
+    private String m_genre;
     private int rDate;
     private String m_playtime;
     private String m_image;
-    private int m_playCount;
+    private int mPlayCount;
     private String m_Recommend;
 
 }
