@@ -3,6 +3,7 @@ package com.example.vibemusic.service;
 import com.example.vibemusic.domain.Member;
 import com.example.vibemusic.domain.MemberRole;
 import com.example.vibemusic.dto.MemberJoinDTO;
+import com.example.vibemusic.dto.MemberLoginDTO;
 import com.example.vibemusic.repository.MemberRepository;
 import com.example.vibemusic.security.dto.MemberSecurityDTO;
 import lombok.RequiredArgsConstructor;
@@ -41,16 +42,16 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void login(MemberSecurityDTO memberSecurityDTO) throws MidExistException {
-        String mid = memberSecurityDTO.getMid();
+    public void login(MemberLoginDTO memberLoginDTO) throws MidExistException {
+        String mid = memberLoginDTO.getMid();
         boolean exist = memberRepository.existsById(mid);
 
         if(exist){
             throw new MidExistException();
         }
 
-        Member member = modelMapper.map(memberSecurityDTO, Member.class);
-        member.changePassword(passwordEncoder.encode(memberSecurityDTO.getMpw()));
+        Member member = modelMapper.map(memberLoginDTO, Member.class);
+        member.changePassword(passwordEncoder.encode(memberLoginDTO.getMpw()));
 
         memberRepository.getWithRoles(mid);
 

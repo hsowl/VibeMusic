@@ -1,6 +1,7 @@
 package com.example.vibemusic.controller;
 
 import com.example.vibemusic.dto.MemberJoinDTO;
+import com.example.vibemusic.dto.MemberLoginDTO;
 import com.example.vibemusic.security.dto.MemberSecurityDTO;
 import com.example.vibemusic.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -30,12 +31,12 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String loginPOST(MemberSecurityDTO memberSecurityDTO, RedirectAttributes redirectAttributes){
+    public String loginPOST(MemberLoginDTO memberLoginDTO, RedirectAttributes redirectAttributes){
         log.info("login Post...........");
-        log.info("memberSecurityDTO : {}", memberSecurityDTO);
+        log.info("memberSecurityDTO : {}", memberLoginDTO);
 
         try {
-            memberService.login(memberSecurityDTO);
+            memberService.login(memberLoginDTO);
         }catch (MemberService.MidExistException e){
             redirectAttributes.addFlashAttribute("error","mid");
             return "redirect:/member/login";
