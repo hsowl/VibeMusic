@@ -57,8 +57,13 @@ public class QuestionController {
         // Add the Page of news items to the model
         model.addAttribute("questionPage", questionPage);
 
-        PageResponseDTO<QuestionDTO> responseDTO = questionService.listWithNewQuestion(pageRequestDTO);
+        // Ensure page number is not less than 1
+        if (pageRequestDTO.getPage() < 1) {
+            pageRequestDTO.setPage(1);
+        }
 
+        PageResponseDTO<QuestionDTO> responseDTO = questionService.listWithNewQuestion(pageRequestDTO);
+        //DTO때문에 충돌 일어남
         model.addAttribute("qList", responseDTO);
 
 //         Return the view name for rendering

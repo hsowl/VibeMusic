@@ -33,16 +33,16 @@ public class PlayList {
             joinColumns = @JoinColumn(name = "plNo"), // PlayList와 연결된 컬럼
             inverseJoinColumns = @JoinColumn(name = "no") // Music과 연결된 컬럼
     )
-    private List<Music> music = new ArrayList<>(); // Music 엔터티와의 관계//
-//    public List<Music> getMusics(){
-//        return musics;
-//    }
-//
-//    public void setPlName(String plName) {
-//    }
-//
-//    public void removeMusic(Music music) {
-//        musics.remove(music);
-//    }
+    private List<Music> musics = new ArrayList<>(); // Music 엔터티와의 관계//
+    public List<Music> getMusics(){
+        return musics;
+    }
+
+    public void setPlName(String plName) {
+    }
+
+    public void removeMusic(Music music) {
+        musics.remove(music);
+    }
 
 }
