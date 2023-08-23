@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Setter
 public class Music {
 
     @Id
@@ -40,7 +41,7 @@ public class Music {
     private String m_image;
 
     @Column
-    private int m_playCount;
+    private int mPlayCount;
 
     @Column
     private String m_Recommend;
