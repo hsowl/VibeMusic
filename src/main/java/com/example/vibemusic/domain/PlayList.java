@@ -23,7 +23,7 @@ public class PlayList {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "u_no")
-    private User user; // User 엔터티와의 관계
+    private Member member; // User 엔터티와의 관계
 
     // fk키
     @ManyToMany
