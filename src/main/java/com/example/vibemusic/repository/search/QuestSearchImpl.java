@@ -2,6 +2,8 @@ package com.example.vibemusic.repository.search;
 
 import com.example.vibemusic.domain.Music;
 import com.example.vibemusic.domain.QMusic;
+import com.example.vibemusic.domain.QQuestion;
+import com.example.vibemusic.domain.Question;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.JPQLQuery;
 import org.springframework.data.domain.Page;
@@ -11,30 +13,29 @@ import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 
 import java.util.List;
 
-public class MusicSearchImpl extends QuerydslRepositorySupport implements MusicSearch {
+public class QuestSearchImpl extends QuerydslRepositorySupport implements QuestSearch {
 
-    public MusicSearchImpl() {
-        super(Music.class);
-    }
+
+    public QuestSearchImpl(){super(Question.class);}
 
     @Override
-    public Page<Music> searchOne(Pageable pageable) {
-        QMusic music = QMusic.music;
-        JPQLQuery<Music> query = from(music);
-        query.where(music.m_title.contains("1"));
+    public Page<Question> searchOneQuest(Pageable pageable) {
+        QQuestion question = QQuestion.question;
+        JPQLQuery<Question> query = from(question);
+        query.where(question.qTitle.contains("1"));
 
         this.getQuerydsl().applyPagination(pageable, query);
 
-        List<Music> list = query.fetch();
+        List<Question> list = query.fetch();
         long count = query.fetchCount();
 
         return new PageImpl<>(list, pageable, count);
     }
 
     @Override
-    public Page<Music> searchAll(String[] types, String keyword, Pageable pageable) {
-        QMusic music = QMusic.music;
-        JPQLQuery<Music> query = from(music);
+    public Page<Question> searchAll(String[] types, String keyword, Pageable pageable) {
+        QQuestion question = QQuestion.question;
+        JPQLQuery<Question> query = from(question);
 
         if ((types != null && types.length > 0) && keyword != null) {
             BooleanBuilder booleanBuilder = new BooleanBuilder();
@@ -42,13 +43,13 @@ public class MusicSearchImpl extends QuerydslRepositorySupport implements MusicS
             for (String type : types) {
                 switch (type) {
                     case "t":
-                        booleanBuilder.or(music.m_title.contains(keyword));
+                        booleanBuilder.or(question.qTitle.contains(keyword));
                         break;
                     case "a" :
-                        booleanBuilder.or(music.m_artist.contains(keyword));
+                        booleanBuilder.or(question.qWriter.contains(keyword));
                         break;
                     case "g" :
-                        booleanBuilder.or(music.mGenre.contains(keyword));
+                        booleanBuilder.or(question.qContent.contains(keyword));
                         break;
                 }
             }
@@ -56,15 +57,16 @@ public class MusicSearchImpl extends QuerydslRepositorySupport implements MusicS
         }
         System.out.println("query ============================>"+ query);
 
-        query.where(music.no.gt(0L));
+        query.where(question.qNo.gt(0L));
         System.out.println("query ============================>"+ query);
 
         this.getQuerydsl().applyPagination(pageable,query);
 
-        List<Music> list = query.fetch();
+        List<Question> list = query.fetch();
 
         long count = query.fetchCount();
 
         return new PageImpl<>(list,pageable,count);
     }
 }
+

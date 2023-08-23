@@ -31,8 +31,8 @@ public class MusicServiceImpl implements MusicService {
     public MusicDTO readOne(Long bno) {
         Optional<Music> result = musicRepository.findById(bno);
         Music music = result.orElseThrow();
-        MusicDTO musicDTO = modelMapper.map(music,MusicDTO.class);
-        log.info("rDate = {}",musicDTO.getRDate());
+        MusicDTO musicDTO = modelMapper.map(music, MusicDTO.class);
+        log.info("rDate = {}", musicDTO.getRDate());
 
         return musicDTO;
     }
@@ -48,7 +48,7 @@ public class MusicServiceImpl implements MusicService {
 
         List<MusicDTO> dtoList = result.getContent().stream().map(music -> modelMapper.map(music, MusicDTO.class)).collect(Collectors.toList());
 
-        PageResponseDTO<MusicDTO> pageResponseDTO = new PageResponseDTO<>(pageRequestDTO, dtoList, (int)result.getTotalElements());
+        PageResponseDTO<MusicDTO> pageResponseDTO = new PageResponseDTO<>(pageRequestDTO, dtoList, (int) result.getTotalElements());
 
         return pageResponseDTO;
     }
@@ -64,9 +64,59 @@ public class MusicServiceImpl implements MusicService {
 
         List<MusicDTO> dtoList = result.getContent().stream().map(music -> modelMapper.map(music, MusicDTO.class)).collect(Collectors.toList());
 
-        PageResponseDTO<MusicDTO> pageResponseDTO = new PageResponseDTO<>(pageRequestDTO, dtoList, (int)result.getTotalElements());
+        PageResponseDTO<MusicDTO> pageResponseDTO = new PageResponseDTO<>(pageRequestDTO, dtoList, (int) result.getTotalElements());
 
         return pageResponseDTO;
     }
 
+    @Override
+    public List<MusicDTO> DanceGenre(Long no) {
+        List<Music> danceMusics = musicRepository.findBymGenre("dance");
+
+        List<MusicDTO> musicDTO = danceMusics.stream()
+                .map(music -> modelMapper.map(music, MusicDTO.class))
+                .collect(Collectors.toList());
+
+        return musicDTO;
+    }
+
+    @Override
+    public List<MusicDTO> BalladGenre(Long no) {
+        List<Music> danceMusics = musicRepository.findBymGenre("Ballad");
+
+        List<MusicDTO> musicDTO = danceMusics.stream()
+                .map(music -> modelMapper.map(music, MusicDTO.class))
+                .collect(Collectors.toList());
+
+        return musicDTO;
+    }
+
+
+    @Override
+    public List<MusicDTO> HipHopGenre(Long no) {
+        List<Music> danceMusics = musicRepository.findBymGenre("hiphop");
+
+        List<MusicDTO> musicDTO = danceMusics.stream()
+                .map(music -> modelMapper.map(music, MusicDTO.class))
+                .collect(Collectors.toList());
+
+        return musicDTO;
+    }
+
+
+    @Override
+    public List<MusicDTO> PopGenre(Long no) {
+        List<Music> danceMusics = musicRepository.findBymGenre("pop");
+
+        List<MusicDTO> musicDTO = danceMusics.stream()
+                .map(music -> modelMapper.map(music, MusicDTO.class))
+                .collect(Collectors.toList());
+
+        return musicDTO;
+    }
+
 }
+
+
+
+

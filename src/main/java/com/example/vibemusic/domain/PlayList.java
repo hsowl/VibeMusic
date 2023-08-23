@@ -3,6 +3,7 @@ package com.example.vibemusic.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List; // List를 사용하기 위해 추가
 
 @Entity
@@ -22,14 +23,26 @@ public class PlayList {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "u_no")
-    private Member member; // User 엔터티와의 관계
+    private User user; // User 엔터티와의 관계
 
     // fk키
     @ManyToMany
     @JoinTable(
             name = "playlist_music", // 중간 테이블 이름
-            joinColumns = @JoinColumn(name = "pl_no"), // PlayList와 연결된 컬럼
-            inverseJoinColumns = @JoinColumn(name = "m_no") // Music과 연결된 컬럼
+            joinColumns = @JoinColumn(name = "plNo"), // PlayList와 연결된 컬럼
+            inverseJoinColumns = @JoinColumn(name = "no") // Music과 연결된 컬럼
     )
-    private List<Music> music; // Music 엔터티와의 관계
+    private List<Music> musics = new ArrayList<>(); // Music 엔터티와의 관계
+
+    public List<Music> getMusics(){
+        return musics;
+    }
+
+    public void setPlName(String plName) {
+    }
+
+    public void removeMusic(Music music) {
+        musics.remove(music);
+    }
+
 }
