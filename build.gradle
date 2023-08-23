@@ -75,6 +75,13 @@ dependencies {
     // https://mvnrepository.com/artifact/javazoom/jlayer
     implementation group: 'javazoom', name: 'jlayer', version: '1.0.1'
 
+    implementation 'net.coobird:thumbnailator:0.4.16'
+
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
 
     // Spring Boot Test Starter
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

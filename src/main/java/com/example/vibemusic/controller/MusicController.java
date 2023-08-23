@@ -31,12 +31,10 @@ import java.util.Locale;
 @RequiredArgsConstructor
 public class MusicController {
 
-
-    private final MessageSource messageSource;
     private final MusicService musicService;
-    private final ReplyService replyService;
 
-    @GetMapping({"/contact","/elements","/login","/event","/testIndex","/playerbar"})
+
+    @GetMapping({"/contact","/elements","/login","/event"})
     public void main() {
 
     }
@@ -54,7 +52,14 @@ public class MusicController {
     }
 
     @GetMapping("/read")
-    public void readOne(Long no, Model model){
+    public void readOne(Long no, Model model,Integer mPlayCount){
+
+        if (mPlayCount == null) {
+            mPlayCount = 0; // 기본값을 0으로 설정.
+        }
+
+        // Increase the view count for the news
+        musicService.increaseViewCount(no);
         MusicDTO musicDTO = musicService.readOne(no);
         model.addAttribute("dto",musicDTO);
     }
@@ -66,48 +71,6 @@ public class MusicController {
 
     }
 
-    @GetMapping("/chart")
-    public String getMusicRecommendations(Long no,Model model,Locale locale) {
-        DayOfWeek currentDay = LocalDate.now().getDayOfWeek();
-        String translatedDay = getMessageForDay(currentDay, locale);
-        String translatedMessage = messageSource.getMessage("chart.recommendations", new Object[]{translatedDay}, locale);
-
-        List<MusicDTO> recommendedMusic = new ArrayList<>();
-        switch (currentDay) {
-            case MONDAY:
-                recommendedMusic = musicService.BalladGenre(no);
-                break;
-            case TUESDAY:
-                recommendedMusic = musicService.HipHopGenre(no);
-                break;
-            case WEDNESDAY:
-                recommendedMusic = musicService.PopGenre(no);
-                break;
-            case THURSDAY:
-                recommendedMusic = musicService.BalladGenre(no);
-                break;
-            case FRIDAY:
-                recommendedMusic = musicService.DanceGenre(no);
-                break;
-            case SATURDAY:
-                recommendedMusic = musicService.PopGenre(no);
-                break;
-            case SUNDAY:
-                recommendedMusic = musicService.BalladGenre(no);
-                break;
-        }
-
-        model.addAttribute("recommendedMusic", recommendedMusic);
-        model.addAttribute("currentDay", currentDay.toString());
-        model.addAttribute("translatedMessage", translatedMessage);
-
-
-        return "chart";
-    }
-
-    private String getMessageForDay(DayOfWeek day, Locale locale) {
-        return messageSource.getMessage(day.toString().toLowerCase(), null, day.toString(), locale);
-    }
 
 
 
@@ -115,5 +78,4 @@ public class MusicController {
 
 
 }
-
 

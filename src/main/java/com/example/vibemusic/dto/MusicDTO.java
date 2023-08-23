@@ -19,7 +19,7 @@ public class MusicDTO {
     private int rDate;
     private String m_playtime;
     private String m_image;
-    private int m_playCount;
+    private int mPlayCount;
     private String m_Recommend;
 
 }

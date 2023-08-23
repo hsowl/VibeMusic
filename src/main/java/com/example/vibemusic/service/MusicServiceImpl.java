@@ -1,6 +1,7 @@
 package com.example.vibemusic.service;
 
 import com.example.vibemusic.domain.Music;
+import com.example.vibemusic.domain.News;
 import com.example.vibemusic.dto.MusicDTO;
 import com.example.vibemusic.dto.PageRequestDTO;
 import com.example.vibemusic.dto.PageResponseDTO;
@@ -69,51 +70,18 @@ public class MusicServiceImpl implements MusicService {
         return pageResponseDTO;
     }
 
+    @Transactional
     @Override
-    public List<MusicDTO> DanceGenre(Long no) {
-        List<Music> danceMusics = musicRepository.findBymGenre("dance");
+    public void increaseViewCount(Long no) {
+        Music music = musicRepository.findById(no)
+                .orElseThrow(() -> new IllegalArgumentException("News not found with nNo: " + no));
 
-        List<MusicDTO> musicDTO = danceMusics.stream()
-                .map(music -> modelMapper.map(music, MusicDTO.class))
-                .collect(Collectors.toList());
+        int currentViewCount = music.getMPlayCount();
+        music.setMPlayCount(currentViewCount + 1);
 
-        return musicDTO;
+        musicRepository.save(music);
     }
 
-    @Override
-    public List<MusicDTO> BalladGenre(Long no) {
-        List<Music> danceMusics = musicRepository.findBymGenre("Ballad");
-
-        List<MusicDTO> musicDTO = danceMusics.stream()
-                .map(music -> modelMapper.map(music, MusicDTO.class))
-                .collect(Collectors.toList());
-
-        return musicDTO;
-    }
-
-
-    @Override
-    public List<MusicDTO> HipHopGenre(Long no) {
-        List<Music> danceMusics = musicRepository.findBymGenre("hiphop");
-
-        List<MusicDTO> musicDTO = danceMusics.stream()
-                .map(music -> modelMapper.map(music, MusicDTO.class))
-                .collect(Collectors.toList());
-
-        return musicDTO;
-    }
-
-
-    @Override
-    public List<MusicDTO> PopGenre(Long no) {
-        List<Music> danceMusics = musicRepository.findBymGenre("pop");
-
-        List<MusicDTO> musicDTO = danceMusics.stream()
-                .map(music -> modelMapper.map(music, MusicDTO.class))
-                .collect(Collectors.toList());
-
-        return musicDTO;
-    }
 
 }
 
