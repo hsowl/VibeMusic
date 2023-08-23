@@ -9,6 +9,7 @@ import java.util.List; // List를 사용하기 위해 추가
 @Entity
 @Builder
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -16,17 +17,17 @@ public class PlayList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pl_no")
-    private Long pl_no;
+    @Column(name = "plNo")
+    private Long plNo;
 
-    private String pl_name;
+    private String plName;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "u_no")
-    private Member member; // User 엔터티와의 관계
+    @JoinColumn(name = "uNo")
+    private User user; // User 엔터티와의 관계
 
     // fk키
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "playlist_music", // 중간 테이블 이름
             joinColumns = @JoinColumn(name = "plNo"), // PlayList와 연결된 컬럼

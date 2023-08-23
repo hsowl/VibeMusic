@@ -48,7 +48,7 @@ public class Music {
     @OneToMany(mappedBy = "music", cascade = CascadeType.ALL)
     private List<Reply> replies;
 
-    @ManyToMany(mappedBy = "music")
+    @ManyToMany(mappedBy = "musics")
     private List<PlayList> playLists;
 
     public void updateImgUrl(String m_image){
