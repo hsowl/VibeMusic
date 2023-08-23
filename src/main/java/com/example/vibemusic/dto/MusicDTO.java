@@ -15,7 +15,7 @@ public class MusicDTO {
     private String m_sound;
     private String m_title;
     private String m_artist;
-    private String m_genre;
+    private String mgenre;
     private int rDate;
     private String m_playtime;
     private String m_image;
