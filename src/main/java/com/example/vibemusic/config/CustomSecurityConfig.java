@@ -46,7 +46,7 @@ public class CustomSecurityConfig {
         log.info("-------------config--------인증, 인가권한 설정-------------");
 
         // 커스텀 로그인 기능
-        http.formLogin().loginPage("/login");  //formLogin() --> 스프링부트가 제공하는 로그인창이 뜸
+        http.formLogin().loginPage("/member/login").defaultSuccessUrl("/index",true);  //formLogin() --> 스프링부트가 제공하는 로그인창이 뜸
         // CSRF 비활성화 --> (Cross-Site Request Forgery 크로스 사이트 요청 위조)
         http.csrf().disable(); //login.html을 띄우기 위해선 비활성화를 안해놓으면 로그인이 안됨.
 
@@ -57,7 +57,7 @@ public class CustomSecurityConfig {
                 .tokenValiditySeconds(60*60*24*30);
         http.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
 
-        http.oauth2Login().loginPage("/login").successHandler(authenticationSuccessHandler());
+        http.oauth2Login().loginPage("/member/login").successHandler(authenticationSuccessHandler());
 
 
         return http.build();
