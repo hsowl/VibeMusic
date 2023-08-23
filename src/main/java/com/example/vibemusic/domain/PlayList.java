@@ -27,7 +27,7 @@ public class PlayList {
     private User user; // User 엔터티와의 관계
 
     // fk키
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "playlist_music", // 중간 테이블 이름
             joinColumns = @JoinColumn(name = "plNo"), // PlayList와 연결된 컬럼
