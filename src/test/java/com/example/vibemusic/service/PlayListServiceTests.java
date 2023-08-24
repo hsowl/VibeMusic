@@ -1,5 +1,6 @@
 package com.example.vibemusic.service;
 
+import com.example.vibemusic.domain.Member;
 import com.example.vibemusic.domain.Music;
 import com.example.vibemusic.domain.PlayList;
 import com.example.vibemusic.repository.MusicRepository;
@@ -28,11 +29,13 @@ public class PlayListServiceTests {
     private PlayListServiceImpl playListServiceImpl;
 
     @Test  //PlayList 만듬
-    public void addPlaylistTest() {
+    public void addPlaylistTest(Member member) {
+        Long plNo = 2L; // 플레이리스트 번호
 
         PlayList playList = PlayList.builder()
-                .plNo(1L)
-                .plName("JM's Choice")
+                .plNo(plNo)
+                .plName("JM's Choice"+plNo)
+                .member(member)
                 .build();
 
         playListRepository.save(playList);
@@ -48,13 +51,19 @@ public class PlayListServiceTests {
 
     @Test  //PlayList 안에 한곡 넣기
     public void addMusicToPlayListTest() {
-
         Long plNo = 1L; // 플레이리스트 번호
         Long no = 1L; // 곡 번호
 
         addMusicToPlayList(plNo, no);
     }
 
+    @Test  //PlayList 안에 여러곡 선택 후 넣기
+    public void addAllToPlayListTest() {
+        Long plNo = 1L; // 플레이리스트 번호
+        List<Long> nos = Arrays.asList(1L, 2L, 3L); // 곡 번호들
+
+        addAllToPlayList(plNo, nos);
+    }
     public void addAllToPlayList(Long plNo, List<Long> nos) {
         PlayList playList = playListRepository.findById(plNo).orElseThrow(EntityNotFoundException::new);
         List<Music> musicList = musicRepository.findAllById(nos);
@@ -63,11 +72,5 @@ public class PlayListServiceTests {
         playListRepository.save(playList);
     }
 
-    @Test  //PlayList 안에 여러곡 선택 후 넣기
-    public void addAllToPlayListTest() {
-        Long plNo = 2L; // 플레이리스트 번호
-        List<Long> nos = Arrays.asList(1L, 2L, 3L); // 곡 번호들
 
-        addAllToPlayList(plNo, nos);
-    }
 }

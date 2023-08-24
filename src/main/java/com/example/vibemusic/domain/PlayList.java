@@ -23,7 +23,7 @@ public class PlayList {
     private String plName;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "uNo")
+    @JoinColumn(name = "mid")
     private Member member; // User 엔터티와의 관계
 
     // fk키
