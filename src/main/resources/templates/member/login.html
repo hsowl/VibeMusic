@@ -46,18 +46,26 @@
                     <div class="my-4">
                         <div class="float-end">
                             <button type="submit" class="btn btn-primary submitBtn">LOGIN</button>
+                            <button type="button" class="btn btn-secondary joinBtn">REGISTER</button>
                         </div>
                     </div>
                 </form>
                 <div>
                     <a href="/oauth2/authorization/kakao">KAKAO</a>
                 </div>
-                <div>
-                    <a href="/member/join">REGISTER</a>
-                </div>
             </div><!--end card body-->
         </div><!--end card-->
     </div>
 </div>
 </body>
+<script layout:fragment="script" th:inline="javascript">
+    document.querySelector(".joinBtn").addEventListener("click", function (e){
+        e.preventDefault();
+        const formObj = document.querySelector("#registerForm")
+
+        formObj.action = `/member/join`
+        formObj.method = 'get'
+        formObj.submit()
+    }, false)
+</script>
 </html>
