@@ -16,14 +16,8 @@ public interface MusicService {
     // rdate 정렬기준 (최신순)
     PageResponseDTO<MusicDTO> listWithNewMusic(PageRequestDTO pageRequestDTO);
 
-    // 장르 구분
-    List<MusicDTO> DanceGenre(Long no);
 
-    List<MusicDTO> BalladGenre(Long no);
-
-    List<MusicDTO> HipHopGenre(Long no);
-
-    List<MusicDTO> PopGenre(Long no);
-
+    // 조회수 기능
+    void increaseViewCount(Long no);
 
 }
