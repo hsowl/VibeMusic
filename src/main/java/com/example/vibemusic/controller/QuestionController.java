@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping
@@ -29,12 +30,22 @@ public class QuestionController {
 
     private final QuestionService questionService;
 
+
+
+//    @GetMapping("/questionRead")
+//    public void qRead(Long qNo, Model model) {
+//        log.info("qNo=============> : {}", qNo);
+//        QuestionDTO questionDTO = questionService.read1Quest(qNo);
+//
+//        model.addAttribute("dto", questionDTO);
+//    }
     @GetMapping("/questionRead")
-    public void qRead(Long qNo, Model model) {
-        log.info("nNo=============> : {}", qNo);
+    public String qRead(@RequestParam Long qNo, Model model) {
+        log.info("qNo=============> : {}", qNo);
         QuestionDTO questionDTO = questionService.read1Quest(qNo);
 
         model.addAttribute("dto", questionDTO);
+        return "questionRead"; // question_read.html 뷰 이름
     }
 
 //    @GetMapping("/questions")
@@ -70,5 +81,36 @@ public class QuestionController {
         return "questions";  // questions.html
 
     }
+//    @GetMapping("/questions")
+//    public String list(Pageable pageable, Model model, PageRequestDTO pageRequestDTO) {
+//        // Set the number of items per page
+//        int pageSize = 5;
+//        pageable = PageRequest.of(pageable.getPageNumber(), pageSize);
+//
+//        // Retrieve a Page of news items using the NewsService
+//        Page<Question> questionPage = questionService.list(pageable);
+//
+//        // Ensure page number is not less than 1
+//        if (pageRequestDTO.getPage() < 1) {
+//            pageRequestDTO.setPage(1);
+//        }
+//
+//        PageResponseDTO<QuestionDTO> responseDTO = questionService.listWithNewQuestion(pageRequestDTO);
+//
+//        // Update the pageSize to match the actual number of items in the responseDTO
+//        pageSize = responseDTO.getDtoList().size();
+//        pageable = PageRequest.of(pageable.getPageNumber(), pageSize);
+//
+//        // Retrieve a Page of news items using the updated pageSize
+//        questionPage = questionService.list(pageable);
+//
+//        // Add the Page of news items to the model
+//        model.addAttribute("questionPage", questionPage);
+//        model.addAttribute("qList", responseDTO);
+//
+//        // Return the view name for rendering
+//        return "questions";  // questions.html
+//    }
+
 }
 

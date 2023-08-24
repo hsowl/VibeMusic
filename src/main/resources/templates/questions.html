@@ -86,7 +86,9 @@
                                                 <th scope="row">[[${dto.qNo}]]</th>
                                                 <td>
                                                     <a class = "text-decoration-none"
-                                                       th:href="|@{/templates/questions/qRead(qNo=${dto.qNo})}|">[[${dto.qTitle}]]</a>
+                                                       th:href="@{/questionRead(qNo=${dto.qNo})}">[[${dto.qTitle}]]</a>
+
+                                                    <!--th:href="|@{/templates/questionRead/qRead(qNo=${dto.qNo})}|">[[${dto.qTitle}]]</a>-->
                                                 </td>
                                                 <td>[[${dto.qWriter}]]</td>
                                                 <td>[[${dto.qWriter}]]</td>
