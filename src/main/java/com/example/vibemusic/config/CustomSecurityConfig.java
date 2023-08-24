@@ -19,6 +19,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 @Configuration
@@ -59,6 +60,11 @@ public class CustomSecurityConfig {
 
         http.oauth2Login().loginPage("/member/login").successHandler(authenticationSuccessHandler());
 
+        //로그아웃
+        http.logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/index")
+                .deleteCookies("JSESSIONID", "remember-me");
 
         return http.build();
     }

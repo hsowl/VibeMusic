@@ -24,6 +24,7 @@
 <script layout:fragment="script" th:inline="javascript">
 
     const no = [[${dto.no}]]
+    let i = 1;
 
     //댓글 리스트, 페이징 처리
     const replyList = document.querySelector('.replyList')
@@ -44,14 +45,16 @@
         if (dtoList && dtoList.length > 0) {
             for (const dto of dtoList) {
                 str += `<li class="list-group-item d-flex replyItem">` +
-                    `<span class="col-2">${dto.rno}</span>` +
+                    `<span class="col-2">${i}</span>` +
                     `<span class="col-6" data-rno="${dto.rno}">${dto.r_replyText}</span>` +
                     `<span class="col-2">${dto.rreplyer}</span>` +
                     `<span class="col-2">${dto.regDate}</span> ` +
                     `</li>`
+                i++;
             }
         }
         replyList.innerHTML = str;
+
     }
 
     //댓글 페이징 처리

@@ -14,6 +14,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +35,7 @@ public class MusicController {
     private final MusicService musicService;
 
 
-    @GetMapping({"/contact","/elements","/login"})
+    @GetMapping({"/contact","/elements"})
     public void main() {
 
     }
@@ -51,6 +52,7 @@ public class MusicController {
         model.addAttribute("responseDTO", responseDTO);
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/read")
     public void readOne(Long no, Model model,Integer mPlayCount){
 

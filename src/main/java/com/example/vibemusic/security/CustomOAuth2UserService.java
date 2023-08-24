@@ -41,13 +41,13 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         log.info("NAME : {}", clientName);
         OAuth2User oAuth2User = super.loadUser(userRequest);
-        Map<String, Object> paeamMap = oAuth2User.getAttributes();
+        Map<String, Object> paramMap = oAuth2User.getAttributes();
 
         String email = null;
 
         switch (clientName){
             case "kakao" :
-                email = getKakaoEmail(paeamMap);
+                email = getKakaoEmail(paramMap);
                 break;
         }
 
@@ -55,7 +55,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         log.info("email : {}", email);
         log.info("===================================================");
 
-        return generateDTO(email, paeamMap);
+        return generateDTO(email, paramMap);
     }
 
     private MemberSecurityDTO generateDTO(String email, Map<String, Object> params){

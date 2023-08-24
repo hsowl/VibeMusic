@@ -67,8 +67,12 @@
                             <!-- Login/Register & Cart Button -->
                             <div class="login-register-cart-button d-flex align-items-center">
                                 <!-- Login/Register -->
-                                <div class="login-register-btn mr-50">
+                                <div class="login-register-btn mr-50" th:if="${#authentication.principal} == 'anonymousUser'">
                                     <a href="/member/login" id="loginBtn">Login / Register</a>
+                                </div>
+
+                                <div class="login-register-btn mr-50" th:if="${#authentication.principal} != 'anonymousUser'">
+                                    <a href="/logout">Logout</a>
                                 </div>
 
                                 <!-- Cart Button -->
