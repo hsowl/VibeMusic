@@ -45,18 +45,15 @@
     </section>
     <!-- ##### Breadcumb Area End ##### -->
 
+    <!-- PlayList 생성 -->
+    <div class="playlist register">
+      <button type="button" class="btn btn-primary PlayListRegiBtn">PlayList 만들기</button>
+    </div>
 
-          <!-- ***** My PlayLists ***** -->
-          <div th:each="dto:${playList}" class="col-12 col-lg-4">
-            <div class="new-hits-area mb-100">
-              <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
-                <p></p>
-                [[${dto.plName}]]
-              </div>
 
-              <!-- Single Top Item -->
+              <!-- Songs in My PlayList -->
               <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
-                   data-wow-delay="100ms" th:each="dto:${inPlayList}">
+                   data-wow-delay="100ms" th:each="dto:${responseDTO.dtoList}">
                 <div class="first-part d-flex align-items-center">
                   <div class="thumbnail">
                     <a th:href="|@{/read(no=${dto.no})}|">
@@ -73,8 +70,9 @@
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+
+<!--            </div>-->
+<!--          </div>-->
 
 
   </form>
