@@ -83,10 +83,7 @@ public class QuestionServiceImpl implements QuestionService{
         questionRepository.save(question);
     }
 
-    @Override
-    public Page<Question> questionListPage(Pageable pageable) {
-        return null;
-    }
+
 
     @Override
     public PageResponseDTO<QuestionDTO> listWithNewQuestion(PageRequestDTO pageRequestDTO) {
@@ -106,9 +103,8 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public Page<Question> qlist(Pageable pageable) {
-        return null;
-    }
+    public Page<Question> list(Pageable pageable) {
+        return questionRepository.findAll(pageable);    }
 
 
 }

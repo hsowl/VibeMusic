@@ -54,11 +54,11 @@
                     <div class="col-12 col-lg-9">
 
                         <!-- Single Post Start -->
-                        <div class = "row mt-3">
-                            <div class = "col">
-                                <div class = card>
-                                    <div class = card-header>
-                                        Board list
+                        <div class = "blog-content">
+                            <div class = "blog-content">
+                                <div class = blog-content>
+                                    <div class = blog-content>
+
                                     </div>
 
                                     <div class="card-body">
@@ -67,7 +67,7 @@
                                         <div class="my-4">
                                             <div class="float-end">
                                                 <a th:href="|@{/templates/questionRegister}|" class="text-decoration-none">
-                                                    <button type="button" class="btn btn-primary regBtn">Register</button>
+                                                    <button type="button" class="btn oneMusic-btn mt-30">Register</button>
                                                 </a>
                                             </div>
                                         </div>
@@ -86,7 +86,9 @@
                                                 <th scope="row">[[${dto.qNo}]]</th>
                                                 <td>
                                                     <a class = "text-decoration-none"
-                                                       th:href="|@{/templates/questions/qRead(qNo=${dto.qNo})}|">[[${dto.qTitle}]]</a>
+                                                       th:href="@{/questionRead(qNo=${dto.qNo})}">[[${dto.qTitle}]]</a>
+
+                                                    <!--th:href="|@{/templates/questionRead/qRead(qNo=${dto.qNo})}|">[[${dto.qTitle}]]</a>-->
                                                 </td>
                                                 <td>[[${dto.qWriter}]]</td>
                                                 <td>[[${dto.qWriter}]]</td>
@@ -99,21 +101,21 @@
                             </div>
                         </div>
 
-                        <!-- Pagination -->
-                        <div th:if="${newsPage}" class="oneMusic-pagination-area wow fadeInUp" data-wow-delay="300ms">
+                         Pagination
+                        <div th:if="${questionPage}" class="oneMusic-pagination-area wow fadeInUp" data-wow-delay="300ms">
                             <nav>
-                                <ul class="news-pagination">
-                                    <li th:class="${newsPage.first ? 'disabled' : ''}" class="page-item active">
-                                        <a th:href="@{/blog(page=0, size=${newsPage.size})}">◀◀ First Page</a>
+                                <ul class="questions-pagination">
+                                    <li th:class="${questionPage.first ? 'disabled' : ''}" class="page-item active">
+                                        <a th:href="@{/questions(page=0, size=${questionPage.size})}">◀◀ First Page</a>
                                     </li>
-                                    <li th:class="${newsPage.hasPrevious ? '' : 'disabled'}" class="page-item">
-                                        <a th:href="@{/blog(page=${newsPage.number - 1}, size=${newsPage.size})}">◀ Previous Page</a>
+                                    <li th:class="${questionPage.hasPrevious ? '' : 'disabled'}" class="page-item">
+                                        <a th:href="@{/questions(page=${questionPage.number - 1}, size=${questionPage.size})}">◀ Previous Page</a>
                                     </li>
-                                    <li th:class="${newsPage.hasNext ? '' : 'disabled'}" class="page-item">
-                                        <a th:href="@{/blog(page=${newsPage.number + 1}, size=${newsPage.size})}">Next Page ▶</a>
+                                    <li th:class="${questionPage.hasNext ? '' : 'disabled'}" class="page-item">
+                                        <a th:href="@{/questions(page=${questionPage.number + 1}, size=${questionPage.size})}">Next Page ▶</a>
                                     </li>
-                                    <li th:class="${newsPage.last ? 'disabled' : ''}" class="page-item">
-                                        <a th:href="@{/blog(page=${newsPage.totalPages - 1}, size=${newsPage.size})}">Last Page ▶▶</a>
+                                    <li th:class="${questionPage.last ? 'disabled' : ''}" class="page-item">
+                                        <a th:href="@{/questions(page=${questionPage.totalPages - 1}, size=${questionPage.size})}">Last Page ▶▶</a>
                                     </li>
                                 </ul>
                             </nav>
