@@ -34,7 +34,7 @@ public class MusicController {
     private final MusicService musicService;
 
 
-    @GetMapping({"/contact","/elements","/login","/event"})
+    @GetMapping({"/contact","/elements","/login"})
     public void main() {
 
     }
