@@ -132,201 +132,93 @@
         </div>
     </section>
     <!-- ##### Buy Now Area End ##### -->
+    <section class="miscellaneous-area section-padding-100-0">
+        <div class="container">
+            <div class="row">
+                <!-- ***** Weeks Top ***** -->
+                <div class="col-12 col-lg-4">
+                    <div class="weeks-top-area mb-100">
+                        <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
+                            <p>See what’s new</p>
+                            <h2>This week’s top</h2>
+                        </div>
 
-    <!-- ##### Featured Artist Area Start ##### -->
-    <!--    <section class="featured-artist-area section-padding-100 bg-img bg-overlay bg-fixed"-->
-    <!--             style="background-image: url(img/bg-img/bg-4.jpg);">-->
-    <!--        <div class="container">-->
-    <!--            <div class="row align-items-end">-->
-    <!--                <div class="col-12 col-md-5 col-lg-4">-->
-    <!--                    <div class="featured-artist-thumb">-->
-    <!--                        <img src="img/bg-img/fa.jpg" alt="">-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--                <div class="col-12 col-md-7 col-lg-8">-->
-    <!--                    <div class="featured-artist-content">-->
-    <!-- Section Heading -->
-    <!--                        <div class="section-heading white text-left mb-30">-->
-    <!--                            <p>See what’s new</p>-->
-    <!--                            <h2>Buy What’s New</h2>-->
-    <!--                        </div>-->
-    <!--                        <p>Nam tristique ex vel magna tincidunt, ut porta nisl finibus. Vivamus eu dolor eu quam varius-->
-    <!--                            rutrum. Fusce nec justo id sem aliquam fringilla nec non lacus. Suspendisse eget lobortis-->
-    <!--                            nisi, ac cursus odio. Vivamus nibh velit, rutrum at ipsum ac, dignissim iaculis ante. Donec-->
-    <!--                            in velit non elit pulvinar pellentesque et non eros.</p>-->
-    <!--                        <div class="song-play-area">-->
-    <!--                            <div class="song-name">-->
-    <!--                                <p>01. Main Hit Song</p>-->
-    <!--                            </div>-->
-    <!--                            <audio preload="auto" controls>-->
-    <!--                                <source src="audio/dummy-audio.mp3">-->
-    <!--                            </audio>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </section>-->
-    <!--    &lt;!&ndash; ##### Featured Artist Area End ##### &ndash;&gt;-->
+                        <!-- Single Top Item -->
+                        <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="100ms">
+                            <div class="thumbnail">
+                                <img src="img/bg-img/wt1.jpg" alt="">
+                            </div>
+                            <div class="content-">
+                                <h6>Sam Smith</h6>
+                                <p>Underground</p>
+                            </div>
+                        </div>
 
-<!--    &lt;!&ndash; ##### Miscellaneous Area Start ##### &ndash;&gt;-->
-<!--    <section class="miscellaneous-area section-padding-100-0">-->
-<!--        <div class="container">-->
-<!--            <div class="row">-->
-<!--                &lt;!&ndash; ***** Weeks Top ***** &ndash;&gt;-->
-<!--                <div class="col-12 col-lg-4">-->
-<!--                    <div class="weeks-top-area mb-100">-->
-<!--                        <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">-->
-<!--                            <p></p>-->
-<!--                            <h2> 알고리즘 1 </h2>-->
-<!--                        </div>-->
-
-<!--                        &lt;!&ndash; Single Top Item &ndash;&gt;-->
-<!--                        <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="100ms" th:each="dto:${responseDTO.dtoList}">-->
-
-<!--                            <div class="thumbnail">-->
-<!--                                <a th:href="|@{/read(no=${dto.no})}|">-->
-<!--                                    <img th:src="${dto.m_image}">-->
-<!--                                </a>-->
-<!--                            </div>-->
+                        <!-- Single Top Item -->
 
 
-<!--                            <div class="content-">-->
-<!--                                <a th:href="|@{/read(no=${dto.no})}|">-->
-<!--                                    <h5 th:text="${dto.m_title}"></h5>-->
-<!--                                </a>-->
-<!--                                <p th:text="${dto.m_artist}"></p>-->
+                    </div>
+                </div>
 
-<!--                            </div>-->
-<!--                        </div>-->
+                <!-- ***** New Hits Songs ***** -->
+                <div class="col-12 col-lg-4">
+                    <div class="new-hits-area mb-100">
+                        <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
+                            <p>See what’s new</p>
+                            <h2>New Hits</h2>
+                        </div>
 
+                        <!-- Single Top Item -->
+                        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="100ms">
+                            <div class="first-part d-flex align-items-center">
+                                <div class="thumbnail">
+                                    <img src="img/bg-img/wt7.jpg" alt="">
+                                </div>
+                                <div class="content-">
+                                    <h6>Sam Smith</h6>
+                                    <p>Underground</p>
+                                </div>
+                            </div>
+                            <audio preload="auto" controls>
+                                <source src="audio/dummy-audio.mp3">
+                            </audio>
+                        </div>
 
+                        <!-- Single Top Item -->
 
+                        </div>
+                    </div>
+                </div>
 
-<!--                    </div>-->
-<!--                </div>-->
+                <!-- ***** Popular Artists ***** -->
+                <div class="col-12 col-lg-4">
+                    <div class="popular-artists-area mb-100">
+                        <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
+                            <p>See what’s new</p>
+                            <h2>Popular Artist</h2>
+                        </div>
 
-
-
-<!--                &lt;!&ndash; ***** New Hits Songs ***** &ndash;&gt;-->
-<!--                <div class="col-12 col-lg-4">-->
-<!--                    <div class="new-hits-area mb-100">-->
-<!--                        <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">-->
-<!--                            <p></p>-->
-<!--                            <h2>시대별 인기 차트</h2>-->
-<!--                        </div>-->
-
-<!--                        &lt;!&ndash; Single Top Item &ndash;&gt;-->
-<!--                        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"-->
-<!--                             data-wow-delay="100ms" th:each="dto:${responseDTO.dtoList}">-->
-<!--                            <div class="first-part d-flex align-items-center">-->
-<!--                                <div class="thumbnail">-->
-<!--                                    <a th:href="|@{/read(no=${dto.no})}|">-->
-<!--                                        <img th:src="${dto.m_image}">-->
-<!--                                    </a>-->
-<!--                                </div>-->
-
-
-<!--                                <div class="content-">-->
-<!--                                    <a th:href="|@{/read(no=${dto.no})}|">-->
-<!--                                        <h5 th:text="${dto.m_title}"></h5>-->
-<!--                                    </a>-->
-<!--                                    <p th:text="${dto.m_artist}"></p>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-
-
-<!--                &lt;!&ndash; ***** Popular Artists ***** &ndash;&gt;-->
-<!--                <div class="col-12 col-lg-4">-->
-<!--                    <div class="popular-artists-area mb-100">-->
-<!--                        <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">-->
-<!--                            <p></p>-->
-<!--                            <h2>xxx님을 위한 추천 곡 (playlist 안에 노래 기반으로 가장 많은 장르로 추천)</h2>-->
-<!--                        </div>-->
-
-<!--                        &lt;!&ndash; Single Artist &ndash;&gt;-->
-<!--                        <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="100ms" th:each="dto:${responseDTO.dtoList}">-->
-<!--                            <div class="thumbnail">-->
-<!--                                <a th:href="|@{/read(no=${dto.no})}|">-->
-<!--                                    <img th:src="${dto.m_image}">-->
-<!--                                </a>-->
-<!--                            </div>-->
+                        <!-- Single Artist -->
+                        <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="100ms">
+                            <div class="thumbnail">
+                                <img src="img/bg-img/pa1.jpg" alt="">
+                            </div>
+                            <div class="content-">
+                                <p>Sam Smith</p>
+                            </div>
+                        </div>
 
 
-<!--                            <div class="content-">-->
-<!--                                <a th:href="|@{/read(no=${dto.no})}|">-->
-<!--                                    <h5 th:text="${dto.m_title}"></h5>-->
-<!--                                </a>-->
-<!--                                <p th:text="${dto.m_artist}"></p>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </section>-->
-<!--</div>-->
+                        </div>
+
+                    </div>
+                </div>
+
+        </div>
+    </section>
+    <!-- ##### Miscellaneous Area End ##### -->
 
 
-
-<!-- ##### Miscellaneous Area End ##### -->
-
-<!-- ##### Contact Area Start ##### -->
-<!--    <section class="contact-area section-padding-100 bg-img bg-overlay bg-fixed has-bg-img"-->
-<!--             style="background-image: url(img/bg-img/bg-3.jpg);">-->
-<!--        <div class="container">-->
-<!--            <div class="row">-->
-<!--                <div class="col-12">-->
-<!--                    <div class="section-heading white wow fadeInUp" data-wow-delay="100ms">-->
-<!--                        <p>See what’s new</p>-->
-<!--                        <h2>Get In Touch</h2>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-
-<!--            <div class="row">-->
-<!--                <div class="col-12">-->
-<!--                    &lt;!&ndash; Contact Form Area &ndash;&gt;-->
-<!--                    <div class="contact-form-area">-->
-<!--                        <form action="#" method="post">-->
-<!--                            <div class="row">-->
-<!--                                <div class="col-md-6 col-lg-4">-->
-<!--                                    <div class="form-group wow fadeInUp" data-wow-delay="100ms">-->
-<!--                                        <input type="text" class="form-control" id="name" placeholder="Name">-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-md-6 col-lg-4">-->
-<!--                                    <div class="form-group wow fadeInUp" data-wow-delay="200ms">-->
-<!--                                        <input type="email" class="form-control" id="email" placeholder="E-mail">-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-lg-4">-->
-<!--                                    <div class="form-group wow fadeInUp" data-wow-delay="300ms">-->
-<!--                                        <input type="text" class="form-control" id="subject" placeholder="Subject">-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-12">-->
-<!--                                    <div class="form-group wow fadeInUp" data-wow-delay="400ms">-->
-<!--                                        <textarea name="message" class="form-control" id="message" cols="30" rows="10"-->
-<!--                                                  placeholder="Message"></textarea>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">-->
-<!--                                    <button class="btn oneMusic-btn mt-30" type="submit">Send <i-->
-<!--                                            class="fa fa-angle-double-right"></i></button>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </form>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </section>-->
-
-<!-- ##### Contact Area End ##### -->
 
 </div>
 </body>

@@ -6,6 +6,7 @@ import com.example.vibemusic.repository.MusicRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,10 +40,10 @@ public class ChartServiceImpl implements ChartService{
     }
 
     @Override
-    public List<MusicDTO> BalladGenre(Long no) {
-        List<Music> balladMusics = musicRepository.findBymGenre("Ballad");
+    public List<MusicDTO> BalladeGenre(Long no) {
+        List<Music> balladeMusics = musicRepository.findBymGenre("Ballade");
 
-        List<MusicDTO> musicDTO = balladMusics.stream()
+        List<MusicDTO> musicDTO = balladeMusics.stream()
                 .map(music -> modelMapper.map(music, MusicDTO.class))
                 .collect(Collectors.toList());
 
@@ -81,5 +82,9 @@ public class ChartServiceImpl implements ChartService{
     }
 
 
+    public List<Music> getAllMusicSortedByPlayCount() {
+        Sort sortByPlayCountDesc = Sort.by(Sort.Direction.DESC, "mPlayCount");
+        return musicRepository.findAll(sortByPlayCountDesc);
+    }
 
 }

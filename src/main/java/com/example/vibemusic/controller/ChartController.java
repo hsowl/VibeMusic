@@ -1,5 +1,6 @@
 package com.example.vibemusic.controller;
 
+import com.example.vibemusic.domain.Music;
 import com.example.vibemusic.dto.MusicDTO;
 import com.example.vibemusic.service.ChartService;
 import com.example.vibemusic.service.MusicService;
@@ -26,52 +27,56 @@ public class ChartController {
     private final MusicService musicService;
     private final MessageSource messageSource;
     private final ChartService chartService;
+
     
     
+//    @GetMapping("/chart")
+//    public String getMusicRecommendations(Long no, Model model, Locale locale) {
+//        DayOfWeek currentDay = LocalDate.now().getDayOfWeek();
+//        String translatedDay = getMessageForDay(currentDay, locale);
+//        String translatedMessage = messageSource.getMessage("chart.recommendations", new Object[]{translatedDay}, locale);
+//
+//        List<MusicDTO> recommendedMusic = new ArrayList<>();
+//        switch (currentDay) {
+//            case MONDAY:
+//                recommendedMusic = chartService.BalladeGenre(no);
+//                break;
+//            case TUESDAY:
+//                recommendedMusic = chartService.HipHopGenre(no);
+//                break;
+//            case WEDNESDAY:
+//                recommendedMusic = chartService.PopGenre(no);
+//                break;
+//            case THURSDAY:
+//                recommendedMusic = chartService.BalladeGenre(no);
+//                break;
+//            case FRIDAY:
+//                recommendedMusic = chartService.DanceGenre(no);
+//                break;
+//            case SATURDAY:
+//                recommendedMusic = chartService.PopGenre(no);
+//                break;
+//            case SUNDAY:
+//                recommendedMusic = chartService.BalladeGenre(no);
+//                break;
+//        }
+//
+//        model.addAttribute("recommendedMusic", recommendedMusic);
+//        model.addAttribute("currentDay", currentDay.toString());
+//        model.addAttribute("translatedMessage", translatedMessage);
+//
+//
+//        return "chart";
+//    }
+
+//    private String getMessageForDay(DayOfWeek day, Locale locale) {
+//        return messageSource.getMessage(day.toString().toLowerCase(), null, day.toString(), locale);
+//    }
+
     @GetMapping("/chart")
-    public String getMusicRecommendations(Long no, Model model, Locale locale) {
-        DayOfWeek currentDay = LocalDate.now().getDayOfWeek();
-        String translatedDay = getMessageForDay(currentDay, locale);
-        String translatedMessage = messageSource.getMessage("chart.recommendations", new Object[]{translatedDay}, locale);
-
-
-
-
-        List<MusicDTO> recommendedMusic = new ArrayList<>();
-        switch (currentDay) {
-            case MONDAY:
-                recommendedMusic = chartService.BalladGenre(no);
-                break;
-            case TUESDAY:
-                recommendedMusic = chartService.HipHopGenre(no);
-                break;
-            case WEDNESDAY:
-                recommendedMusic = chartService.PopGenre(no);
-                break;
-            case THURSDAY:
-                recommendedMusic = chartService.BalladGenre(no);
-                break;
-            case FRIDAY:
-                recommendedMusic = chartService.DanceGenre(no);
-                break;
-            case SATURDAY:
-                recommendedMusic = chartService.PopGenre(no);
-                break;
-            case SUNDAY:
-                recommendedMusic = chartService.BalladGenre(no);
-                break;
-        }
-
-        model.addAttribute("recommendedMusic", recommendedMusic);
-        model.addAttribute("currentDay", currentDay.toString());
-        model.addAttribute("translatedMessage", translatedMessage);
-
-
-        return "chart";
+    public String displayMusicList(Model model) {
+        List<Music> musicList = chartService.getAllMusicSortedByPlayCount();
+        model.addAttribute("music", musicList);
+        return "chart"; // Assuming you have a Thymeleaf template named "music-list.html"
     }
-
-    private String getMessageForDay(DayOfWeek day, Locale locale) {
-        return messageSource.getMessage(day.toString().toLowerCase(), null, day.toString(), locale);
-    }
-
 }
