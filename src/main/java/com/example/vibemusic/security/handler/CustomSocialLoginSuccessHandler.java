@@ -22,22 +22,13 @@ public class CustomSocialLoginSuccessHandler implements AuthenticationSuccessHan
 
         log.info("=======================================");
         log.info("CustomLoginSuccessHandler onAuthenticationSuccess");
-        log.info("authentication.getPrincipal : {}",authentication.getPrincipal());
+        log.info("authentication.getPrincipal : {}", authentication.getPrincipal());
 
         MemberSecurityDTO memberSecurityDTO = (MemberSecurityDTO) authentication.getPrincipal();
 
         String encodedPw = memberSecurityDTO.getMpw();
 
-        if(memberSecurityDTO.isSocial() && memberSecurityDTO.getMpw().equals("1111") || passwordEncoder.matches("1111", memberSecurityDTO.getMpw())){
-            log.info("Should Change Password");
-
-            log.info("Redirect to Member Modify");
-            response.sendRedirect("member/modify");
-
-            return;
-        }else {
-            response.sendRedirect("/index");
-        }
+        response.sendRedirect("/index");
 
     }
 }
