@@ -224,6 +224,7 @@
         })
     }, false)
 
+
 </script>
 
 <div layout:fragment="content">
@@ -291,34 +292,12 @@
     </table>
     <!-- music information table Start -->
 
-    <!-- PlayList start -->
+
+    <!-- ##### PlayList 리스트로 이동하는 버튼 ##### -->
     <div class="row mt-3">
-        <div class="col-md-12">
-            <div class="my-4">
-                <button class="btn btn-info addPlayListBtn">MyPlaylist 담기</button>
-            </div>
-        </div>
+        <a class="btn btn-primary" th:href="|@{playlist(no=${dto.no})}|"> MyPlaylist 담기</a>
     </div>
 
-    <!--##### PlayList 등록 처리 #####-->
-    <div class="modal playListModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">My Playlist 담기</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    My PlayList에 담으시겠습니까?
-                    <div class="modal-footer">
-                        <!--                        <button type="submit" class="btn btn-primary addPlayListBtn" th:action="">담기</button>-->
-                        <button type="button" class="btn btn-outline-dark closePlaylistRegisterBtn">취소</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- PlayList End -->
 
     <!-- reply start -->
     <div class="row mt-3">

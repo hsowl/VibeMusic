@@ -13,12 +13,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
-@RequestMapping
+@RequestMapping("/playlist")
 @RequiredArgsConstructor
 @Slf4j
 public class PlayListController {
@@ -26,10 +26,23 @@ public class PlayListController {
     private final PlayListService playListService;
     private final MusicService musicService;
 
-    @PreAuthorize("hasRole('USER')")
-    @GetMapping("/playlist")
+
+    @GetMapping
+    public String viewPlaylist(Model model){
+        List<PlayList> playlists = playListService.getPlaylist();
+        model.addAttribute("playlists", playlists);
+        return "playlist"; // playlist.html
+    }
+
+    @PostMapping("/add")
     public String addList(@RequestParam String plName){
         playListService.addPlaylist(plName);
         return "redirect:/playlist"; // 리스트 페이지로 리다이렉트
+    }
+
+    @GetMapping("/list")
+    @ResponseBody
+    public List<PlayList> getPlaylist() {
+        return playListService.getPlaylist();
     }
 }

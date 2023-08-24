@@ -25,17 +25,13 @@ public class PlayListServiceTests {
     @Autowired
     private MusicRepository musicRepository;
 
-    @Autowired
-    private PlayListServiceImpl playListServiceImpl;
-
     @Test  //PlayList 만듬
-    public void addPlaylistTest(Member member) {
-        Long plNo = 2L; // 플레이리스트 번호
+    public void addPlaylistTest() {
+        Long plNo = 1L; // 플레이리스트 번호
 
         PlayList playList = PlayList.builder()
                 .plNo(plNo)
                 .plName("JM's Choice"+plNo)
-                .member(member)
                 .build();
 
         playListRepository.save(playList);

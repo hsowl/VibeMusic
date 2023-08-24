@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
       xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout.html}">
-
 <head>
   <meta charset="UTF-8">
   <meta name="description" content="">
@@ -11,15 +11,15 @@
   <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
   <!-- Title -->
-  <title>My PlayList</title>
+  <title>One Music - Modern Music HTML5 Template</title>
 
   <!-- Favicon -->
   <link rel="icon" href="img/core-img/favicon.ico">
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="/css/style.css">
-</head>
 
+</head>
 <body>
 <div layout:fragment="content">
   <form action="/newsRead" method="get">
@@ -50,29 +50,6 @@
       <button type="button" class="btn btn-primary PlayListRegiBtn">PlayList 만들기</button>
     </div>
 
-
-              <!-- Songs in My PlayList -->
-              <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
-                   data-wow-delay="100ms" th:each="dto:${responseDTO.dtoList}">
-                <div class="first-part d-flex align-items-center">
-                  <div class="thumbnail">
-                    <a th:href="|@{/read(no=${dto.no})}|">
-                      <img th:src="${dto.m_image}">
-                    </a>
-                  </div>
-
-
-                  <div class="content-">
-                    <a th:href="|@{/read(no=${dto.no})}|">
-                      <h5 th:text="${dto.m_title}"></h5>
-                    </a>
-                    <p th:text="${dto.m_artist}"></p>
-                  </div>
-                </div>
-              </div>
-
-<!--            </div>-->
-<!--          </div>-->
 
 
   </form>
