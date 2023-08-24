@@ -12,6 +12,8 @@ public interface ReplyService {
 
     PageResponseDTO<ReplyDTO> replyListWithPaging(PageRequestDTO pageRequestDTO);
 
+    ReplyDTO read(Long rno);
+
     Long register(ReplyDTO replyDTO);
 
     void modify(ReplyDTO replyDTO);

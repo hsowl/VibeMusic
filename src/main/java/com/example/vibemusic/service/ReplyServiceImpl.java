@@ -48,6 +48,13 @@ public class ReplyServiceImpl implements ReplyService{
     }
 
     @Override
+    public ReplyDTO read(Long rno){
+        Optional<Reply> replyOptional = replyRepository.findById(rno);
+        Reply reply = replyOptional.orElseThrow();
+        return modelMapper.map(reply, ReplyDTO.class);
+    }
+
+    @Override
     public Long register(ReplyDTO replyDTO) {
         Optional<Music> byId = musicRepository.findById(replyDTO.getNo());
         Music music = byId.orElseThrow();

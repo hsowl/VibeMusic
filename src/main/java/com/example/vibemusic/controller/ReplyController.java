@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -49,6 +50,13 @@ public class ReplyController {
         PageResponseDTO<ReplyDTO> responseDTO = replyService.getListOfMusic(no,pageRequestDTO);
 
         return responseDTO;
+    }
+
+    @ApiOperation(value = "Read Reply", notes = "GET 방식으로 특정 댓글 조회")
+    @GetMapping("/{rno}")
+    public ReplyDTO getReplyDTO(@PathVariable("rno") Long rno){
+        ReplyDTO replyDTO = replyService.read(rno);
+        return replyDTO;
     }
 
     @ApiOperation(value = "Delete Reply", notes = "DELETE 방식으로 특정 댓글 삭제")
