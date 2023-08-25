@@ -25,9 +25,9 @@
   <form action="/newsRead" method="get">
 
 
-    <!-- Preloader -->
+    <!-- Preloader 바보바보 -->
     <div class="preloader d-flex align-items-center justify-content-center">
-      <div class="lds-ellipsis">
+      <div class="lds-.ellipsis">
         <div></div>
         <div></div>
         <div></div>
@@ -40,15 +40,25 @@
     <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(img/bg-img/breadcumb3.jpg);">
       <div class="bradcumbContent">
         <p>Look at My Music Lists</p>
-        <h2> My PlayList </h2>
+        <h2>PlayLists for '<span th:text="${#authentication.principal.username}"></span>'</h2>
       </div>
     </section>
     <!-- ##### Breadcumb Area End ##### -->
 
-    <!-- PlayList 생성 -->
-    <div class="playlist register">
-      <button type="button" class="btn btn-primary PlayListRegiBtn">PlayList 만들기</button>
-    </div>
+    <!-- PlayList 테이블 -->
+
+    <table>
+      <tr>
+        <th>PlayList No</th>
+        <th>PlayList Name</th>
+        <th>Member ID</th>
+      </tr>
+      <tr th:each="playList : ${playLists}">
+        <td th:text="${playList.plNo}"></td>
+        <td th:text="${playList.plName}"></td>
+        <td th:text="${playList.member.mid}"></td>
+      </tr>
+    </table>
 
 
 

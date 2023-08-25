@@ -4,6 +4,7 @@ import com.example.vibemusic.domain.Music;
 import com.example.vibemusic.domain.PlayList;
 import com.example.vibemusic.repository.MusicRepository;
 import com.example.vibemusic.repository.PlayListRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,24 +15,19 @@ import java.util.List;
 
 @Service
 @Log4j2
+@RequiredArgsConstructor
 public class PlayListServiceImpl implements PlayListService {
 
     private final PlayListRepository playListRepository;
     private final MusicRepository musicRepository;
 
-    @Autowired
-    public PlayListServiceImpl(PlayListRepository playListRepository, MusicRepository musicRepository) {
-        this.playListRepository = playListRepository;
-        this.musicRepository = musicRepository;
-    }
-
-
     /**
      * *********** PlayList 생성 부분 ***************
      * PlayList별 목록 보여주기
      */
-    public List<PlayList> getPlaylist() {
-        return playListRepository.findAll();
+    public List<PlayList> getPlaylist(String mid) {
+//        playListRepository.findById();
+        return playListRepository.findByMember_Mid(mid);
     }
 
     /**
