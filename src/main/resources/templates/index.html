@@ -51,8 +51,7 @@
                             <div class="hero-slides-content text-center">
                                 <h6 data-animation="fadeInUp" data-delay="100ms">PLAY MUSIC</h6>
                                 <h2 data-animation="fadeInUp" data-delay="300ms">NEW JEANS<span>NEW JEANS</span></h2>
-                                <a data-animation="fadeInUp" data-delay="500ms" href="#" class="btn oneMusic-btn mt-50">신곡
-                                    듣기 <i class="fa fa-angle-double-right"></i></a>
+                                <a data-animation="fadeInUp" data-delay="500ms" href="#newmusic"  class="btn oneMusic-btn mt-50">신곡 듣기 <i class="fa fa-angle-double-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -70,7 +69,7 @@
                             <div class="hero-slides-content text-center">
                                 <h6 data-animation="fadeInUp" data-delay="100ms">PLAY MUSIC</h6>
                                 <h2 data-animation="fadeInUp" data-delay="300ms">BTS<span>BTS</span></h2>
-                                <a data-animation="fadeInUp" data-delay="500ms" href="#" class="btn oneMusic-btn mt-50">신곡
+                                <a data-animation="fadeInUp" data-delay="500ms" href="#section-heading style-2" class="btn oneMusic-btn mt-50">신곡
                                     듣기 <i class="fa fa-angle-double-right"></i></a>
                             </div>
                         </div>
@@ -83,8 +82,9 @@
 
 
     <!-- ##### Buy Now Area Start ##### -->
-    <section class="oneMusic-buy-now-area has-fluid bg-gray section-padding-100">
-        <div class="container-fluid">
+    <p id="newmusic"></p>
+    <section class="oneMusic-buy-now-area has-fluid bg-gray section-padding-100" >
+        <div class="container-fluid" >
             <div class="row">
                 <div class="col-12">
                     <div class="section-heading style-2">
@@ -125,7 +125,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="load-more-btn text-center wow fadeInUp" data-wow-delay="300ms">
-                        <a href="#" class="btn oneMusic-btn"> 더 보기 <i class="fa fa-angle-double-right"></i></a>
+<!--                        <a href="#" class="btn oneMusic-btn"> 더 보기 <i class="fa fa-angle-double-right"></i></a>-->
                     </div>
                 </div>
             </div>
@@ -139,18 +139,18 @@
                 <div class="col-12 col-lg-4">
                     <div class="weeks-top-area mb-100">
                         <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
-                            <p>See what’s new</p>
-                            <h2>This week’s top</h2>
+                            <h2 th:text="${translatedMessage}"></h2>
                         </div>
 
                         <!-- Single Top Item -->
-                        <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="100ms">
+                        <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="100ms"
+                             th:each="music:${recommendedMusic}">
                             <div class="thumbnail">
-                                <img src="img/bg-img/wt1.jpg" alt="">
+                                <img th:src="${music.m_image}" alt="">
                             </div>
                             <div class="content-">
-                                <h6>Sam Smith</h6>
-                                <p>Underground</p>
+                                <h6 th:text="${music.m_title}"></h6>
+                                <p th:text="${music.m_artist}"></p>
                             </div>
                         </div>
 
@@ -164,8 +164,8 @@
                 <div class="col-12 col-lg-4">
                     <div class="new-hits-area mb-100">
                         <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
-                            <p>See what’s new</p>
-                            <h2>New Hits</h2>
+                            <p></p>
+                            <h2>날씨 알고리즘으로 ㄱㄱ</h2>
                         </div>
 
                         <!-- Single Top Item -->
