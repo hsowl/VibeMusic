@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static ognl.DynamicSubscript.mid;
+
 @Controller
 @RequestMapping("/playlist")
 @RequiredArgsConstructor
@@ -28,8 +30,8 @@ public class PlayListController {
 
 
     @GetMapping
-    public String viewPlaylist(Model model){
-        List<PlayList> playlists = playListService.getPlaylist();
+    public String viewPlaylist(String mid, Model model){
+        List<PlayList> playlists = playListService.getPlaylist(mid);
         model.addAttribute("playlists", playlists);
         return "playlist"; // playlist.html
     }
@@ -40,9 +42,10 @@ public class PlayListController {
         return "redirect:/playlist"; // 리스트 페이지로 리다이렉트
     }
 
-    @GetMapping("/list")
-    @ResponseBody
-    public List<PlayList> getPlaylist() {
-        return playListService.getPlaylist();
-    }
+//    @GetMapping("/list/{mid}")
+//    public String showPlayListsByMemberId(@PathVariable String mid, Model model) {
+//        List<PlayList> playLists = playListService.getPlaylist(mid);
+//        model.addAttribute("playLists", playLists);
+//        return "playlist"; // playlist.html
+//    }
 }

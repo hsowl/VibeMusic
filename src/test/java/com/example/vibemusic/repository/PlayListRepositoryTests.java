@@ -1,12 +1,21 @@
 package com.example.vibemusic.repository;
 
+import com.example.vibemusic.domain.Member;
 import com.example.vibemusic.domain.Music;
 import com.example.vibemusic.domain.PlayList;
+import com.example.vibemusic.repository.MemberRepository;
+import com.example.vibemusic.repository.MusicRepository;
+import com.example.vibemusic.repository.PlayListRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -14,35 +23,106 @@ import java.util.Optional;
 public class PlayListRepositoryTests {
 
     @Autowired
+    private PlayListRepository playListRepository;
+
+    @Autowired
     private MusicRepository musicRepository;
 
     @Autowired
-    private PlayListRepository playListRepository;
+    private MemberRepository memberRepository;
 
-    @Test
-    public void testInsert() {
-        PlayList playlist = playListRepository.findById(1L).orElse(null);
-        Music music = musicRepository.findById(1L).orElse(null);
+    @Test  //PlayList 만듬
+    public void addPlaylistTest() {
 
-        if (playlist != null && music != null) {
-//            playlist = PlayList.builder()
-//                    .pl_no(playlist.getPl_no())
-//
-//                    .music((List<PlayList>) playlist)
-//                    .build();
+        Optional<Member> jimin = memberRepository.findById("jimin");
 
-            playlist = music.getPlayLists().get(1);
+        Member member = jimin.orElseThrow();
 
-            PlayList save = playListRepository.save(playlist);
+        log.info("member : {}", member);
+        PlayList playList = PlayList.builder()
+                .plName("JM's Choice"+1)
+                .member(member)
+                .build();
 
-            log.info("save===========>"+save);
+        PlayList save = playListRepository.save(playList);
+        log.info("save : {}", save);
+    }
+
+    public void addMusicToPlayList(Long plNo, Long no) {
+        PlayList playList = playListRepository.findById(plNo).orElseThrow(EntityNotFoundException::new);
+        Music music = musicRepository.findById(no).orElseThrow(EntityNotFoundException::new);
+
+        playList.getMusics().add(music);
+        playListRepository.save(playList);
+    }
+
+    @Test  //PlayList 안에 한곡 넣기
+    public void addMusicToPlayListTest() {
+//        Long plNo = 1L; // 플레이리스트 번호
+//        Long no = 1L; // 곡 번호
+
+        Optional<PlayList> byPlayListId = playListRepository.findById(1L);
+        Optional<Music> byMusicId = musicRepository.findById(3L);
+
+        PlayList playList = byPlayListId.orElseThrow();
+        Music music = byMusicId.orElseThrow();
+
+        playList.getMusics().add(music);
+        playListRepository.save(playList);
+
+        for(int i = 0; i<2; i++){
+            log.info("뭐라도 찍어줘 : {}",playList.getMusics().get(i).getM_title());
         }
     }
+
+    //플레이리스트에서 한곡 빼기
+    @Transactional
     @Test
-    public void testReadOne() {
-        Optional<Music> one = musicRepository.findById(1L);
-        Music music = one.orElseThrow();
-        log.info("one=========================>"+music);
+    public void removeMusicToPlayListTest() {
+
+        Optional<PlayList> byId = playListRepository.findById(1L);
+        PlayList playList = byId.orElseThrow();
+
+        Optional<Music> byId1 = musicRepository.findById(3L);
+        Music music = byId1.orElseThrow();
+
+        playList.removeMusic(music);
+        playList.getMusics().remove(music);
+//        for(int i = 0; i<2; i++) {
+//            log.info("playList : {}", playList.getMusics().get(i).getM_title());
+//        }
+        playListRepository.delete(playList);
 
     }
+
+
+    @Test  //PlayList 안에 여러곡 선택 후 넣기
+    public void addAllToPlayListTest() {
+        Long plNo = 1L; // 플레이리스트 번호
+        List<Long> nos = Arrays.asList(1L, 2L, 3L); // 곡 번호들
+
+        addAllToPlayList(plNo, nos);
+    }
+    public void addAllToPlayList(Long plNo, List<Long> nos) {
+        PlayList playList = playListRepository.findById(plNo).orElseThrow(EntityNotFoundException::new);
+        List<Music> musicList = musicRepository.findAllById(nos);
+
+        playList.getMusics().addAll(musicList);
+        playListRepository.save(playList);
+    }
+
+    //플레이 리스트 iD 별 전체 리스트 보기
+    @Test
+    public List<PlayList> getAllPlayLists(String mid) {
+
+//        Optional<Member> listsByMid = memberRepository.findById("jimin");
+//        List<PlayList> playListsAll = playListRepository.findAll(listsByMid);
+
+//        List<PlayList> jimin = playListRepository.findByMember_Mid("jimin");
+//        log.info("jimin : {}", jimin.get(0).getMusics().toString());
+
+        return playListRepository.findByMember_Mid("jimin");
+    }
+
+
 }
