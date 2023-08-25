@@ -4,6 +4,7 @@ import com.example.vibemusic.domain.Reply;
 import com.example.vibemusic.dto.MusicDTO;
 import com.example.vibemusic.dto.PageRequestDTO;
 import com.example.vibemusic.dto.PageResponseDTO;
+import com.example.vibemusic.service.ChartService;
 import com.example.vibemusic.service.MusicService;
 import com.example.vibemusic.service.ReplyService;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,8 @@ import java.util.Locale;
 public class MusicController {
 
     private final MusicService musicService;
+    private final MessageSource messageSource;
+    private final ChartService chartService;
 
 
     @GetMapping({"/contact","/elements"})
@@ -67,13 +70,49 @@ public class MusicController {
     }
 
     @GetMapping("/index")
-    public void listWithNewMusic(PageRequestDTO pageRequestDTO, Model model){
+    public String getIndexPage(Long no, PageRequestDTO pageRequestDTO, Model model, Locale locale) {
         PageResponseDTO<MusicDTO> responseDTO = musicService.listWithNewMusic(pageRequestDTO);
-        model.addAttribute("responseDTO",responseDTO);
 
+        DayOfWeek currentDay = LocalDate.now().getDayOfWeek();
+        String translatedDay = getMessageForDay(currentDay, locale);
+        String translatedMessage = messageSource.getMessage("chart.recommendations", new Object[]{translatedDay}, locale);
+
+        List<MusicDTO> recommendedMusic = new ArrayList<>();
+        switch (currentDay) {
+            case MONDAY:
+                recommendedMusic = chartService.BalladeGenre(no);
+                break;
+            case TUESDAY:
+                recommendedMusic = chartService.HipHopGenre(no);
+                break;
+            case WEDNESDAY:
+                recommendedMusic = chartService.PopGenre(no);
+                break;
+            case THURSDAY:
+                recommendedMusic = chartService.BalladeGenre(no);
+                break;
+            case FRIDAY:
+                recommendedMusic = chartService.DanceGenre(no);
+                break;
+            case SATURDAY:
+                recommendedMusic = chartService.PopGenre(no);
+                break;
+            case SUNDAY:
+                recommendedMusic = chartService.BalladeGenre(no);
+                break;
+        }
+
+        model.addAttribute("responseDTO", responseDTO);
+        model.addAttribute("recommendedMusic", recommendedMusic);
+        model.addAttribute("currentDay", currentDay.toString());
+        model.addAttribute("translatedMessage", translatedMessage);
+
+        return "index";
     }
 
-
+    private String getMessageForDay(DayOfWeek day, Locale locale) {
+        return messageSource.getMessage(day.toString().toLowerCase(), null, day.toString(), locale);
+    }
 
 
 
