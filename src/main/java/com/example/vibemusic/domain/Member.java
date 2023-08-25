@@ -31,8 +31,8 @@ public class Member extends BaseEntity{
     @Builder.Default
     private Set<MemberRole> roleSet = new HashSet<>();
 
-//    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
-//    private PlayList playList;
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+    private PlayList playList;
 
     public void changePassword(String mpw){
         this.mpw = mpw;

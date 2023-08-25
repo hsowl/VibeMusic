@@ -7,4 +7,5 @@ public class MemberJoinDTO {
 
     private String mid, mpw, email;
     private boolean del, social;
+    private Long pl_no;
 }

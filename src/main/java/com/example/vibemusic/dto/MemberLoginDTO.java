@@ -6,4 +6,5 @@ import lombok.Data;
 public class MemberLoginDTO {
     private String mid, mpw, email;
     private boolean del, social;
+    private Long pl_no;
 }
