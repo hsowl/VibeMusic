@@ -49,6 +49,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             case "kakao" :
                 email = getKakaoEmail(paramMap);
                 break;
+            case "Google" :
+                email = getGoogleEmail(paramMap);
+                break;
         }
 
         log.info("===================================================");
@@ -105,5 +108,19 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         log.info("email : {}", email);
 
         return email;
+    }
+    private String getGoogleEmail(Map<String, Object> paramMap){
+        log.info("GOOGLE==============================");
+        String value = (String) paramMap.get("email");
+
+        log.info("value : {}", value);
+
+//        LinkedHashMap accountMap = (LinkedHashMap) value;
+//
+//        String email = (String) accountMap.get("email");
+//
+//        log.info("email : {}", email);
+
+        return value;
     }
 }
