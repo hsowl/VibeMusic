@@ -1,8 +1,9 @@
 package com.example.vibemusic.service;
 
+import com.example.vibemusic.domain.Member;
 import com.example.vibemusic.domain.PlayList;
-import com.example.vibemusic.dto.MusicDTO;
-import com.example.vibemusic.dto.PageResponseDTO;
+import com.example.vibemusic.security.dto.MemberSecurityDTO;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import java.util.List;
 
@@ -12,7 +13,8 @@ public interface PlayListService {
     void addPlaylist(String plName);
 
     //플레이 리스트 다 모아서 보여주기
-    List<PlayList> getPlaylist(String mid);
+    List<PlayList> getPlaylist(@AuthenticationPrincipal MemberSecurityDTO mid);
 
     void addMusicToPlayList(Long plNo, Long no);
+
 }
