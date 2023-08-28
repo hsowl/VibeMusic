@@ -108,5 +108,4 @@ public class QuestionServiceImpl implements QuestionService{
     public Page<Question> list(Pageable pageable) {
         return questionRepository.findAll(pageable);    }
 
-
 }

@@ -24,9 +24,6 @@
 
 <body>
 <div layout:fragment="content">
-  <form action="/questionModify" method="post">
-
-
     <!-- Preloader -->
     <div class="preloader d-flex align-items-center justify-content-center">
       <div class="lds-ellipsis">
@@ -49,7 +46,9 @@
 
     <!-- ##### Blog Area Start ##### -->
     <div class="blog-area section-padding-100">
-      <div class="container">
+
+
+        <div class="container">
         <div class="row">
           <div class="single-blog-post col-lg-9">
 
@@ -59,20 +58,21 @@
 
               <div class ="single-blog-post" >
 <!--                <form th:action="@{/questionModify}" method="post" id="f1">-->
-                <form action="/questionModify" method="post" id="f1">
-                <div>
+                  <form action="/questionModify" method="post" id="f1">
+
+                  <div>
                   <span >Title</span>
-                  <input type="text" th:value="${dto.qTitle}" class="form-control col-sm-12">
+                  <input type="text" th:value="${dto.qTitle}" name="qTitle" id="qTitle" class="form-control col-sm-12">
                 </div>
 
                 <div >
                   <span >Content</span>
-                  <textarea class="form-control col-sm-12" rows="5">[[${dto.qContent}]]</textarea>
+                  <textarea class="form-control col-sm-12" id="qContent" name="qContent" rows="5">[[${dto.qContent}]]</textarea>
                 </div>
 
                 <div >
                   <span>Writer</span>
-                  <input type="text" th:value="${dto.qWriter}" class="form-control col-sm-12">
+                  <input type="text" th:value="${dto.qWriter}" id="qWriter" name="qWriter" class="form-control col-sm-12">
                 </div>
 
                   <div class="my-4">
@@ -80,8 +80,8 @@
                       <a th:href="|@{/questions}?${link}|" class="text-decoration-none">
                         <button type="button" class="btn oneMusic-btn" data-bs-dismiss="modal">List</button>
                       </a>
-                      <button type="submit" class="btn oneMusic-btn modBtn">Update</button>
-                      <button type="button" class="btn oneMusic-btn removeBtn">Remove</button>
+                      <button type="submit" class = "btn oneMusic-btn modBtn">Update</button>
+                      <button type="button" class = "btn oneMusic-btn removeBtn">Remove</button>
                     </div>
                   </div>
 
@@ -161,9 +161,9 @@
       </div>
 
       <!-- ##### Blog Area End ##### -->
-
+        </form>
 </div>
-
+</div>
 
 
 <!-- ##### All Javascript Script ##### -->
@@ -220,7 +220,5 @@
       },false)
 
     </script>
-  </form>
-</div>
 </body>
 </html>

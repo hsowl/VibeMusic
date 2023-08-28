@@ -16,6 +16,7 @@ public class Question extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
     private Long qNo;
 
     @Column(length = 500,nullable = false)

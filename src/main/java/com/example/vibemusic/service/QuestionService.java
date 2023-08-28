@@ -8,7 +8,9 @@ import com.example.vibemusic.dto.PageResponseDTO;
 import com.example.vibemusic.dto.QuestionDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface QuestionService {
 
 
@@ -30,5 +32,6 @@ public interface QuestionService {
     Page<Question> list(Pageable pageable);
 
     //question 리스트 불러오는 메소드 qList라고 선언
+
 
 }

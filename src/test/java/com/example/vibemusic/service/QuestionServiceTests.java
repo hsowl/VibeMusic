@@ -55,5 +55,20 @@ class QuestionServiceTests {
   }
 
 
+    @Test
+    public void testUpdate(){
+
+        Long qNo = 50L;
+
+        Optional<Question> result = questionRepository.findById(qNo);
+
+        Question question = result.orElseThrow();
+
+        question.change("수정잘되는데요?", "근데왜 html은");
+
+        questionRepository.save(question);//boardRepository로 board에 저장
+
+
+    }
 
     }

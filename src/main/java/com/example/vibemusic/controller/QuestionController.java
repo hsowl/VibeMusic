@@ -11,6 +11,7 @@ import com.example.vibemusic.dto.PageResponseDTO;
 import com.example.vibemusic.dto.QuestionDTO;
 
 import com.example.vibemusic.service.QuestionService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
@@ -48,7 +49,7 @@ public class QuestionController {
 //        model.addAttribute("dto", questionDTO);
 //    }
     @GetMapping({"/questionRead","/questionModify"})
-    public void qRead(@RequestParam Long qNo, Model model,PageRequestDTO pageRequestDTO) {
+    public void qRead(@RequestParam Long qNo, Model model, PageRequestDTO pageRequestDTO) {
         log.info("qNo=============> : {}", qNo);
         QuestionDTO questionDTO = questionService.read1Quest(qNo);
 
@@ -90,35 +91,36 @@ public class QuestionController {
     }
 
     @PostMapping("/questionModify")
-    public String qModify(
+    public String modQ(
             PageRequestDTO pageRequestDTO,  //페이지 요청에 관련된 데이터를 담고 있는 DTO
-            @Valid QuestionDTO QuestionDTO,       //수정할 게시글의 데이터를 담고 있는 DTO
+            @Valid QuestionDTO questionDTO,       //수정할 게시글의 데이터를 담고 있는 DTO
             BindingResult bindingResult,    //데이터 유효성 검사 결과를 저장하는 객체
-
-
             RedirectAttributes redirectAttributes) {
 //              //리다이렉트 시에 속성(attribute)를 전달하기 위한 객체
 
-        log.info("question modify post.." + QuestionDTO);
+        log.info("question modify post.." + questionDTO);
 
         if(bindingResult.hasErrors()){
 
             String link = pageRequestDTO.getLink();
+            log.info("got link");
 
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
 
-            redirectAttributes.addAttribute("qNo",QuestionDTO.getQNo());//수정할 게시글의 식별번호(qno)를 리다이렉트 파라미터로 추가
+            redirectAttributes.addAttribute("qNo",questionDTO.getQNo());//수정할 게시글의 식별번호(qno)를 리다이렉트 파라미터로 추가
 
             return "redirect:/questionModify?"+link;
         }
 
-        questionService.modQuest(QuestionDTO);
+        questionService.modQuest(questionDTO);
 
         redirectAttributes.addFlashAttribute("result","modified");
 
-        redirectAttributes.addAttribute("qno", QuestionDTO.getQNo());
+        redirectAttributes.addAttribute("qNo", questionDTO.getQNo());
 
-        return "redirect:/questions";
+        return "redirect:/questionRead";
+
+
     }
 
 //    @GetMapping("/questionModify")
@@ -131,12 +133,12 @@ public class QuestionController {
 //    }
 
     @PostMapping("/questionRemove")
-    public String questionRemove(Long qno, RedirectAttributes redirectAttributes){
+    public String removeQ(@RequestParam Long qNo, RedirectAttributes redirectAttributes){
         //bno: 삭제할 게시글의 식별번호(Long 타입)입니다.
         //리다이렉트 시에 속성(attribute)를 전달
-        log.info("remove post" + qno);
+        log.info("remove post" + qNo);
 
-        questionService.removeQuest(qno); //boardService.remove(qno) 메서드를 호출하여 해당 식별번호의 게시글을 삭제
+        questionService.removeQuest(qNo); //boardService.remove(qNo) 메서드를 호출하여 해당 식별번호의 게시글을 삭제
         redirectAttributes.addFlashAttribute("result","removed"); //삭제 성공을 나타내는 속성을 리다이렉트 속성에 추가
 
 
