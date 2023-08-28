@@ -23,7 +23,6 @@
 
 <body>
 <div layout:fragment="content">
-  <form action="/eventregister" method="get">
 
     <!-- Preloader -->
     <div class="preloader d-flex align-items-center justify-content-center">
@@ -57,35 +56,34 @@
                   <div class = blog-content>
 
                   </div>
-
                   <div class="card-title">
                     <h5 class="card-title">Event Board Register </h5>
 
                     <div class="card-body">
 
-                      <div class="input-group mb-3">
-                        <span class="input-group-text">Title</span>
-                        <input type="text" name="title" class="form-control" placeholder="Title">
-                      </div>
+                      <form action="/eventregister" method="get">
 
-                      <div class="input-group mb-3">
-                        <span class="input-group-text">Content</span>
-                        <textarea class="form-control col-sm-11" rows="20" name="content"></textarea>
-                      </div>
+                        <div class="input-group mb-3">
+                          <span class="input-group-text">Title</span>
+                          <input type="text" name="title" class="form-control" placeholder="Title">
+                        </div>
 
-                      <div class="input-group mb-3">
-                        <span class="input-group-text">Writer</span>
-                        <input type="text" name="writer" class="form-control" placeholder="Writer">
-                      </div>
+                        <div class="input-group mb-3">
+                          <span class="input-group-text">Content</span>
+                          <textarea class="form-control col-sm-11" rows="20" name="content"></textarea>
+                        </div>
 
-                      <div class="my-4">
-                        <div class="float-end">
-                          <a th:href="@{/event}" class="text-decoration-none">
-                            <button type="submit" class="btn oneMusic-btn mt-30" data-bs-dismiss="modal">Submit</button>
-                          </a>
+                        <div class="input-group mb-3">
+                          <span class="input-group-text">Writer</span>
+                          <input type="text" name="writer" class="form-control" placeholder="Writer">
+                        </div>
+
+                        <div class="my-4">
+                          <button type="submit" class="btn oneMusic-btn mt-30">Submit</button>
                           <button type="reset" class="btn oneMusic-btn mt-30">Reset</button>
                         </div>
-                      </div>
+
+                      </form>
 
                     </div>
 
@@ -213,7 +211,6 @@
     </section>
     <!-- ##### Contact Area End ##### -->
 
-  </form>
 </div>
 
 
