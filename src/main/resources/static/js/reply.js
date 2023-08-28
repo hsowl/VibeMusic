@@ -27,7 +27,7 @@ async function getReply(rno){
 }
 
 async function modifyReply(replyObj){
-    const response = await axios.put(`/replies/${replyObj.no}`,replyObj)
+    const response = await axios.put(`/replies/${replyObj.rno}`,replyObj)
     return response.data
 }
 

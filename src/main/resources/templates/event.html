@@ -1,60 +1,207 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout.html}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>One Music - Modern Music HTML5 Template</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="img/core-img/favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/css/style.css">
 
 
 </head>
 
 <body>
 <div layout:fragment="content">
+    <form action="/event" method="get">
 
+
+        <!-- Preloader -->
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
+        <!-- ##### Breadcumb Area Start ##### -->
+        <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(img/bg-img/breadcumb3.jpg);">
+            <div class="bradcumbContent">
+                <p>See what’s new</p>
+                <h2>Events</h2>
+            </div>
+        </section>
+        <!-- ##### Breadcumb Area End ##### -->
+
+        <!-- ##### Blog Area Start ##### -->
+        <div class="blog-area section-padding-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-lg-9">
+
+                        <!-- Single Post Start -->
+                        <div class = "blog-content">
+                            <div class = "blog-content">
+                                <div class = blog-content>
+                                    <div class = blog-content>
+
+                                    </div>
+
+                                    <div class="card-body">
+                                        <h5 class="card-title">Event Board List </h5>
+
+                                        <div class="my-4">
+                                            <div class="float-end">
+                                                <a th:href="|@{/eventregister}|" class="text-decoration-none">
+                                                    <button type="button" class="btn oneMusic-btn mt-30">Register</button>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">Bno</th>
+                                                <th scope="col" colspan="2">Title</th>
+                                                <th scope="col">Writer</th>
+                                                <th scope="col">RegDate</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody th:with="link = ${pageRequestDTO.getLink()}">
+                                            <tr th:each="dto:${responseDTO.dtoList}">
+                                                <th scope="row">[[${dto.ebno}]]</th>
+                                                <td colspan="2">
+                                                    <a th:href="|@{/eventread(ebno =${dto.ebno})}&${link}|">[[${dto.title}]]</a>
+                                                </td>
+                                                <td>[[${dto.writer}]]</td>
+                                                <!-- Date의 불필요한 상세 정보를 간략하게 줄여줌 -->
+                                                <td>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
+                                            </tr>
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div th:if="${questionPage}" class="oneMusic-pagination-area wow fadeInUp" data-wow-delay="300ms">
+                            <nav>
+                                <ul class="questions-pagination">
+                                    <li th:class="${questionPage.first ? 'disabled' : ''}" class="page-item active">
+                                        <a th:href="@{/questions(page=0, size=${questionPage.size})}">◀◀ First Page</a>
+                                    </li>
+                                    <li th:class="${questionPage.hasPrevious ? '' : 'disabled'}" class="page-item">
+                                        <a th:href="@{/questions(page=${questionPage.number - 1}, size=${questionPage.size})}">◀ Previous Page</a>
+                                    </li>
+                                    <li th:class="${questionPage.hasNext ? '' : 'disabled'}" class="page-item">
+                                        <a th:href="@{/questions(page=${questionPage.number + 1}, size=${questionPage.size})}">Next Page ▶</a>
+                                    </li>
+                                    <li th:class="${questionPage.last ? 'disabled' : ''}" class="page-item">
+                                        <a th:href="@{/questions(page=${questionPage.totalPages - 1}, size=${questionPage.size})}">Last Page ▶▶</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-3">
+                        <div class="blog-sidebar-area">
+
+                            <!-- Widget Area -->
+                            <div class="single-widget-area mb-30">
+                                <div class="widget-title">
+                                    <h5>Sort by</h5>
+                                </div>
+                                <div class="widget-content">
+                                    <ul>
+                                        <li><a href="#">Newer</a></li>
+                                        <li><a href="#">Older</a></li>
+                                        <li><a href="#">On Name</a></li>
+                                        <li><a href="#">On Title</a></li>
+                                        <li><a href="#">On Content</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Widget Area -->
+                            <div class="single-widget-area mb-30">
+                                <div class="widget-title">
+                                    <h5>Archive</h5>
+                                </div>
+                                <div class="widget-content">
+                                    <ul>
+                                        <li><a href="#">February 2018</a></li>
+                                        <li><a href="#">March 2018</a></li>
+                                        <li><a href="#">April 2018</a></li>
+                                        <li><a href="#">May 2018</a></li>
+                                        <li><a href="#">June 2018</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Widget Area -->
+                            <div class="single-widget-area mb-30">
+                                <div class="widget-title">
+                                    <h5>Tags</h5>
+                                </div>
+                                <div class="widget-content">
+                                    <ul class="tags">
+                                        <li><a href="#">music</a></li>
+                                        <li><a href="#">events</a></li>
+                                        <li><a href="#">artists</a></li>
+                                        <li><a href="#">press</a></li>
+                                        <li><a href="#">mp3</a></li>
+                                        <li><a href="#">videos</a></li>
+                                        <li><a href="#">concerts</a></li>
+                                        <li><a href="#">performers</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Widget Area -->
+                            <div class="single-widget-area mb-30">
+                                <a href="#"><img src="img/bg-img/add2.gif" alt=""></a>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ##### Blog Area End ##### -->
+    </form>
 </div>
+
+
+
+<!-- ##### All Javascript Script ##### -->
+<!-- 메일링 스크립트 -->
+<script src="js/email-form/email-form.js"></script>
+<script data-cfasync="false" type="text/javascript" src="js/email-form/form-submission-handler.js"></script>
+<!-- jQuery-2.2.4 js -->
+<script src="js/jquery/jquery-2.2.4.min.js"></script>
+<!-- Popper js -->
+<script src="js/bootstrap/popper.min.js"></script>
+<!-- Bootstrap js -->
+<script src="js/bootstrap/bootstrap.min.js"></script>
+<!-- All Plugins js -->
+<script src="js/plugins/plugins.js"></script>
+<!-- Active js -->
+<script src="js/active.js"></script>
 </body>
-
-<script layout:fragment="script" th:inline="javascript">
-
-    document.querySelector(".pagination").addEventListener("click", function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        const target = e.target;
-
-        if (target.tagName !== 'A') {
-            return;
-        }
-
-        const num = target.getAttribute("data-num");
-        const formObj = document.querySelector("form");
-
-        formObj.innerHTML += `<input type='hidden' name='page' value='${num}'>`;
-        formObj.submit();
-
-    }, false);
-
-    document.querySelector(".clearBtn").addEventListener("click", function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        self.location = '/event';
-    }, false);
-
-    //show modal
-    const result = [[${result}]];
-    const modal = new bootstrap.Modal(document.querySelector(".modal"));
-
-    if (result) {
-        const modalContent = document.getElementById("modalContent");
-
-        modalContent.textContent = result + "번 등록 성공";
-        modal.show();
-    }
-
-</script>
-
 </html>
