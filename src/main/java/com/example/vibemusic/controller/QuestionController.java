@@ -12,6 +12,7 @@ import com.example.vibemusic.dto.QuestionDTO;
 
 import com.example.vibemusic.service.QuestionService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,12 +26,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @Controller
 @RequestMapping
 @RequiredArgsConstructor
-@Slf4j
+@Log4j2
+@Transactional
 public class QuestionController {
 
     private final QuestionService questionService;
@@ -63,7 +66,7 @@ public class QuestionController {
     public String list(Pageable pageable, Model model, PageRequestDTO pageRequestDTO) {
 
         // Set the number of items per page
-        int pageSize = 5;
+        int pageSize = 12;
         pageable = PageRequest.of(pageable.getPageNumber(), pageSize);
 
         // Retrieve a Page of news items using the NewsService
@@ -87,7 +90,7 @@ public class QuestionController {
     }
 
     @PostMapping("/questionModify")
-    public String qModify(@RequestParam
+    public String qModify(
             PageRequestDTO pageRequestDTO,  //페이지 요청에 관련된 데이터를 담고 있는 DTO
             @Valid QuestionDTO QuestionDTO,       //수정할 게시글의 데이터를 담고 있는 DTO
             BindingResult bindingResult,    //데이터 유효성 검사 결과를 저장하는 객체
@@ -133,12 +136,53 @@ public class QuestionController {
         //리다이렉트 시에 속성(attribute)를 전달
         log.info("remove post" + qno);
 
-        questionService.removeQuest(qno); //boardService.remove(bno) 메서드를 호출하여 해당 식별번호의 게시글을 삭제
+        questionService.removeQuest(qno); //boardService.remove(qno) 메서드를 호출하여 해당 식별번호의 게시글을 삭제
         redirectAttributes.addFlashAttribute("result","removed"); //삭제 성공을 나타내는 속성을 리다이렉트 속성에 추가
 
 
         return "redirect:/questions";
         //게시글 목록 페이지로 리다이렉트합니다.
+    }
+
+    @GetMapping("/questionRegister")
+    public void registerQuestGET(){
+
+        log.info("=============================등록GET============================");
+
+    }
+
+    @PostMapping("/questionRegister")
+    public String registerQuest(
+            @Valid QuestionDTO questionDTO,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes){
+        // @Valid : 어노테이션을 사용하여 boardDTO 매개변수의 값이 유효한지 검증하여 유효성 검사를 통과한 데이터만 처리됨
+        // bindingResult: 유효성 검사 결과를 저장하는 객체입니다. 만약 boardDTO의 유효성 검사에서 오류가 발생하면 해당 오류 정보가 이 객체에 저장됩니다.
+        // RedirectAttributes : 리다이렉트 시 데이터를 전달하기 위한 객체입니다. 리다이렉트된 페이지에서 데이터를 받을 수 있습니다. 성공 메시지를 리다이렉트로 전달합니다.
+
+        log.info("---------------------------------quest POST register--------------------------");
+
+        log.info("questionDTO : {}", questionDTO.getQTitle());
+
+
+        if(bindingResult.hasErrors()){ //유효성 검사 결과를 확인하여 오류가 있는지 체크함
+            log.info("has errors");
+
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            // 오류 정보를 redirectAttributes에 추가하여 다음 페이지로 전달합니다.
+
+            return "redirect:/questionRegister";
+        }
+
+        log.info(questionDTO);
+
+        Long qNo =questionService.registerQuest(questionDTO);
+
+
+        redirectAttributes.addFlashAttribute("result", qNo);
+        return "redirect:/questions";
+         }
+
 
 //    @GetMapping("/questions") //무시
 //    public String list(Pageable pageable, Model model, PageRequestDTO pageRequestDTO) {
@@ -171,6 +215,9 @@ public class QuestionController {
 //        return "questions";  // questions.html
 //    }
 
-}
+
+
+
+
 }
 

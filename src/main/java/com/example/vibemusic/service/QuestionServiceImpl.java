@@ -40,14 +40,16 @@ public class QuestionServiceImpl implements QuestionService{
         return questionDTO;
     }
 
+    @Transactional
     @Override
     public Long registerQuest(QuestionDTO questionDTO) {
 
         Question question = modelMapper.map(questionDTO, Question.class);
 
-        Long bno = questionRepository.save(question).getQNo();
+        Long qNo = questionRepository.save(question).getQNo();
 
-        return bno;
+        return qNo;
+
 
     }
 

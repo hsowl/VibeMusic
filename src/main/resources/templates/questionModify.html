@@ -24,7 +24,7 @@
 
 <body>
 <div layout:fragment="content">
-  <form action="/questions" method="get">
+  <form action="/questionModify" method="post">
 
 
     <!-- Preloader -->
@@ -58,8 +58,8 @@
               <h5 class="card-title">Q&A Modify</h5>
 
               <div class ="single-blog-post" >
-                <form th:action="@{/questionModify}" method="post" id="f1">
-
+<!--                <form th:action="@{/questionModify}" method="post" id="f1">-->
+                <form action="/questionModify" method="post" id="f1">
                 <div>
                   <span >Title</span>
                   <input type="text" th:value="${dto.qTitle}" class="form-control col-sm-12">
@@ -78,10 +78,10 @@
                   <div class="my-4">
                     <div class="float-end">
                       <a th:href="|@{/questions}?${link}|" class="text-decoration-none">
-                        <button type="button" class="btn oneMusic-btn mt-30" data-bs-dismiss="modal">List</button>
+                        <button type="button" class="btn oneMusic-btn" data-bs-dismiss="modal">List</button>
                       </a>
-                      <button type="submit" class="btn oneMusic-btn mt-30 modBtn">Update</button>
-                      <button type="button" class="btn oneMusic-btn mt-30 removeBtn">Remove</button>
+                      <button type="submit" class="btn oneMusic-btn modBtn">Update</button>
+                      <button type="button" class="btn oneMusic-btn removeBtn">Remove</button>
                     </div>
                   </div>
 
@@ -181,41 +181,46 @@
 <!-- Active js -->
 <script src="js/active.js"></script>
 
-    <script th:inline="javascript">
-      const errors = [[${errors}]];
-      console.log(errors);
+    <script layout:fragment="script" th:inline="javascript">
+      const errors =[[${errors}]]
+      console.log(errors)
 
-      let errorMsg = '';
+      let errorMsg = ''
 
-      if (errors) {
-        for (let i = 0; i < errors.length; i++) {
-          errorMsg += `${errors[i].field}은(는) ${errors[i].code} \\n`;
+      if(errors){
+        for (let i = 0; i< errors.length; i++){
+          errorMsg += `${errors[i].field}은(는) ${errors[i].code} \n`
         }
-        history.replaceState({}, null, null);
-        alert(errorMsg);
+        history.replaceState({}, null, null)
+        alert(errorMsg)
+
       }
 
-      const link = `${[[${pageRequestDTO.getLink()}]]}&qNo=${[[${dto.qNo}]]}`;
-      const formObj = document.querySelector("#f1");
 
-      document.querySelector(".modBtn").addEventListener("click", function (e) {
-        e.preventDefault();
-        e.stopPropagation();
+      //modify
+      const link = [[${pageRequestDTO.getLink()}]]
+      const formObj = document.querySelector("#f1")
 
-        formObj.action = `/questionModify?${link}`;
-        formObj.method = 'post';
-        formObj.submit();
-      }, false);
+      document.querySelector(".modBtn").addEventListener("click", function (e){
+        e.preventDefault()
+        e.stopPropagation()
 
-      document.querySelector(".removeBtn").addEventListener("click", function (e) {
-        e.preventDefault();
-        e.stopPropagation();
+        formObj.action = `/questionModify?${link}`
+        formObj.method = 'post'
+        formObj.submit()
+      },false)
 
-        formObj.action = `/questionRemove`;
-        formObj.method = 'post';
-        formObj.submit();
-      }, false);
+      document.querySelector(".removeBtn").addEventListener("click",function (e){
+        e.preventDefault()
+        e.stopPropagation()
+
+        formObj.action = `/questionRemove`
+        formObj.method = 'post'
+        formObj.submit()
+      },false)
+
     </script>
   </form>
+</div>
 </body>
 </html>

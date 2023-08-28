@@ -12,21 +12,22 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Question {
+public class Question extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long qNo;
 
-    @Column(length = 500)
+    @Column(length = 500,nullable = false)
     private String qTitle;
 
-    @Column (length = 5000)
+    @Column (length = 5000,nullable = false)
     private String qContent;
 
     @Column (length = 5000)
     private String qImage;
 
+    @Column (nullable = false)
     private String qWriter;
 
     @Column
@@ -45,6 +46,7 @@ public class Question {
 
 
     }
+
 
 
 }

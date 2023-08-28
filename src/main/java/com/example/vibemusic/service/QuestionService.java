@@ -15,11 +15,11 @@ public interface QuestionService {
 
     Long registerQuest(QuestionDTO questionDTO);
 
-    QuestionDTO read1Quest(Long qno);
+    QuestionDTO read1Quest(Long qNo);
 
     void modQuest(QuestionDTO questionDTO);
 
-    void removeQuest(Long qno);
+    void removeQuest(Long qNo);
 
     void increaseQViewCount(Long qNo);
 
