@@ -92,9 +92,9 @@ public class QuestionController {
 
     @PostMapping("/questionModify")
     public String modQ(
-            PageRequestDTO pageRequestDTO,  //페이지 요청에 관련된 데이터를 담고 있는 DTO
             @Valid QuestionDTO questionDTO,       //수정할 게시글의 데이터를 담고 있는 DTO
             BindingResult bindingResult,    //데이터 유효성 검사 결과를 저장하는 객체
+            PageRequestDTO pageRequestDTO,  //페이지 요청에 관련된 데이터를 담고 있는 DTO
             RedirectAttributes redirectAttributes) {
 //              //리다이렉트 시에 속성(attribute)를 전달하기 위한 객체
 
@@ -115,7 +115,6 @@ public class QuestionController {
         questionService.modQuest(questionDTO);
 
         redirectAttributes.addFlashAttribute("result","modified");
-
         redirectAttributes.addAttribute("qNo", questionDTO.getQNo());
 
         return "redirect:/questionRead";
