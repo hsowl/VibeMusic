@@ -45,7 +45,7 @@ public class PlayListRepositoryTests {
 
         log.info("member : {}", member);
         PlayList playList = PlayList.builder()
-                .plName("JM's Choice"+1)
+                .plName("JM's Choice"+2)
                 .member(member)
                 .build();
 
@@ -63,7 +63,7 @@ public class PlayListRepositoryTests {
 
     @Test  //PlayList 안에 한곡 넣기
     public void addMusicToPlayListTest() {
-        Optional<PlayList> byPlayListId = playListRepository.findById(2L); // 플레이리스트 번호
+        Optional<PlayList> byPlayListId = playListRepository.findById(4L); // 플레이리스트 번호
         Optional<Music> byMusicId = musicRepository.findById(5L); // 곡 번호
 
         PlayList playList = byPlayListId.orElseThrow();
@@ -100,8 +100,8 @@ public class PlayListRepositoryTests {
 
     @Test  //PlayList 안에 여러곡 선택 후 넣기
     public void addAllToPlayListTest() {
-        Long plNo = 1L; // 플레이리스트 번호
-        List<Long> nos = Arrays.asList(1L, 2L, 3L); // 곡 번호들
+        Long plNo = 5L; // 플레이리스트 번호
+        List<Long> nos = Arrays.asList(1L, 3L, 5L); // 곡 번호들
 
         addAllToPlayList(plNo, nos);
     }

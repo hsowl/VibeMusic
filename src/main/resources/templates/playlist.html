@@ -22,7 +22,7 @@
 
 </head>
 <body>
-<div layout:fragment="content"></div>
+<div layout:fragment="content">
 
 
     <!-- Preloader -->
@@ -46,70 +46,39 @@
     <!-- ##### Breadcumb Area End ##### -->
 
 
-    <!-- PlayList 테이블 -->
-    <h1>Playlists</h1>
+    <!-- PlayList Start -->
 
-        <section class="intro">
-            <div class="bg-image h-100" style="background-image: url(https://mdbootstrap.com/img/Photos/new-templates/glassmorphism-article/img7.jpg);">
-                <div class="mask d-flex align-items-center h-100">
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-12">
-                                <div class="card mask-custom">
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-borderless text-white mb-0">
-<!--                                                <thead th:each="playlist : ${playlists}">-->
-<!--                                                <tr>-->
-<!--                                                    <p>Playlist Name: <span th:text="${playlist.plName}"></span></p>-->
+    <p></p>
+    <div class="col-12 col-lg-4" th:each="playlist : ${playlists}">
+        <div class="new-hits-area mb-100">
+            <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
+                <p>PlayList Name</p>
+                <h2><span th:text="${playlist.plName}"></span></h2>
+            </div>
 
-<!--                                                    <th scope="row">Image</th>-->
-<!--                                                    <td>Title</td>-->
-<!--                                                    <td>Artist</td>-->
-<!--                                                </tr>-->
-<!--                                                </thead>-->
-<!--                                                <tbody>-->
-<!--                                                    <tr th:each="music : ${playlist.musics}">-->
-<!--                                                        <th scope="col">-->
-<!--                                                            <a th:scr="${music.m_image}"></a>-->
-<!--                                                        </th>-->
-<!--                                                        <td>-->
-<!--                                                            <span th:text="${music.m_title}"></span>-->
-<!--                                                        </td>-->
-<!--                                                        <td>-->
-<!--                                                            <span th:text="${music.m_artist}"></span>-->
-<!--                                                        </td>-->
-<!--                                                    </tr>-->
-
-<!--                                                </tbody>-->
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <!-- Songs in PlayList Start-->
+            <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="100ms" th:each="music : ${playlist.musics}">
+                <div class="first-part d-flex align-items-center">
+                    <div class="thumbnail">
+                        <img th:src="${music.m_image}">
+                    </div>
+                    <div class="content-">
+                        <p><span th:text="${music.m_title}"></span></p>
+                        <p><span th:text="${music.m_artist}"></span></p>
                     </div>
                 </div>
+                <audio preload="auto" controls>
+                    <source th:src="${music.m_sound}">
+                </audio>
             </div>
-        </section>
+            <!-- Songs in PlayList End-->
+        </div>
+    </div>
+    <!-- PlayList End -->
 
 
-    </form>
 </div>
-
-
 
 </body>
 
 </html>
-
-<!--<script>-->
-
-<!--    let a = [[${playlists.musics}]]-->
-
-<!--    let b = [[${playlist.musics}]]-->
-
-
-<!--    console.log(a)-->
-<!--    console.log(b)-->
-<!--</script>-->
