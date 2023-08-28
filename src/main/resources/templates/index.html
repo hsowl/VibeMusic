@@ -165,13 +165,17 @@
                     <div class="new-hits-area mb-100">
                         <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
                             <p></p>
-                            <h2>날씨 알고리즘으로 ㄱㄱ</h2>
+                            <div th:if="${WeatherMessage == '비'}">
+                                <h2>비 올 때 듣기 좋은 노래</h2>
+                            </div>
+
                         </div>
 
                         <!-- Single Top Item -->
                         <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="100ms">
                             <div class="first-part d-flex align-items-center">
                                 <div class="thumbnail">
+
                                     <img src="img/bg-img/wt7.jpg" alt="">
                                 </div>
                                 <div class="content-">
@@ -230,4 +234,32 @@
     const auth2 = [[${#authentication.principal}]]
     // console.log(auth)
     console.log(auth2)
+
+    function weather(){
+        JQuery.ajax({
+            url : "/api/weather",
+            type : "get",
+            timeout: 30000,
+            contentType: "application/json",
+            dataType: "json",
+            success : function (data,status,xhr) {
+                let dataHeader = data.result.response.header.resultCode;
+
+                if (dataHeader == "00") {
+                    console.log("success ==>");
+                    console.log(data);
+                } else {
+                    console.log("fail ==>");
+                    console.log(data);
+                }
+            },
+            error : function (e, status, xhr, data){
+                console.log("error == >");
+                console.log(e);
+
+
+            }
+        });
+    }
+
 </script>
