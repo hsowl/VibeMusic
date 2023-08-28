@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -69,9 +70,9 @@ public class EventController {
     }
 
     @PostMapping("eventmodify")
-    public String modify(PageRequestDTO pageRequestDTO,
-                         @Valid EventBoardDTO eventBoardDTO,
+    public String modify(@Valid EventBoardDTO eventBoardDTO,
                          BindingResult bindingResult,
+                         PageRequestDTO pageRequestDTO,
                          RedirectAttributes redirectAttributes) {
 
         log.info("Event board modify post~~~~~~~~" + eventBoardDTO);
@@ -84,7 +85,7 @@ public class EventController {
             redirectAttributes.addFlashAttribute("errors",
                     bindingResult.getAllErrors());
 
-            redirectAttributes.addAttribute("bno", eventBoardDTO.getEbno());
+            redirectAttributes.addAttribute("ebno", eventBoardDTO.getEbno());
 
             return "redirect:/eventmodify?"+link;
         }

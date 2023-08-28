@@ -24,8 +24,6 @@
 
 <body>
 <div layout:fragment="content">
-  <form action="/eventmodify" method="get">
-
 
     <!-- Preloader -->
     <div class="preloader d-flex align-items-center justify-content-center">
@@ -65,42 +63,35 @@
 
                     <div class="card-body">
 
-                      <div class="input-group mb-3">
-                        <span class="input-group-text">Bno</span>
-                        <input type="text" class="form-control" th:value="${dto.ebno}" name="ebno" readonly>
-                      </div>
+                      <form action="/eventmodify" method="post" id="f1">
 
-                      <div class="input-group mb-3">
-                        <span class="input-group-text">Title</span>
-                        <input type="text" class="form-control" name="title" th:value="${dto.title}">
-                      </div>
-
-                      <div class="input-group mb-3">
-                        <span class="input-group-text">Content</span>
-                        <textarea class="form-control col-sm-11" rows="20" name="content">[[${dto.content}]]</textarea>
-                      </div>
-
-                      <div class="input-group mb-3">
-                        <span class="input-group-text">Writer</span>
-                        <input type="text" class="form-control" th:value="${dto.writer}" name="writer" readonly>
-                      </div>
-
-                      <div class="my-4">
-                        <div class="float-end">
-                          <a th:href="|@{/event}?${link}|" class="text-decoration-none">
-                            <button type="button" class="btn oneMusic-btn mt-30">List</button>
-                          </a>
-                          <a th:href="|@{/eventmodify(ebno=${dto.ebno})}&${link}|" class="text-decoration-none">
-                            <button type="button" class="modBtn oneMusic-btn mt-30">Modify</button>
-                          </a>
-                          <form th:action="@{/eventremove}" method="post">
-                            <!-- Pass the ebno parameter -->
-                            <input type="hidden" name="ebno" th:value="${dto.ebno}" />
-                            <button type="submit" class="removeBtn oneMusic-btn mt-30">Delete</button>
-                          </form>
+                        <div class="input-group mb-3">
+                          <span class="input-group-text">Bno</span>
+                          <input type="text" class="form-control" th:value="${dto.ebno}" name="ebno" readonly>
                         </div>
-                      </div>
 
+                        <div class="input-group mb-3">
+                          <span class="input-group-text">Title</span>
+                          <input type="text" class="form-control" name="title" th:value="${dto.title}">
+                        </div>
+
+                        <div class="input-group mb-3">
+                          <span class="input-group-text">Content</span>
+                          <textarea class="form-control col-sm-11" rows="20" name="content">[[${dto.content}]]</textarea>
+                        </div>
+
+                        <div class="input-group mb-3">
+                          <span class="input-group-text">Writer</span>
+                          <input type="text" class="form-control" th:value="${dto.writer}" name="writer" readonly>
+                        </div>
+
+                        <div class="my-4">
+                          <button type="button" class="listBtn oneMusic-btn mt-30">List</button>
+                          <button type="button" class="modBtn oneMusic-btn mt-30">Modify</button>
+                          <button type="button" class="removeBtn oneMusic-btn mt-30">Delete</button>
+                        </div>
+
+                      </form>
                     </div>
 
                   </div>
@@ -228,7 +219,6 @@
     </section>
     <!-- ##### Contact Area End ##### -->
 
-  </form>
 </div>
 
 
@@ -266,13 +256,14 @@
   }
 
   const link = [[${pageRequestDTO.getLink()}]];
+  console.log(link);
   const formObj = document.querySelector("#f1");
 
   document.querySelector(".modBtn").addEventListener("click", function (e) {
     e.preventDefault();
     e.stopPropagation();
 
-    formObj.action = `/eventmodify?${link}`;
+    formObj.action = `/eventmodify`;
     formObj.method = 'post';
     formObj.submit();
 
@@ -282,7 +273,7 @@
     e.preventDefault();
     e.stopPropagation();
 
-    formObj.action = `/eventremove`;
+    formObj.action = `/eventremove?${ebno}`;
     formObj.method = 'post';
     formObj.submit();
 
@@ -292,7 +283,6 @@
     e.preventDefault();
     e.stopPropagation();
 
-    formObj.reset();
     self.location = `/event?${link}`;
 
   }, false)
