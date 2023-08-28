@@ -1,16 +1,17 @@
 package com.example.vibemusic.service;
 
+import com.example.vibemusic.domain.Member;
 import com.example.vibemusic.domain.Music;
 import com.example.vibemusic.domain.PlayList;
 import com.example.vibemusic.repository.MusicRepository;
 import com.example.vibemusic.repository.PlayListRepository;
+import com.example.vibemusic.security.dto.MemberSecurityDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,8 +26,9 @@ public class PlayListServiceImpl implements PlayListService {
      * *********** PlayList 생성 부분 ***************
      * PlayList별 목록 보여주기
      */
-    public List<PlayList> getPlaylist(String mid) {
-//        playListRepository.findById();
+    public List<PlayList> getPlaylist(@AuthenticationPrincipal MemberSecurityDTO mid) {
+
+        log.info("===mid=== : {}",mid);
         return playListRepository.findByMember_Mid(mid);
     }
 
@@ -68,17 +70,23 @@ public class PlayListServiceImpl implements PlayListService {
         playListRepository.save(playList);
     }
 
+
+//    @Override
+//    public List<PlayListDTO> findAllPlaylistsByMember(String username) {
+//        return playListRepository.findAllByMember(username);
+//    }
+
     /**
      PlayList에 노래 여러곡 추가하기
      */
-    public void addAllToPlayList(Long plNo, List<Long> nos) {
-        PlayList playList = playListRepository.findById(plNo).orElseThrow(EntityNotFoundException::new);
-        List<Music> musicList = new ArrayList<>();
-            //nos.add();
-
-        playList.getMusics().addAll(musicList);
-        playListRepository.save(playList);
-    }
+//    public void addAllToPlayList(Long plNo, List<Long> nos) {
+//        PlayList playList = playListRepository.findById(plNo).orElseThrow(EntityNotFoundException::new);
+//        List<Music> musicList = new ArrayList<>();
+//            //nos.add();
+//
+//        playList.getMusics().addAll(musicList);
+//        playListRepository.save(playList);
+//    }
 
     /**
      PlayList에 노래 삭제하기
@@ -89,6 +97,7 @@ public class PlayListServiceImpl implements PlayListService {
 
         playList.removeMusic(music);
         playListRepository.save(playList);
+
     }
 
 }

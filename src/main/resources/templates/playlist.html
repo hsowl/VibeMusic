@@ -3,67 +3,90 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
       xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout.html}">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="description" content="">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-  <!-- Title -->
-  <title>One Music - Modern Music HTML5 Template</title>
+    <!-- Title -->
+    <title>One Music - Modern Music HTML5 Template</title>
 
-  <!-- Favicon -->
-  <link rel="icon" href="img/core-img/favicon.ico">
+    <!-- Favicon -->
+    <link rel="icon" href="img/core-img/favicon.ico">
 
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="/css/style.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/css/style.css">
 
 </head>
 <body>
 <div layout:fragment="content">
-  <form action="/newsRead" method="get">
 
 
-    <!-- Preloader 바보바보 -->
+    <!-- Preloader -->
     <div class="preloader d-flex align-items-center justify-content-center">
-      <div class="lds-.ellipsis">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
+        <div class="lds-.ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
 
 
     <!-- ##### Breadcumb Area Start ##### -->
     <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(img/bg-img/breadcumb3.jpg);">
-      <div class="bradcumbContent">
-        <p>Look at My Music Lists</p>
-        <h2>PlayLists for '<span th:text="${#authentication.principal.username}"></span>'</h2>
-      </div>
+        <div class="bradcumbContent">
+            <p>Look at My Music Lists</p>
+            <h2>PlayLists for '<span th:text="${#authentication.principal.username}"></span>'</h2>
+        </div>
     </section>
     <!-- ##### Breadcumb Area End ##### -->
 
+
     <!-- PlayList 테이블 -->
+    <h1>Playlists</h1>
+    <ul>
+        <!-- playlists 리스트의 각 PlayList 객체에 대한 반복문 -->
+        <li th:each="playlist : ${playlists}">
+            <!-- PlayList의 정보 출력 -->
+            <p>Playlist Name: <span th:text="${playlist.plName}"></span></p>
+            <p>Member ID: <span th:text="${playlist.member.mid}"></span></p>
+            <!-- 각 Music 객체에 대한 반복문 -->
+            <ul>
+                <li th:each="music : ${playlist.musics}">
+                    <!-- Music의 정보 출력 -->
+                    <p>Music Title: <span th:text="${music.m_title}"></span></p>
+                    <p>Music Artist: <span th:text="${music.m_artist}"></span></p>
+                    <!-- playLists 리스트에 있는 PlayList들의 정보 출력 -->
+                    <ul>
+                        <li th:each="playlistInMusic : ${music.playLists}" th:text="${playlistInMusic.plName}"></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
 
     <table>
-      <tr>
-        <th>PlayList No</th>
-        <th>PlayList Name</th>
-        <th>Member ID</th>
-      </tr>
-      <tr th:each="playList : ${playLists}">
-        <td th:text="${playList.plNo}"></td>
-        <td th:text="${playList.plName}"></td>
-        <td th:text="${playList.member.mid}"></td>
-      </tr>
+        <tr>
+            <th>PlayList No</th>
+            <th>PlayList Name</th>
+            <th>Member ID</th>
+        </tr>
+        <tr th:each="playList : ${playLists}">
+            <td th:text="${playList.plNo}"></td>
+            <td th:text="${playList.plName}"></td>
+            <td th:text="${playList.member.mid}"></td>
+        </tr>
     </table>
 
 
-
-  </form>
+    </form>
 </div>
+
 </body>
 
 </html>

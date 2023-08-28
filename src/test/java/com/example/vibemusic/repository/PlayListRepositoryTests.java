@@ -3,13 +3,16 @@ package com.example.vibemusic.repository;
 import com.example.vibemusic.domain.Member;
 import com.example.vibemusic.domain.Music;
 import com.example.vibemusic.domain.PlayList;
+import com.example.vibemusic.dto.PlayListDTO;
 import com.example.vibemusic.repository.MemberRepository;
 import com.example.vibemusic.repository.MusicRepository;
 import com.example.vibemusic.repository.PlayListRepository;
+import com.example.vibemusic.security.dto.MemberSecurityDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
@@ -17,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
+import static ognl.DynamicSubscript.mid;
 
 @SpringBootTest
 @Slf4j
@@ -34,13 +39,13 @@ public class PlayListRepositoryTests {
     @Test  //PlayList 만듬
     public void addPlaylistTest() {
 
-        Optional<Member> jimin = memberRepository.findById("jimin");
+        Optional<Member> jimin = memberRepository.findById("jimin2");
 
         Member member = jimin.orElseThrow();
 
         log.info("member : {}", member);
         PlayList playList = PlayList.builder()
-                .plName("JM's Choice"+1)
+                .plName("XXX's Choice"+1)
                 .member(member)
                 .build();
 
@@ -58,11 +63,8 @@ public class PlayListRepositoryTests {
 
     @Test  //PlayList 안에 한곡 넣기
     public void addMusicToPlayListTest() {
-//        Long plNo = 1L; // 플레이리스트 번호
-//        Long no = 1L; // 곡 번호
-
-        Optional<PlayList> byPlayListId = playListRepository.findById(1L);
-        Optional<Music> byMusicId = musicRepository.findById(3L);
+        Optional<PlayList> byPlayListId = playListRepository.findById(3L); // 플레이리스트 번호
+        Optional<Music> byMusicId = musicRepository.findById(3L); // 곡 번호
 
         PlayList playList = byPlayListId.orElseThrow();
         Music music = byMusicId.orElseThrow();
@@ -70,9 +72,9 @@ public class PlayListRepositoryTests {
         playList.getMusics().add(music);
         playListRepository.save(playList);
 
-        for(int i = 0; i<2; i++){
-            log.info("뭐라도 찍어줘 : {}",playList.getMusics().get(i).getM_title());
-        }
+//        for(int i = 0; i<2; i++){
+//            log.info("뭐라도 찍어줘 : {}",playList.getMusics().get(i).getM_title());
+//        }
     }
 
     //플레이리스트에서 한곡 빼기
@@ -112,17 +114,17 @@ public class PlayListRepositoryTests {
     }
 
     //플레이 리스트 iD 별 전체 리스트 보기
-    @Test
-    public List<PlayList> getAllPlayLists(String mid) {
-
+//    @Test
+//    public List<PlayList> getAllPlayLists(@AuthenticationPrincipal MemberSecurityDTO memberSecurityDTO) {
+//
 //        Optional<Member> listsByMid = memberRepository.findById("jimin");
 //        List<PlayList> playListsAll = playListRepository.findAll(listsByMid);
-
-//        List<PlayList> jimin = playListRepository.findByMember_Mid("jimin");
+//
+//        List<PlayList> jimin = playListRepository.findByMember_Mid(mid);
 //        log.info("jimin : {}", jimin.get(0).getMusics().toString());
-
-        return playListRepository.findByMember_Mid("jimin");
-    }
+//
+//        return playListRepository.findByMember_Mid(mid);
+//    }
 
 
 }

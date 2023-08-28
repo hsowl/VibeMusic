@@ -12,7 +12,7 @@ import java.util.List; // List를 사용하기 위해 추가
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(exclude = "musics") // 출력에서 musics 필드를 제외
 public class PlayList {
 
     @Id

@@ -11,7 +11,7 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = "roleSet")
+@ToString(exclude = {"roleSet", "playList"}) // 출력에서 playList와 roleSet 필드를 제외
 public class Member extends BaseEntity{
 
     @Id
