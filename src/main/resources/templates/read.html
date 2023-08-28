@@ -118,6 +118,7 @@
             r_replyText: r_replyText.value,
             rreplyer: rreplyer.value
         }
+        console.log("replyObj.no : " + replyObj.no)
         addReply(replyObj).then(result => {
             alert(i + '번째 댓글 등록이 완료되었습니다')
             registerModal.hide()
@@ -191,6 +192,7 @@
             rno: replyHeader.innerHTML,
             r_replyText: modifyText.value
         }
+        console.log("replyObj.no : "+ replyObj.no)
         modifyReply(replyObj).then(result => {
             alert(result.rno + '번 댓글이 수정되었습니다.')
             r_replyText.value = ''
@@ -223,6 +225,10 @@
             console.log(e)
         })
     }, false)
+
+    closeModifyBtn.addEventListener("click", function (e) {
+        modifyModal.hide()
+    })
 
 
 </script>
