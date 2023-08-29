@@ -166,33 +166,41 @@
                         <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
                             <p></p>
                             <div th:if="${WeatherMessage == '비'}">
-                                <h2>비 올 때 듣기 좋은 노래</h2>
+                                <h2>비 오는 날 듣기 좋은 노래</h2>
+                            </div>
+                            <div th:if="${WeatherMessage == '흐림'}">
+                                <h2>흐린 날 듣기 좋은 노래</h2>
+                            </div>
+                            <div th:if="${WeatherMessage == '추움'}">
+                                <h2>추운 날 듣기 좋은 노래</h2>
+                            </div>
+                            <div th:if="${WeatherMessage == '습함'}">
+                                <h2>습한 날 듣기 좋은 노래</h2>
                             </div>
 
                         </div>
 
                         <!-- Single Top Item -->
-                        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="100ms">
+                        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="100ms"
+                             th:each="weatherMusic:${weatherMusic}">
                             <div class="first-part d-flex align-items-center">
                                 <div class="thumbnail">
-
-                                    <img src="img/bg-img/wt7.jpg" alt="">
+                                    <img th:src="${weatherMusic.m_image}" alt="">
                                 </div>
                                 <div class="content-">
-                                    <h6>Sam Smith</h6>
-                                    <p>Underground</p>
+                                    <div class="content-">
+                                        <h6 th:text="${weatherMusic.m_title}"></h6>
+                                        <p th:text="${weatherMusic.m_artist}"></p>
+                                    </div>
                                 </div>
                             </div>
-                            <audio preload="auto" controls>
-                                <source src="audio/dummy-audio.mp3">
-                            </audio>
-                        </div>
-
-                        <!-- Single Top Item -->
-
                         </div>
                     </div>
                 </div>
+
+                        <!-- Single Top Item -->
+
+
 
                 <!-- ***** Popular Artists ***** -->
                 <div class="col-12 col-lg-4">

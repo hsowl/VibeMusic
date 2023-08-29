@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.context.MessageSource;
 
@@ -25,12 +26,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 
 @Controller
@@ -44,7 +43,7 @@ public class MusicController {
     private final ChartService chartService;
 
 
-    @GetMapping({"/contact","/elements"})
+    @GetMapping({"/contact", "/elements"})
     public void main() {
 
     }
@@ -52,18 +51,18 @@ public class MusicController {
     @GetMapping("/test")
     public void test(Model model) {
         MusicDTO musicDTO = musicService.readOne(1L);
-        model.addAttribute("dto",musicDTO);
+        model.addAttribute("dto", musicDTO);
     }
 
     @GetMapping("/albums-store")
-    public void list(PageRequestDTO pageRequestDTO, Model model, Pageable pageable){
+    public void list(PageRequestDTO pageRequestDTO, Model model, Pageable pageable) {
         PageResponseDTO<MusicDTO> responseDTO = musicService.listWithPaging(pageRequestDTO);
         model.addAttribute("responseDTO", responseDTO);
     }
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/read")
-    public void readOne(Long no, Model model,Integer mPlayCount){
+    public void readOne(Long no, Model model, Integer mPlayCount) {
 
         if (mPlayCount == null) {
             mPlayCount = 0; // 기본값을 0으로 설정.
@@ -72,7 +71,7 @@ public class MusicController {
         // Increase the view count for the news
         musicService.increaseViewCount(no);
         MusicDTO musicDTO = musicService.readOne(no);
-        model.addAttribute("dto",musicDTO);
+        model.addAttribute("dto", musicDTO);
     }
 
     @GetMapping("/index")
@@ -89,23 +88,65 @@ public class MusicController {
 
         List<MusicDTO> weatherMusic = new ArrayList<>();
         boolean isRainyWeather = false;
+        boolean isCloudyWeather = false;
+        boolean isColdWeather = false;
+        boolean isHumidWeather = false;
+
 
         JSONObject result = weatherJson.getJSONObject("result");
         JSONObject response = result.getJSONObject("response");
         JSONObject body = response.getJSONObject("body");
         JSONObject items = body.getJSONObject("items");
         JSONArray itemArray = items.getJSONArray("item");
+
+        System.out.println(items);
+
+        int popValue = -1;
+        String ptyValue = "";
+        int rehValue = -1;
+        int skyValue = -1;
+        int tmpValue = -1;
+
         for (int i = 0; i < itemArray.length(); i++) {
             JSONObject item = itemArray.getJSONObject(i);
             String category = item.getString("category");
-            if ("POP".equals(category)) {
-                int fcstValue = item.getInt("fcstValue");
-                if (fcstValue >= 60) {
-                    isRainyWeather = true;
-                    weatherMusic = chartService.DanceGenre(no);
+
+            switch (category) {
+                case "POP":
+                    popValue = item.getInt("fcstValue");
                     break;
-                }
+                case "PTY":
+                    ptyValue = item.getString("fcstValue");
+                    break;
+                case "REH":
+                    rehValue = item.getInt("fcstValue");
+                    break;
+                case "SKY":
+                    skyValue = item.getInt("fcstValue");
+                    break;
+                case "TMP":
+                    tmpValue = item.getInt("fcstValue");
+                    break;
+                // Add cases for other weather categories...
             }
+        }
+
+        final int RAIN_THRESHOLD = 60;
+        final int CLOUDY_SKY_THRESHOLD = 3;
+        final int COLD_TEMP_THRESHOLD = 10;
+
+        if (popValue >= RAIN_THRESHOLD || ptyValue.equals("1")) {
+            isRainyWeather = true;
+            weatherMusic = chartService.DanceGenre(no);
+        } else if (skyValue <= CLOUDY_SKY_THRESHOLD) {
+            isCloudyWeather = true;
+            weatherMusic = chartService.PopGenre(no);
+        } else if (tmpValue <= COLD_TEMP_THRESHOLD) {
+            isColdWeather = true;
+            weatherMusic = chartService.BalladeGenre(no);
+        } else if (rehValue >= 70) {
+            isHumidWeather = true;
+            weatherMusic = chartService.HipHopGenre(no);
         }
         //////////////////////////////////////////////////////
 
@@ -134,8 +175,6 @@ public class MusicController {
                 break;
         }
 
-
-
         model.addAttribute("responseDTO", responseDTO);
         model.addAttribute("recommendedMusic", recommendedMusic);
         model.addAttribute("currentDay", currentDay.toString());
@@ -144,6 +183,12 @@ public class MusicController {
 
         if (isRainyWeather) {
             model.addAttribute("WeatherMessage", "비");
+        } else if (isCloudyWeather) {
+            model.addAttribute("WeatherMessage", "흐림");
+        } else if (isColdWeather) {
+            model.addAttribute("WeatherMessage", "추움");
+        } else if (isHumidWeather) {
+            model.addAttribute("WeatherMessage", "습함");
         }
         return "index";
     }
@@ -151,8 +196,6 @@ public class MusicController {
     private String getMessageForDay(DayOfWeek day, Locale locale) {
         return messageSource.getMessage(day.toString().toLowerCase(), null, day.toString(), locale);
     }
-
-
 
 
     public HashMap<String, Object> getDataFromJson(String url, String encoding, String type, String jsonStr) throws Exception {
@@ -205,7 +248,7 @@ public class MusicController {
 
             StringBuffer result = new StringBuffer();
 
-            while ((line=br.readLine()) != null) result.append(line);
+            while ((line = br.readLine()) != null) result.append(line);
 
             ObjectMapper mapper = new ObjectMapper();
 
@@ -232,12 +275,13 @@ public class MusicController {
             getVilageFcst 동네예보조회
             getFcstVersion 예보버전조회
         */
-        String url = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst"
-                + "?serviceKey=JzYvT6RQrXmtQCgsNWOH42YroAeLsBvabX5rjpwY6Gn8ujFPW%2FvT4rmYvsD55OxEhnCJHOZyGCB00AF3vAvI9Q%3D%3D"
-                + "&dataType=JSON"            // JSON, XML
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+
+        String currentDate = dateFormat.format(new Date());
+        String url = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst" + "?serviceKey=JzYvT6RQrXmtQCgsNWOH42YroAeLsBvabX5rjpwY6Gn8ujFPW%2FvT4rmYvsD55OxEhnCJHOZyGCB00AF3vAvI9Q%3D%3D" + "&dataType=JSON"            // JSON, XML
                 + "&numOfRows=20"             // 페이지 ROWS
                 + "&pageNo=1"                 // 페이지 번호
-                + "&base_date=20230828"       // 발표일자
+                + "&base_date=" + currentDate       // 발표일자
                 + "&base_time=0500"           // 발표시각
                 + "&nx=60"                    // 예보지점 X 좌표
                 + "&ny=120";                  // 예보지점 Y 좌표
