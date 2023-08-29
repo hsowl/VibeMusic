@@ -3,6 +3,7 @@ package com.example.vibemusic.service;
 import com.example.vibemusic.domain.Member;
 import com.example.vibemusic.domain.Music;
 import com.example.vibemusic.domain.PlayList;
+import com.example.vibemusic.repository.MemberRepository;
 import com.example.vibemusic.repository.MusicRepository;
 import com.example.vibemusic.repository.PlayListRepository;
 import com.example.vibemusic.security.dto.MemberSecurityDTO;
@@ -21,15 +22,16 @@ public class PlayListServiceImpl implements PlayListService {
 
     private final PlayListRepository playListRepository;
     private final MusicRepository musicRepository;
+    private final MemberRepository memberRepository;
 
     /**
      * *********** PlayList 생성 부분 ***************
      * PlayList별 목록 보여주기
      */
-    public List<PlayList> getPlaylist(@AuthenticationPrincipal MemberSecurityDTO mid) {
-
-        log.info("===mid=== : {}",mid);
-        return playListRepository.findByMember_Mid(mid);
+    public List<PlayList> getPlaylist(@AuthenticationPrincipal MemberSecurityDTO authenticatedUser) {
+        Member member = memberRepository.findByMid(authenticatedUser.getMid());
+        log.info("===member=== : {}",member);
+        return playListRepository.findByMember_Mid(member);
     }
 
     /**

@@ -34,11 +34,11 @@ public class PlayListController {
 
 
     @GetMapping
-    public String showPlaylist(Model model, @AuthenticationPrincipal MemberSecurityDTO mid){
-        List<PlayList> playlists = playListService.getPlaylist(mid);
+    public String showPlaylist(Model model, @AuthenticationPrincipal MemberSecurityDTO authenticatedUser){
+        List<PlayList> playlists = playListService.getPlaylist(authenticatedUser);
         model.addAttribute("playlists", playlists);
 
-        log.info("-----mid : {}", mid);
+        log.info("-----authenticatedUser : {}", authenticatedUser);
         log.info("-----playlists : {}", playlists.get(0).getMusics().toString());
 
         return "playlist"; // playlist.html
