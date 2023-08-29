@@ -107,9 +107,7 @@
                             <!--                                <p></p>-->
                             <!--                            </div>-->
                             <!-- Play Icon -->
-                            <div class="play-icon">
-                                <a href="#" class="video--play--btn"><span class="icon-play-button"></span></a>
-                            </div>
+
                         </div>
                         <div class="album-info">
                             <a th:href="|@{/read(no=${dto.no})}|">
@@ -149,7 +147,9 @@
                                 <img th:src="${music.m_image}" alt="">
                             </div>
                             <div class="content-">
+                                <a th:href="|@{/read(no=${music.no})}|">
                                 <h6 th:text="${music.m_title}"></h6>
+                                </a>
                                 <p th:text="${music.m_artist}"></p>
                             </div>
                         </div>
@@ -189,7 +189,9 @@
                                 </div>
                                 <div class="content-">
                                     <div class="content-">
+                                        <a th:href="|@{/read(no=${weatherMusic.no})}|">
                                         <h6 th:text="${weatherMusic.m_title}"></h6>
+                                        </a>
                                         <p th:text="${weatherMusic.m_artist}"></p>
                                     </div>
                                 </div>
