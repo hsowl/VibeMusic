@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
@@ -14,43 +15,47 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    Join
+                    <h3>회원가입 (*은 필수 입력사항입니다.)</h3>
                 </div>
                 <div class="card-body">
                     <form id="registerForm" action="/member/join" method="post">
                         <div class="input-group mb-3">
-                            <span class="input-group-text">MID</span>
-                            <input type="text" name="mid" class="form-control">
+                            <span class="input-group-text">MID *</span>
+                            <input type="text" name="mid" class="form-control mid">
                         </div>
 
                         <div class="input-group mb-3">
-                            <span class="input-group-text">MPW</span>
-                            <input type="password" name="mpw" class="form-control">
+                            <span class="input-group-text">MPW *</span>
+                            <input type="password" name="mpw" class="form-control mpw">
                         </div>
 
                         <div class="input-group mb-3">
-                            <span class="input-group-text">name</span>
-                            <input type="text" name="name" class="form-control">
+                            <span class="input-group-text">name *</span>
+                            <input type="text" name="name" class="form-control name">
                         </div>
 
                         <div class="input-group mb-3">
-                            <span class="input-group-text">EMAIL</span>
-                            <input type="email" name="email" class="form-control">
+                            <span class="input-group-text">EMAIL *</span>
+                            <input type="email" name="email" id="mail" class="form-control">
+                            <button type="button" id="sendBtn" name="sendBtn">인증번호 발송</button>
+                            <input type="text" name="number" id="number" placeholder="인증번호 입력">
+                            <button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">인증번호 확인</button>
+                            <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
                         </div>
 
                         <div class="input-group mb-3">
                             <span class="input-group-text">phone</span>
-                            <input type="text" name="phone" class="form-control">
+                            <input type="text" name="phone" class="form-control phone">
                         </div>
 
                         <div class="input-group mb-3">
                             <span class="input-group-text">address</span>
-                            <input type="text" name="address" class="form-control">
+                            <input type="text" name="address" class="form-control address">
                         </div>
 
                         <div class="input-group mb-3">
                             <span class="input-group-text">birthDate</span>
-                            <input type="date" name="birthDate" class="form-control">
+                            <input type="date" name="birthDate" class="form-control birthDate">
                         </div>
 
                         <div class="my-4">
@@ -59,8 +64,8 @@
                                 <button type="reset" class="btn btn-secondary">Reset</button>
                             </div>
                         </div>
-
                     </form>
+
                 </div>
             </div>
         </div>
@@ -72,9 +77,90 @@
 <script layout:fragment="script" th:inline="javascript">
 
     const error = [[${error}]]
+    let mid = document.querySelector(".mid")
+    let mpw = document.querySelector(".mpw")
+    let name = document.querySelector(".name")
+    let phone = document.querySelector(".phone")
 
-    if(error && error === 'mid'){
-        alert("동일한 ID를 가진 계정 존재")
+    let result = false;
+
+    document.querySelector(".submitBtn").addEventListener("click", function (e){
+
+        console.log("mid : ",mid)
+
+        if (error && error === 'mid') {
+            e.preventDefault()
+            e.stopPropagation()
+            alert("동일한 ID를 가진 계정 존재합니다.")
+        } else if(mid.value === ''){
+            e.preventDefault()
+            e.stopPropagation()
+            alert("ID는 필수 입력 사항입니다. 입력해주세요.")
+        } else if(mpw.value === ''){
+            e.preventDefault()
+            e.stopPropagation()
+            alert("PW는 필수 입력 사항입니다. 입력해주세요.")
+        } else if(name.value === ''){
+            e.preventDefault()
+            e.stopPropagation()
+            alert("이름은 필수 입력 사항입니다. 입력해주세요.")
+        }
+
+        console.log("이메일 인증 여부 : ",result)
+
+        if(result == false){
+            e.preventDefault();
+            e.stopPropagation();
+            alert("이메일 인증이 완료되지 않았거나 진행하지 않았습니다 확인해주세요.")
+        }
+
+
+    })
+
+    function sendNumber(){
+        console.log("인증번호 벌송 스크립트 진입....")
+        // $("#mail_number").css("display","block");
+        $.ajax({
+            url:"/mail",
+            type:"post",
+            dataType:"json",
+            data:{"mail" : $("#mail").val()},
+            success: function(data){
+                alert("인증번호 발송");
+                $("#Confirm").attr("value",data);
+            }
+        });
+    }
+
+    document.querySelector("#sendBtn").addEventListener("click", function (e){
+        console.log("인증번호 발송 스크립트 진입....sendBtn Click")
+        // $("#mail_number").css("display","block");
+        $.ajax({
+            url:"/mail",
+            type:"post",
+            dataType:"json",
+            data:{"mail" : $("#mail").val()},
+            success: function(data){
+                alert("인증번호 발송이 완료되었습니다.");
+                $("#Confirm").attr("value",data);
+            }
+            ,error:function (request, status, error){
+                alert("code : "+request.status+"/n"+"message :"+request.responseText+"\n"+"error:"+error);
+            }
+        });
+    })
+
+    function confirmNumber() {
+        var number1 = $("#number").val();
+        var number2 = $("#Confirm").val();
+
+        if(number1 === number2){
+            alert("이메일 인증이 완료되었습니다.")
+            result = true;
+        } else{
+            alert("인증 번호가 다릅니다 확인하여주세요.")
+        }
+
     }
 </script>
 
