@@ -1,5 +1,6 @@
 package com.example.vibemusic.repository;
 
+import com.example.vibemusic.domain.Member;
 import com.example.vibemusic.domain.PlayList;
 import com.example.vibemusic.security.dto.MemberSecurityDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,8 +21,8 @@ public interface PlayListRepository extends JpaRepository<PlayList, Long> {
 //            "join Music m on m.no = pm.no \n" +
 //            "where pl.mid = :mid")
 
-    @Query("select pl from PlayList pl where pl.member = 'jimin2'")
-    List<PlayList> findByMember_Mid(@AuthenticationPrincipal MemberSecurityDTO mid);
+    @Query("select pl from PlayList pl where pl.member = ?1")
+    List<PlayList> findByMember_Mid(Member member);
 
 //    List<PlayList> findAll(Optional<Member> listsByMid);
 }

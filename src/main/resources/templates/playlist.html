@@ -46,45 +46,37 @@
     <!-- ##### Breadcumb Area End ##### -->
 
 
-    <!-- PlayList 테이블 -->
-    <h1>Playlists</h1>
-    <ul>
-        <!-- playlists 리스트의 각 PlayList 객체에 대한 반복문 -->
-        <li th:each="playlist : ${playlists}">
-            <!-- PlayList의 정보 출력 -->
-            <p>Playlist Name: <span th:text="${playlist.plName}"></span></p>
-            <p>Member ID: <span th:text="${playlist.member.mid}"></span></p>
-            <!-- 각 Music 객체에 대한 반복문 -->
-            <ul>
-                <li th:each="music : ${playlist.musics}">
-                    <!-- Music의 정보 출력 -->
-                    <p>Music Title: <span th:text="${music.m_title}"></span></p>
-                    <p>Music Artist: <span th:text="${music.m_artist}"></span></p>
-                    <!-- playLists 리스트에 있는 PlayList들의 정보 출력 -->
-                    <ul>
-                        <li th:each="playlistInMusic : ${music.playLists}" th:text="${playlistInMusic.plName}"></li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-    </ul>
+    <!-- PlayList Start -->
+
+    <p></p>
+    <div class="col-12 col-lg-4" th:each="playlist : ${playlists}">
+        <div class="new-hits-area mb-100">
+            <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
+                <p>PlayList Name</p>
+                <h2><span th:text="${playlist.plName}"></span></h2>
+            </div>
+
+            <!-- Songs in PlayList Start-->
+            <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="100ms" th:each="music : ${playlist.musics}">
+                <div class="first-part d-flex align-items-center">
+                    <div class="thumbnail">
+                        <img th:src="${music.m_image}">
+                    </div>
+                    <div class="content-">
+                        <p><span th:text="${music.m_title}"></span></p>
+                        <p><span th:text="${music.m_artist}"></span></p>
+                    </div>
+                </div>
+                <audio preload="auto" controls>
+                    <source th:src="${music.m_sound}">
+                </audio>
+            </div>
+            <!-- Songs in PlayList End-->
+        </div>
+    </div>
+    <!-- PlayList End -->
 
 
-    <table>
-        <tr>
-            <th>PlayList No</th>
-            <th>PlayList Name</th>
-            <th>Member ID</th>
-        </tr>
-        <tr th:each="playList : ${playLists}">
-            <td th:text="${playList.plNo}"></td>
-            <td th:text="${playList.plName}"></td>
-            <td th:text="${playList.member.mid}"></td>
-        </tr>
-    </table>
-
-
-    </form>
 </div>
 
 </body>

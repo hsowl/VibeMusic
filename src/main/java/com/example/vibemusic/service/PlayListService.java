@@ -13,7 +13,7 @@ public interface PlayListService {
     void addPlaylist(String plName);
 
     //플레이 리스트 다 모아서 보여주기
-    List<PlayList> getPlaylist(@AuthenticationPrincipal MemberSecurityDTO mid);
+    List<PlayList> getPlaylist(@AuthenticationPrincipal MemberSecurityDTO authenticatedUser);
 
     void addMusicToPlayList(Long plNo, Long no);
 
