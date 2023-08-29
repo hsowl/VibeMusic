@@ -64,17 +64,40 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     private MemberSecurityDTO generateDTO(String email, Map<String, Object> params){
         Optional<Member> result = memberRepository.findByEmail(email);
 
+        String phone = (String) params.get("phone");
+        String address = (String) params.get("address");
+        String birthDate = (String) params.get("birthDate");
+        String name = (String) params.get("name");
+        if(name == null){
+            name = (String) params.get("nickname");
+        }
+        if(birthDate == null){
+            birthDate = (String) params.get("birthday");
+        }
+
+        String[] parts = email.split("@");
+        String mid = parts[0];
+
+        log.info("phone : {}", phone);
+        log.info("address : {}", address);
+        log.info("birthDate : {}", birthDate);
+        log.info("name : {}", name);
+
         if(result.isEmpty()){
             Member member = Member.builder()
-                    .mid(email)
+                    .mid(mid)
                     .mpw(passwordEncoder.encode("1111"))
                     .email(email)
                     .social(true)
+                    .phone(phone)
+                    .address(address)
+                    .birthDate(birthDate)
+                    .name(name)
                     .build();
             member.addRole(MemberRole.USER);
             memberRepository.save(member);
 
-            MemberSecurityDTO memberSecurityDTO = new MemberSecurityDTO(email,"1111",email,false, true,
+            MemberSecurityDTO memberSecurityDTO = new MemberSecurityDTO(email,"1111",email, phone, address, birthDate, name, false, true,
                     Arrays.asList(new SimpleGrantedAuthority("ROLE_USER")));
 
             memberSecurityDTO.setProps(params);
@@ -86,6 +109,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     member.getMid(),
                     member.getMpw(),
                     member.getEmail(),
+                    member.getPhone(),
+                    member.getAddress(),
+                    member.getBirthDate(),
+                    member.getName(),
                     member.isDel(),
                     member.isSocial(),
                     member.getRoleSet().stream().map(memberRole -> new SimpleGrantedAuthority("ROLE_"+memberRole.name())).collect(Collectors.toList())
@@ -109,6 +136,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         return email;
     }
+
+
     private String getGoogleEmail(Map<String, Object> paramMap){
         log.info("GOOGLE==============================");
         String value = (String) paramMap.get("email");

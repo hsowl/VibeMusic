@@ -23,6 +23,8 @@ public class Member extends BaseEntity{
     @Column(nullable = false)
     private String email;
 
+    private String phone, address, birthDate, name;
+
     private boolean del;
 
     private boolean social;
