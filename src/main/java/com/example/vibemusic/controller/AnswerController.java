@@ -1,8 +1,10 @@
 package com.example.vibemusic.controller;
 
+import com.example.vibemusic.domain.Answer;
 import com.example.vibemusic.dto.AnswerDTO;
 import com.example.vibemusic.dto.PageRequestDTO;
 import com.example.vibemusic.dto.PageResponseDTO;
+import com.example.vibemusic.dto.ReplyDTO;
 import com.example.vibemusic.service.AnswerService;
 
 import io.swagger.annotations.ApiOperation;
@@ -50,8 +52,8 @@ public class AnswerController {
         return resultMap;
     }
 
-    @ApiOperation(value = "Replies of Question", notes = "Get 방식으로 특정 게시물의 댓글 목록")
-    @GetMapping(value = "/list/{qNo}")
+    @ApiOperation(value = "answers of Question", notes = "Get 방식으로 특정 게시물의 댓글 목록")
+    @GetMapping(value = "/answerList/{qNo}")
     public PageResponseDTO<AnswerDTO> getList(@PathVariable("qNo") Long qNo, PageRequestDTO pageRequestDTO){
         PageResponseDTO<AnswerDTO> responseDTO = answerService.getListOfQuestion(qNo,pageRequestDTO);
                                                                 //메소드만들어
@@ -60,7 +62,7 @@ public class AnswerController {
 
     @ApiOperation(value = "Read Answer", notes = "GET 방식으로 특정 댓글 조회")
     @GetMapping("/{ano}")
-    public AnswerDTO getAnswerDTO(@PathVariable("rno") Long ano){
+    public AnswerDTO getAnswerDTO(@PathVariable("ano") Long ano){
         AnswerDTO answerDTO = answerService.answerRead(ano);
         return answerDTO;
     }
@@ -73,7 +75,15 @@ public class AnswerController {
         resultMap.put("ano",ano);
         return resultMap;
     }
-
+    @ApiOperation(value = "Modify Answer", notes = "Put 방식으로 댓글 수정")
+    @PutMapping(value = "/{ano}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public  Map<String, Long> remove(@PathVariable("ano") Long ano, @RequestBody AnswerDTO answerDTO){
+        answerDTO.setAno(ano);
+        answerService.answerModify(answerDTO);
+        Map<String, Long> resultMap = new HashMap<>();
+        resultMap.put("ano", ano);
+        return resultMap;
+    }
 
 
     }

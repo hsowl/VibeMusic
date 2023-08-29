@@ -126,7 +126,7 @@
       registerModal.hide()
       answerText.value = ''
       answerer.value = ''
-      printReplies(1, 10, true)
+      printAnswers(1, 10, true)
       location.reload();
     }).catch(e => {
       alert("오류 발생")
@@ -366,13 +366,15 @@
                     </div>
                   </div>
                 </div>
+                             </div><!--single-blog-post end-->
 
-              </div><!--single-blog-post end-->
-
-
-          </div>
 
           </div>
+
+          </div>
+          <script src="http://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+          <script src="/js/answer.js"></script>
 
         <div class="col-12 col-lg-3">
           <div class="blog-sidebar-area">
@@ -462,13 +464,6 @@
 <!-- Active js -->
 <script src="js/active.js"></script>
 
-<script src="http://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-<script src="/js/answer.js"></script>
-
-<script layout:fragment="script" th:inline="javascript">
-
-
-</script>
 </body>
 </html>

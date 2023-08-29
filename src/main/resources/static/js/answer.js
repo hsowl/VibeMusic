@@ -1,12 +1,12 @@
 async function getOne(qNo){
-    const result = await axios.get(`/answers/list/${qNo}`);
+    const result = await axios.get(`/answers/answerList/${qNo}`);
     // console.log(result);
 
     return result
 }
 
 async function getList({qNo, page, size, goLast}){
-    const  result = await axios.get(`/answers/list/${qNo}`, {params : {page, size}})
+    const  result = await axios.get(`/answers/answerList/${qNo}`, {params : {page, size}})
 
     if(goLast){
         const total = result.data.total;
@@ -32,6 +32,6 @@ async function modifyAnswer(answerObj){
 }
 
 async function removeAnswer(qNo) {
-    const response = await axios.delete(`/replies/${qNo}`)
+    const response = await axios.delete(`/answers/${qNo}`)
     return response.data
 }
