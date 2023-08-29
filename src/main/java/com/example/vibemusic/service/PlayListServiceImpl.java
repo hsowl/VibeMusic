@@ -11,9 +11,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Log4j2
@@ -35,11 +37,16 @@ public class PlayListServiceImpl implements PlayListService {
     }
 
     /**
-     PlayList 목록 추가하기
+     PlayList 추가하기
      */
-    public void addPlaylist(String plName) {
-        PlayList playListItem = new PlayList();
-        playListItem.setPlName(plName);
+    public void addPlaylist(@RequestParam String plName, @AuthenticationPrincipal MemberSecurityDTO authenticatedUser) {
+        Member member = memberRepository.findByMid(authenticatedUser.getMid());
+
+        PlayList playListItem = PlayList.builder()
+                .member(member)
+                .plName(plName)
+                .build();
+
         playListRepository.save(playListItem);
     }
 

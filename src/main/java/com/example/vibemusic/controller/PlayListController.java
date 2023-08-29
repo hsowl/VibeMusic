@@ -19,11 +19,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import static ognl.DynamicSubscript.mid;
 
 @Controller
-@RequestMapping("/playlist")
+@RequestMapping
 @RequiredArgsConstructor
 @Slf4j
 public class PlayListController {
@@ -33,22 +34,31 @@ public class PlayListController {
     private final MemberService memberService;
 
 
-    @GetMapping
+    @GetMapping("/playlist")
     public String showPlaylist(Model model, @AuthenticationPrincipal MemberSecurityDTO authenticatedUser){
         List<PlayList> playlists = playListService.getPlaylist(authenticatedUser);
         model.addAttribute("playlists", playlists);
-
+        log.info("playlists:==========={}",playlists);
         log.info("-----authenticatedUser : {}", authenticatedUser);
-        log.info("-----playlists : {}", playlists.get(0).getMusics().toString());
 
         return "playlist"; // playlist.html
     }
 
-//    @PostMapping("/add")
-//    public String addList(@RequestParam String plName){
-//        playListService.addPlaylist(plName);
-//        return "redirect:/playlist"; // 리스트 페이지로 리다이렉트
+//    @GetMapping("/{no}")
+//    public String showPlaylist(Model model, @AuthenticationPrincipal MemberSecurityDTO authenticatedUser){
+//        List<PlayList> playlists = playListService.getPlaylist(authenticatedUser);
+//        model.addAttribute("playlists", playlists);
+//
+//        log.info("-----authenticatedUser : {}", authenticatedUser);
+//
+//        return "playlist"; // playlist.html
 //    }
+
+    @PostMapping("/playlist/add")
+    public String addList(@RequestParam String plName, @AuthenticationPrincipal MemberSecurityDTO authenticatedUser){
+        playListService.addPlaylist(plName,authenticatedUser);
+        return "redirect:/playlist"; // 리스트 페이지로 리다이렉트
+    }
 
 //    @GetMapping("/list/{mid}")
 //    public String showPlayListsByMemberId(@PathVariable String mid, Model model) {

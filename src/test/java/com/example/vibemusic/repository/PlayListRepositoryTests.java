@@ -38,7 +38,6 @@ public class PlayListRepositoryTests {
 
     @Test  //PlayList 만듬
     public void addPlaylistTest() {
-
         Optional<Member> jimin = memberRepository.findById("jimin2");
 
         Member member = jimin.orElseThrow();
