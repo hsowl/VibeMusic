@@ -16,4 +16,6 @@ public interface EventBoardService {
     PageResponseDTO<EventBoardDTO> list(PageRequestDTO pageRequestDTO);
     Page<EventBoard> Elist(Pageable pageable);
 
+
+
 }
