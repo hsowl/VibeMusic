@@ -273,7 +273,10 @@
     e.preventDefault();
     e.stopPropagation();
 
-    formObj.action = `/eventremove?${ebno}`;
+    let ebno = [[${dto.ebno}]];
+    let link = [[${pageRequestDTO.getLink()}]];
+    console.log(link);
+    formObj.action = `/eventremove?${link}`;
     formObj.method = 'post';
     formObj.submit();
 
@@ -283,6 +286,7 @@
     e.preventDefault();
     e.stopPropagation();
 
+    console.log(link);
     self.location = `/event?${link}`;
 
   }, false)

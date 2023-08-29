@@ -63,11 +63,16 @@
                                         <h5 class="card-title">Event Board List </h5>
 
                                         <div class="my-4">
-                                            <div class="float-end">
+
+                                            <div class="float-end" th:if="${#authentication.principal} == 'anonymousUser'">
+
+                                            </div>
+                                            <div class="float-end" th:if="${#authentication.principal} != 'anonymousUser'">
                                                 <a th:href="|@{/eventregister}|" class="text-decoration-none">
                                                     <button type="button" class="btn oneMusic-btn mt-30">Register</button>
                                                 </a>
                                             </div>
+
                                         </div>
 
                                         <table class="table">
@@ -81,7 +86,7 @@
                                             </thead>
 
                                             <tbody th:with="link = ${pageRequestDTO.getLink()}">
-                                            <tr th:each="dto:${responseDTO.dtoList}">
+                                            <tr th:each="dto:${eList.dtoList}">
                                                 <th scope="row">[[${dto.ebno}]]</th>
                                                 <td colspan="2">
                                                     <a th:href="|@{/eventread(ebno =${dto.ebno})}&${link}|">[[${dto.title}]]</a>
@@ -98,24 +103,25 @@
                             </div>
                         </div>
 
-                        <div th:if="${questionPage}" class="oneMusic-pagination-area wow fadeInUp" data-wow-delay="300ms">
+                        <div th:if="${eventPage}" class="oneMusic-pagination-area wow fadeInUp" data-wow-delay="300ms">
                             <nav>
-                                <ul class="questions-pagination">
-                                    <li th:class="${questionPage.first ? 'disabled' : ''}" class="page-item active">
-                                        <a th:href="@{/questions(page=0, size=${questionPage.size})}">◀◀ First Page</a>
+                                <ul class="news-pagination">
+                                    <li th:class="${eventPage.first ? 'disabled' : ''}" class="page-item active">
+                                        <a th:href="@{/event(page=0, size=${eventPage.size})}">◀◀ First Page</a>
                                     </li>
-                                    <li th:class="${questionPage.hasPrevious ? '' : 'disabled'}" class="page-item">
-                                        <a th:href="@{/questions(page=${questionPage.number - 1}, size=${questionPage.size})}">◀ Previous Page</a>
+                                    <li th:class="${eventPage.hasPrevious ? '' : 'disabled'}" class="page-item">
+                                        <a th:href="@{/event(page=${eventPage.number - 1}, size=${eventPage.size})}">◀ Previous Page</a>
                                     </li>
-                                    <li th:class="${questionPage.hasNext ? '' : 'disabled'}" class="page-item">
-                                        <a th:href="@{/questions(page=${questionPage.number + 1}, size=${questionPage.size})}">Next Page ▶</a>
+                                    <li th:class="${eventPage.hasNext ? '' : 'disabled'}" class="page-item">
+                                        <a th:href="@{/event(page=${eventPage.number + 1}, size=${eventPage.size})}">Next Page ▶</a>
                                     </li>
-                                    <li th:class="${questionPage.last ? 'disabled' : ''}" class="page-item">
-                                        <a th:href="@{/questions(page=${questionPage.totalPages - 1}, size=${questionPage.size})}">Last Page ▶▶</a>
+                                    <li th:class="${eventPage.last ? 'disabled' : ''}" class="page-item">
+                                        <a th:href="@{/event(page=${eventPage.totalPages - 1}, size=${eventPage.size})}">Last Page ▶▶</a>
                                     </li>
                                 </ul>
                             </nav>
                         </div>
+
                     </div>
 
                     <div class="col-12 col-lg-3">

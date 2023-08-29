@@ -14,5 +14,6 @@ public interface EventBoardService {
     void modify(EventBoardDTO eventBoardDTO);
     void remove(Long ebno);
     PageResponseDTO<EventBoardDTO> list(PageRequestDTO pageRequestDTO);
+    Page<EventBoard> Elist(Pageable pageable);
 
 }

@@ -92,6 +92,10 @@ public class EventBoardServiceImpl implements EventBoardService{
         return pageResponseDTO;
     }
 
+    @Override
+    public Page<EventBoard> Elist(Pageable pageable) {
+        return eventBoardRepository.findAll(pageable);
+    }
 
 
 }
