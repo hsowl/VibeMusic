@@ -61,7 +61,7 @@
 
                     <div class="card-body">
 
-                      <form action="/eventregister" method="get">
+                      <form action="/eventregister" method="post">
 
                         <div class="input-group mb-3">
                           <span class="input-group-text">Title</span>
@@ -75,12 +75,15 @@
 
                         <div class="input-group mb-3">
                           <span class="input-group-text">Writer</span>
-                          <input type="text" name="writer" class="form-control" placeholder="Writer">
+                          <input type="text" name="writer" class="form-control"
+                                 th:value="${#authentication.principal.mid}" readonly>
                         </div>
 
                         <div class="my-4">
-                          <button type="submit" class="btn oneMusic-btn mt-30">Submit</button>
-                          <button type="reset" class="btn oneMusic-btn mt-30">Reset</button>
+                          <div class="float-end">
+                            <button type="submit" class = "btn oneMusic-btn mt-30">Submit</button>
+                            <button type="reset" class = "btn oneMusic-btn mt-30">Reset</button>
+                          </div>
                         </div>
 
                       </form>
@@ -243,12 +246,7 @@
     for (let i=0; i<errors.length; i++) {
       errorMsg += `${errors[i].field}은(는) ${errors[i].code}`;
     } alert(errorMsg);
-  }
 
-  const result = [[${result}]];
-
-  if (result) {
-    alert(result);
   }
 
 </script>

@@ -96,9 +96,14 @@
                                                     <a th:href="|@{/event}?${link}|" class="text-decoration-none">
                                                         <button type="button" class="btn oneMusic-btn mt-30" data-bs-dismiss="modal">List</button>
                                                     </a>
-                                                    <a th:href="|@{/eventmodify(ebno=${dto.ebno})}&${link}|" class="text-decoration-none">
+                                                    <a th:if="${#authentication.principal != 'anonymousUser' && #authentication.principal.username == dto.writer}"
+                                                       th:href="|@{/eventmodify(ebno=${dto.ebno})}&${link}|">
                                                         <button type="button" class="btn oneMusic-btn mt-30">Modify</button>
                                                     </a>
+<!--                                                    <a th:with="user = ${#authentication.principal.username}"-->
+<!--                                                       th:if="${user != 'null' && user == dto.writer}"-->
+<!--                                                       th:href="|@{/eventmodify(ebno=${dto.ebno})}&${link}|" class="text-decoration-none">-->
+<!--                                                    </a>-->
                                                 </div>
                                             </div>
 

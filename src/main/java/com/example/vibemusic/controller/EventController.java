@@ -1,11 +1,16 @@
 package com.example.vibemusic.controller;
 
+import com.example.vibemusic.domain.EventBoard;
 import com.example.vibemusic.dto.EventBoardDTO;
 import com.example.vibemusic.dto.PageRequestDTO;
 import com.example.vibemusic.dto.PageResponseDTO;
 import com.example.vibemusic.service.EventBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,13 +30,27 @@ public class EventController {
     private final EventBoardService eventBoardService;
 
     @GetMapping("/event")
-    public void list(PageRequestDTO pageRequestDTO, Model model) {
+    public String Elist(Pageable pageable, Model model, PageRequestDTO pageRequestDTO) {
+
+        int pageSize = 10;
+        pageable = PageRequest.of(pageable.getPageNumber(), pageSize);
+
+        Page<EventBoard> eventPage = eventBoardService.Elist(pageable);
+
+        model.addAttribute("eventPage", eventPage);
+
+        if (pageRequestDTO.getPage() < 1) {
+            pageRequestDTO.setPage(1);
+        }
 
         PageResponseDTO<EventBoardDTO> responseDTO = eventBoardService.list(pageRequestDTO);
 
-        log.info(responseDTO);
+        model.addAttribute("eList", responseDTO);
 
-        model.addAttribute("responseDTO", responseDTO);
+//        boolean loggedIn = true;
+//        model.addAttribute("loggedIn", loggedIn);
+
+        return "event";
     }
 
     @GetMapping({"/eventread", "/eventmodify"})
@@ -99,15 +118,17 @@ public class EventController {
     }
 
     @PostMapping("/eventremove")
-    public String remove(Long ebno, RedirectAttributes redirectAttributes) {
+    public String remove(Long ebno, RedirectAttributes redirectAttributes, PageRequestDTO pageRequestDTO) {
 
         log.info("Remove POST..."+ebno);
+        log.info("link~~~~~~~~~~~~~~~===>"+ pageRequestDTO.getLink());
 
+        String link = pageRequestDTO.getLink();
         eventBoardService.remove(ebno);
 
         redirectAttributes.addFlashAttribute("result", "removed");
 
-        return "redirect:/event";
+        return "redirect:/event?"+link;
     }
 
 }
