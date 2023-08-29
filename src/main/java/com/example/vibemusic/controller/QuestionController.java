@@ -10,11 +10,13 @@ import com.example.vibemusic.dto.PageRequestDTO;
 import com.example.vibemusic.dto.PageResponseDTO;
 import com.example.vibemusic.dto.QuestionDTO;
 
+import com.example.vibemusic.service.AnswerService;
 import com.example.vibemusic.service.QuestionService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -39,7 +41,7 @@ public class QuestionController {
 
     private final QuestionService questionService;
 
-
+    private final AnswerService answerService;
 
 //    @GetMapping("/questionRead")
 //    public void qRead(Long qNo, Model model) {
