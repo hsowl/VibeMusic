@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
       xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{../../templates/layout/layout.html}">
+      layout:decorate="~{layout/layout.html}">
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="">
@@ -231,6 +231,52 @@
     })
 
 
+    // Playlist 모달
+    $(document).ready(function() {
+        var no =
+
+            $("#addToPlaylistOption").change(function() {
+                var selectedOption = $(this).val();
+                if (selectedOption === "existing") {
+                    $("#existingPlaylistOption").show();
+                    $("#newPlaylistOption").hide();
+                } else if (selectedOption === "new") {
+                    $("#existingPlaylistOption").hide();
+                    $("#newPlaylistOption").show();
+                }
+            });
+
+        // 새로운 플레이리스트에 담기 버튼 클릭 시
+        $("#addToNewPlaylistButton").click(function() {
+            var newPlaylistName = $("#newPlaylistName").val();
+            if (newPlaylistName) {
+                // 파라미터로 넘어온 음악 번호 가져오기
+                var no = [[${param.no}]];
+
+                // AJAX 요청 보내기
+                $.ajax({
+                    type: "POST",
+                    url: "/playlist/addToNewPlaylist",
+                    data: {
+                        plName: newPlaylistName,
+                        no: no
+                    },
+                    success: function(response) {
+                        console.log("플레이리스트 생성 및 담기 성공:", response);
+                        $("#addToPlaylistModal").modal("hide");
+                        location.reload();
+                    },
+                    error: function(error) {
+                        console.error("플레이리스트 생성 및 담기 에러:", error);
+                    }
+                });
+            } else {
+                alert("플레이리스트 이름을 입력하세요.");
+            }
+        });
+    });
+
+
 </script>
 
 <div layout:fragment="content">
@@ -242,8 +288,8 @@
         </div>
     </section>
 
-    <section class="featured-artist-area section-padding-100 bg-img bg-fixed"
-             style="background-color: white ">
+    <section class="featured-artist-area section-padding-100 bg-img bg-overlay bg-fixed"
+             style="background-image: url(img/bg-img/bg-4.jpg);">
         <div class="container">
             <div class="row align-items-end">
                 <div class="col-12 col-md-5 col-lg-4">
@@ -273,36 +319,82 @@
     </section>
 
     <!-- music information table Start -->
-    <table border="1px" style="justify-content: center">
+    <table style="display: inline-block">
         <tr>
-            <th>제목</th>
+            <td>
+                <img th:src="${dto.m_image}">
+            </td>
+        </tr>
+    </table>
+    <table style="display: inline-block">
+        <tr>
+            <td>Title</td>
+            <td>Artist</td>
+            <td>Release Date</td>
+            <td>PlayTime</td>
+            <td>Views</td>
+        </tr>
+        <tr>
             <td th:text="${dto.m_title}"></td>
-        </tr>
-        <tr>
-            <th>가수</th>
             <td th:text="${dto.m_artist}"></td>
-        </tr>
-        <tr>
-            <th>발매일</th>
             <td th:text="${dto.rDate}"></td>
-        </tr>
-        <tr>
-            <th>재생 시간</th>
             <td th:text="${dto.m_playtime}"></td>
-        </tr>
-        <tr>
-            <th>조회수</th>
             <td th:text="${dto.mPlayCount}"></td>
         </tr>
     </table>
     <!-- music information table Start -->
 
 
-    <!-- ##### PlayList 리스트로 이동하는 버튼 ##### -->
+    <!-- ##### PlayList : 버튼 클릭시 모달창 열림 ##### -->
     <div class="row mt-3">
-        <a class="btn btn-primary" th:href="|@{playlist(no=${dto.no})}|"> MyPlaylist 담기</a>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addToPlaylistModal">
+            MyPlaylist 담기
+        </button>
     </div>
 
+    <!-- 모달 창 -->
+    <div class="modal fade" id="addToPlaylistModal" tabindex="-1" role="dialog" aria-labelledby="addToPlaylistModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addToPlaylistModalLabel">MyPlaylist 담기</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <select id="addToPlaylistOption" class="form-control">
+                        <option value="default">담을 플레이리스트 선택</option>
+                        <option value="existing">기존 플레이리스트 선택</option>
+                        <option value="new">새로운 플레이리스트 생성 후 담기</option>
+                    </select>
+                    <!--                    th:if="${addToPlaylistOption == 'existing'}"-->
+                    <!--                    th:if="${addToPlaylistOption == 'new'}"-->
+
+                    <!-- 기존 플레이리스트 선택 옵션 -->
+                    <div id="existingPlaylistOption" class="mt-3">
+                        <h6>기존 플레이리스트 선택</h6>
+                        <ul>
+                            <!-- 플레이리스트 아이템을 출력 -->
+                            <li th:each="playlist : ${playlists}">
+                                <a th:href="@{/playlist/addToExistingPlaylist(no=${playlist.no}, musicNo=${dto.no})}">
+                                    <span th:text="${playlist.name}"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 새로운 플레이리스트 생성 후 담기 옵션 -->
+                    <div id="newPlaylistOption" class="mt-3" style="display: none;">
+                        <h6>새로운 플레이리스트 생성 후 담기</h6>
+                        <input type="text" id="newPlaylistName" class="form-control" placeholder="새로운 플레이리스트 이름">
+                        <button id="addToNewPlaylistButton" class="btn btn-success mt-2">담기</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div> <!-- 모달 창 -->
 
     <!-- reply start -->
     <div class="row mt-3">
