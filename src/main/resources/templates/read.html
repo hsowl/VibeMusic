@@ -242,8 +242,8 @@
         </div>
     </section>
 
-    <section class="featured-artist-area section-padding-100 bg-img bg-overlay bg-fixed"
-             style="background-image: url(img/bg-img/bg-4.jpg);">
+    <section class="featured-artist-area section-padding-100 bg-img bg-fixed"
+             style="background-color: white ">
         <div class="container">
             <div class="row align-items-end">
                 <div class="col-12 col-md-5 col-lg-4">
@@ -273,26 +273,25 @@
     </section>
 
     <!-- music information table Start -->
-    <table style="display: inline-block">
+    <table border="1px" style="justify-content: center">
         <tr>
-            <td>
-                <img th:src="${dto.m_image}">
-            </td>
-        </tr>
-    </table>
-    <table style="display: inline-block">
-        <tr>
-            <td>Title</td>
-            <td>Artist</td>
-            <td>Release Date</td>
-            <td>PlayTime</td>
-            <td>Views</td>
-        </tr>
-        <tr>
+            <th>제목</th>
             <td th:text="${dto.m_title}"></td>
+        </tr>
+        <tr>
+            <th>가수</th>
             <td th:text="${dto.m_artist}"></td>
+        </tr>
+        <tr>
+            <th>발매일</th>
             <td th:text="${dto.rDate}"></td>
+        </tr>
+        <tr>
+            <th>재생 시간</th>
             <td th:text="${dto.m_playtime}"></td>
+        </tr>
+        <tr>
+            <th>조회수</th>
             <td th:text="${dto.mPlayCount}"></td>
         </tr>
     </table>

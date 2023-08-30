@@ -53,6 +53,7 @@
                                 </a>
                                 <br>
                                 <a href="/oauth2/authorization/google">구글로 로그인 하기</a>
+                                <a th:value="${error}"></a>
                             </div>
                         </div>
                     </div>
@@ -63,7 +64,12 @@
 </div>
 
 </body>
+
 <script layout:fragment="script" th:inline="javascript">
+
+    const error = [[${error}]]
+
+    console.log(error)
     document.querySelector(".joinBtn").addEventListener("click", function (e){
         e.preventDefault();
         const formObj = document.querySelector("#registerForm")
