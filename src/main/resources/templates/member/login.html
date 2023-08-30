@@ -19,9 +19,11 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(img/bg-img/breadcumb3.jpg);">
+    <section class="breadcumb-area bg-img bg-overlay"
+             th:style="'background-image: url(' + @{/img/bg-img/breadcumb3.jpg} + ')'">
         <div class="bradcumbContent">
             <h2>VIBE MUSIC</h2>
+            <h3>Login Page</h3>
         </div>
     </section>
 
@@ -53,11 +55,11 @@
                             <br>
                             <div>
                                 <a href="/oauth2/authorization/kakao">
-                                    <img th:src="@{/img/kakao_login.png}">
+                                    <img th:src="@{/img/kakao_login.png}" style="height: 70px">
                                 </a>
                                 <br>
                                 <a href="/oauth2/authorization/google">
-                                    <img th:src="@{/img/google_logiin.png}">
+                                    <img th:src="@{/img/google_logiin.png}" style="height: 70px">
                                 </a>
                             </div>
                         </div>
@@ -65,7 +67,7 @@
                 </div>
             </div>
         </div>
-0    </section>
+    </section>
 </div>
 
 </body>
