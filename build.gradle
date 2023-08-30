@@ -89,6 +89,12 @@ dependencies {
     // https://mvnrepository.com/artifact/org.json/json
     implementation group: 'org.json', name: 'json', version: '20230618'
 
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+
+
+
+
 }
 
 tasks.named('test') {

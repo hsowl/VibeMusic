@@ -54,9 +54,11 @@ public class MemberRepositoryTests {
     @Test
     public void testUpdate() {
 
-        String mid = "sam990629@naver.com";
-        String mpw = passwordEncoder.encode("54321");
+        String mid = "berry1699";
+        String mpw = passwordEncoder.encode("$2a$10$4TJ2vlrkTpeknfOgDcI8TuzBWTSL/KH78nDo9MYLPZxaHZ3FwBwXC");
 
         memberRepository.updatePassword(mpw, mid);
     }
+
+
 }

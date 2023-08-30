@@ -4,6 +4,8 @@ import lombok.*;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Builder
@@ -36,6 +38,12 @@ public class Question extends BaseEntity{
 
     @Column
     private String qRegDate;
+
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<Answer> answers = new ArrayList<>();
+
 
     public void change(String qTitle, String qContent){//QuestionServiceImple에 필요
         this.qTitle=qTitle;
