@@ -38,7 +38,6 @@ public class PlayListRepositoryTests {
 
     @Test  //PlayList 만듬
     public void addPlaylistTest() {
-
         Optional<Member> jimin = memberRepository.findById("jimin2");
 
         Member member = jimin.orElseThrow();
@@ -63,8 +62,8 @@ public class PlayListRepositoryTests {
 
     @Test  //PlayList 안에 한곡 넣기
     public void addMusicToPlayListTest() {
-        Optional<PlayList> byPlayListId = playListRepository.findById(4L); // 플레이리스트 번호
-        Optional<Music> byMusicId = musicRepository.findById(5L); // 곡 번호
+        Optional<PlayList> byPlayListId = playListRepository.findById(12L); // 플레이리스트 번호
+        Optional<Music> byMusicId = musicRepository.findById(1L); // 곡 번호
 
         PlayList playList = byPlayListId.orElseThrow();
         Music music = byMusicId.orElseThrow();

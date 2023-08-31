@@ -35,6 +35,9 @@ public class PlayList {
     )
     private List<Music> musics; // Music 엔터티와의 관계//
     public List<Music> getMusics(){
+        if (musics == null) {
+            musics = new ArrayList<>();
+        }
         return musics;
     }
 

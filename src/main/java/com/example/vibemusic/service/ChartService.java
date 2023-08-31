@@ -17,4 +17,11 @@ public interface ChartService {
 
     public List<Music> getAllMusicSortedByPlayCount();
 
+    List<MusicDTO> RandomDanceGenre(Long no);
+
+    List<MusicDTO> RandomPopGenre(Long no);
+
+    List<MusicDTO> RandomHipHopGenre(Long no);
+
+    List<MusicDTO> RandomBalladeGenre(Long no);
 }

@@ -233,25 +233,34 @@
 
     // Playlist 모달
     $(document).ready(function() {
-        var no =
-
             $("#addToPlaylistOption").change(function() {
                 var selectedOption = $(this).val();
-                if (selectedOption === "existing") {
-                    $("#existingPlaylistOption").show();
+                if (selectedOption === "default") {
+                    $("#defaultPlaylistOption").show();
+                    $("#existingPlaylistOption").hide();
                     $("#newPlaylistOption").hide();
                 } else if (selectedOption === "new") {
+                    $("#defaultPlaylistOption").hide();
                     $("#existingPlaylistOption").hide();
                     $("#newPlaylistOption").show();
+                } else if (selectedOption === "existing") {
+                    $("#defaultPlaylistOption").hide();
+                    $("#existingPlaylistOption").show();
+                    $("#newPlaylistOption").hide();
                 }
             });
+
+        ////////// 기존 플레이리스트에 담기 버튼 클릭 시
+
+
+
 
         // 새로운 플레이리스트에 담기 버튼 클릭 시
         $("#addToNewPlaylistButton").click(function() {
             var newPlaylistName = $("#newPlaylistName").val();
             if (newPlaylistName) {
                 // 파라미터로 넘어온 음악 번호 가져오기
-                var no = [[${param.no}]];
+                var no = [[${dto.no}]];
 
                 // AJAX 요청 보내기
                 $.ajax({
@@ -364,25 +373,17 @@
                 </div>
                 <div class="modal-body">
                     <select id="addToPlaylistOption" class="form-control">
-                        <option value="default">담을 플레이리스트 선택</option>
-                        <option value="existing">기존 플레이리스트 선택</option>
-                        <option value="new">새로운 플레이리스트 생성 후 담기</option>
+                        <option value="default" selected="selected"> 담을 플레이리스트 선택</option>
+                        <option value="existing"> ▶ 기존 플레이리스트 선택</option>
+                        <option value="new"> ▶ 새로운 플레이리스트 생성 후 음악담기</option>
                     </select>
-                    <!--                    th:if="${addToPlaylistOption == 'existing'}"-->
-                    <!--                    th:if="${addToPlaylistOption == 'new'}"-->
 
-                    <!-- 기존 플레이리스트 선택 옵션 -->
-                    <div id="existingPlaylistOption" class="mt-3">
-                        <h6>기존 플레이리스트 선택</h6>
-                        <ul>
-                            <!-- 플레이리스트 아이템을 출력 -->
-                            <li th:each="playlist : ${playlists}">
-                                <a th:href="@{/playlist/addToExistingPlaylist(no=${playlist.no}, musicNo=${dto.no})}">
-                                    <span th:text="${playlist.name}"></span>
-                                </a>
-                            </li>
-                        </ul>
+                    <!-- default 플레이리스트 선택 옵션 -->
+                    <div id="defaultPlaylistOption" class="mt-3">
+                        <h6></h6>
                     </div>
+
+
 
                     <!-- 새로운 플레이리스트 생성 후 담기 옵션 -->
                     <div id="newPlaylistOption" class="mt-3" style="display: none;">

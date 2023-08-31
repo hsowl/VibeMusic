@@ -11,9 +11,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Log4j2
@@ -34,13 +36,22 @@ public class PlayListServiceImpl implements PlayListService {
         return playListRepository.findByMember_Mid(member);
     }
 
+
+
     /**
-     PlayList 목록 추가하기
+     PlayList 추가하기
      */
-    public void addPlaylist(String plName) {
-        PlayList playListItem = new PlayList();
-        playListItem.setPlName(plName);
+    public PlayList addPlaylist(@RequestParam String plName, @AuthenticationPrincipal MemberSecurityDTO authenticatedUser) {
+        Member member = memberRepository.findByMid(authenticatedUser.getMid());
+
+        PlayList playListItem = PlayList.builder()
+                .member(member)
+                .plName(plName)
+                .build();
+
         playListRepository.save(playListItem);
+
+        return playListItem;
     }
 
     /**
@@ -64,13 +75,23 @@ public class PlayListServiceImpl implements PlayListService {
     /**
      PlayList에 노래 한곡 추가하기
      */
-    public void addMusicToPlayList(Long plNo, Long no) {
-        PlayList playList = playListRepository.findById(plNo).orElseThrow(EntityNotFoundException::new);
-        Music music = musicRepository.findById(no).orElseThrow(EntityNotFoundException::new);
 
-        playList.getMusics().add(music);
+    public void addMusicToPlayList(Long plno, Long no) {
+        log.info("plno : {}", plno);
+        log.info("no : {}", no);
+
+        Optional<PlayList> playListById = playListRepository.findById(plno);
+        PlayList playList = playListById.orElseThrow();
+
+        Optional<Music> byId = musicRepository.findById(no);
+        Music music = byId.orElseThrow();
+
+        log.info("playList.getMusics() : {}" , playList.getMusics().add(music));
+        log.info("music.getNo() : {}", music.getNo());
+
         playListRepository.save(playList);
     }
+
 
 
 //    @Override
