@@ -32,8 +32,8 @@ public class QuestionServiceImpl implements QuestionService{
 
 
     @Override // 1개 읽기
-    public QuestionDTO read1Quest(Long qNo) {
-        Optional<Question> result = questionRepository.findById(qNo);
+    public QuestionDTO read1Quest(Long qno) {
+        Optional<Question> result = questionRepository.findById(qno);
         Question question = result.orElseThrow();
         QuestionDTO questionDTO = modelMapper.map(question, QuestionDTO.class);
 
@@ -46,9 +46,9 @@ public class QuestionServiceImpl implements QuestionService{
 
         Question question = modelMapper.map(questionDTO, Question.class);
 
-        Long qNo = questionRepository.save(question).getQNo();
+        Long qno = questionRepository.save(question).getQno();
 
-        return qNo;
+        return qno;
 
 
     }
@@ -56,7 +56,7 @@ public class QuestionServiceImpl implements QuestionService{
     @Override
     public void modQuest(QuestionDTO questionDTO){
 
-        Optional<Question> result = questionRepository.findById(questionDTO.getQNo());
+        Optional<Question> result = questionRepository.findById(questionDTO.getQno());
 
         Question question = result.orElseThrow();
 
@@ -75,9 +75,9 @@ public class QuestionServiceImpl implements QuestionService{
 
     @Transactional
     @Override
-    public void increaseQViewCount(Long qNo) {
-        Question question = questionRepository.findById(qNo)
-                .orElseThrow(() -> new IllegalArgumentException("Question not found with nNo: " + qNo));
+    public void increaseQViewCount(Long qno) {
+        Question question = questionRepository.findById(qno)
+                .orElseThrow(() -> new IllegalArgumentException("Question not found with qno: " + qno));
 
         int currentViewCount = question.getQViewCount();
         question.setQViewCount(currentViewCount + 1);
@@ -91,7 +91,7 @@ public class QuestionServiceImpl implements QuestionService{
     public PageResponseDTO<QuestionDTO> listWithNewQuestion(PageRequestDTO pageRequestDTO) {
         String[] types = pageRequestDTO.getTypes();
         String keyword = pageRequestDTO.getKeyword();
-        Pageable pageable = pageRequestDTO.getPageable("qNo");
+        Pageable pageable = pageRequestDTO.getPageable("qno");
 
         Page<Question> result = questionRepository.searchAll(types, keyword, pageable);
 

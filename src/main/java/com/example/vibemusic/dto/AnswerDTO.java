@@ -9,16 +9,14 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-@Data
-@Builder
-@AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class AnswerDTO {
 
     private Long ano;
-
-    @NotNull
-    private Long qNo;
 
     @NotEmpty
     private String answerText;
@@ -31,5 +29,8 @@ public class AnswerDTO {
 
     @JsonIgnore
     private LocalDateTime modDate;
+
+    @NotEmpty
+    private Long qno;
 
 }

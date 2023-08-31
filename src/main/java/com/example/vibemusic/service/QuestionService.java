@@ -17,13 +17,13 @@ public interface QuestionService {
 
     Long registerQuest(QuestionDTO questionDTO);
 
-    QuestionDTO read1Quest(Long qNo);
+    QuestionDTO read1Quest(Long qno);
 
     void modQuest(QuestionDTO questionDTO);
 
-    void removeQuest(Long qNo);
+    void removeQuest(Long qno);
 
-    void increaseQViewCount(Long qNo);
+    void increaseQViewCount(Long qno);
 
 
     PageResponseDTO<QuestionDTO> listWithNewQuestion(PageRequestDTO pageRequestDTO);
