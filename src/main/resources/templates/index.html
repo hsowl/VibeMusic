@@ -6,26 +6,6 @@
 <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
 <div class="elfsight-app-1133a280-e93c-4f1f-b875-ba78ffd67d62"></div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-    <!-- Title -->
-    <title>VibeMusic</title>
-
-    <!-- Favicon -->
-    <link rel="icon" href="img/core-img/favicon.ico">
-
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="/css/style.css">
-
-
-</head>
-
-
 <body>
 <div layout:fragment="content">
     <!-- Preloader -->
@@ -51,7 +31,8 @@
                             <div class="hero-slides-content text-center">
                                 <h6 data-animation="fadeInUp" data-delay="100ms">PLAY MUSIC</h6>
                                 <h2 data-animation="fadeInUp" data-delay="300ms">NEW JEANS<span>NEW JEANS</span></h2>
-                                <a data-animation="fadeInUp" data-delay="500ms" href="#newmusic"  class="btn oneMusic-btn mt-50">신곡 듣기 <i class="fa fa-angle-double-right"></i></a>
+                                <a data-animation="fadeInUp" data-delay="500ms" href="#newmusic"
+                                   class="btn oneMusic-btn mt-50">신곡 듣기 <i class="fa fa-angle-double-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -69,7 +50,8 @@
                             <div class="hero-slides-content text-center">
                                 <h6 data-animation="fadeInUp" data-delay="100ms">PLAY MUSIC</h6>
                                 <h2 data-animation="fadeInUp" data-delay="300ms">BTS<span>BTS</span></h2>
-                                <a data-animation="fadeInUp" data-delay="500ms" href="#section-heading style-2" class="btn oneMusic-btn mt-50">신곡
+                                <a data-animation="fadeInUp" data-delay="500ms" href="#section-heading style-2"
+                                   class="btn oneMusic-btn mt-50">신곡
                                     듣기 <i class="fa fa-angle-double-right"></i></a>
                             </div>
                         </div>
@@ -83,8 +65,8 @@
 
     <!-- ##### Buy Now Area Start ##### -->
     <p id="newmusic"></p>
-    <section class="oneMusic-buy-now-area has-fluid bg-gray section-padding-100" >
-        <div class="container-fluid" >
+    <section class="oneMusic-buy-now-area has-fluid bg-gray section-padding-100">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
                     <div class="section-heading style-2">
@@ -102,12 +84,6 @@
                             <a style="text-decoration: none" th:href="|@{/read(no=${dto.no})}|">
                                 <img th:src="${dto.m_image}">
                             </a>
-                            <!-- Album Price -->
-                            <!--                            <div class="album-price">-->
-                            <!--                                <p></p>-->
-                            <!--                            </div>-->
-                            <!-- Play Icon -->
-
                         </div>
                         <div class="album-info">
                             <a th:href="|@{/read(no=${dto.no})}|">
@@ -123,7 +99,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="load-more-btn text-center wow fadeInUp" data-wow-delay="300ms">
-<!--                        <a href="#" class="btn oneMusic-btn"> 더 보기 <i class="fa fa-angle-double-right"></i></a>-->
+                        <!--                        <a href="#" class="btn oneMusic-btn"> 더 보기 <i class="fa fa-angle-double-right"></i></a>-->
                     </div>
                 </div>
             </div>
@@ -142,17 +118,18 @@
 
                         <!-- Single Top Item -->
                         <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="100ms"
-                             th:each="music:${recommendedMusic}">
+                             th:each="music, musicStat : ${recommendedMusic}" th:if="${musicStat.index lt 10}">
                             <div class="thumbnail">
                                 <img th:src="${music.m_image}" alt="">
                             </div>
                             <div class="content-">
                                 <a th:href="|@{/read(no=${music.no})}|">
-                                <h6 th:text="${music.m_title}"></h6>
+                                    <h6 th:text="${music.m_title}"></h6>
                                 </a>
                                 <p th:text="${music.m_artist}"></p>
                             </div>
                         </div>
+
 
                         <!-- Single Top Item -->
 
@@ -166,23 +143,25 @@
                         <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
                             <p></p>
                             <div th:if="${WeatherMessage == '비'}">
-                                <h2>비 오는 날 듣기 좋은 노래</h2>
+                                <h2>비오는날듣기좋은노래</h2>
                             </div>
                             <div th:if="${WeatherMessage == '흐림'}">
-                                <h2>흐린 날 듣기 좋은 노래</h2>
+                                <h2>흐린날듣기좋은노래</h2>
                             </div>
                             <div th:if="${WeatherMessage == '추움'}">
-                                <h2>추운 날 듣기 좋은 노래</h2>
+                                <h2>추운날듣기좋은노래</h2>
                             </div>
                             <div th:if="${WeatherMessage == '습함'}">
-                                <h2>습한 날 듣기 좋은 노래</h2>
+                                <h2>습한날듣기좋은노래</h2>
                             </div>
 
                         </div>
 
                         <!-- Single Top Item -->
-                        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="100ms"
-                             th:each="weatherMusic:${weatherMusic}">
+                        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp"
+                             data-wow-delay="100ms"
+                             th:each="weatherMusic, weatherMusicStat : ${weatherMusic}"
+                             th:if="${weatherMusicStat.index lt 10}">
                             <div class="first-part d-flex align-items-center">
                                 <div class="thumbnail">
                                     <img th:src="${weatherMusic.m_image}" alt="">
@@ -190,7 +169,7 @@
                                 <div class="content-">
                                     <div class="content-">
                                         <a th:href="|@{/read(no=${weatherMusic.no})}|">
-                                        <h6 th:text="${weatherMusic.m_title}"></h6>
+                                            <h6 th:text="${weatherMusic.m_title}"></h6>
                                         </a>
                                         <p th:text="${weatherMusic.m_artist}"></p>
                                     </div>
@@ -203,39 +182,60 @@
                         <!-- Single Top Item -->
 
 
+                        <!-- ***** Popular Artists ***** -->
+                        <div class="col-12 col-lg-4">
+                            <div class="popular-artists-area mb-100">
+                                <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
+                                    <h2 th:text="${timeBasedMessage}"></h2>
+                                </div>
 
-                <!-- ***** Popular Artists ***** -->
-                <div class="col-12 col-lg-4">
-                    <div class="popular-artists-area mb-100">
-                        <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
-                            <p>See what’s new</p>
-                            <h2>Popular Artist</h2>
-                        </div>
+                                <!-- Single Artist -->
+                                <div class="single-artists d-flex align-items-center wow fadeInUp"
+                                     data-wow-delay="100ms"
+                                     th:each="randomGenreMusic, randomGenreMusicStat : ${randomGenreMusic}"
+                                     th:if="${randomGenreMusicStat.index lt 10}">
+                                    <div class="thumbnail">
+                                        <img th:src="${randomGenreMusic.m_image}" alt="">
+                                    </div>
+                                    <div class="content-">
+                                        <div class="content-">
+                                            <a th:href="|@{/read(no=${randomGenreMusic.no})}|">
+                                                <h6 th:text="${randomGenreMusic.m_title}"></h6>
+                                            </a>
+                                            <p th:text="${randomGenreMusic.m_artist}"></p>
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <!-- Single Artist -->
-                        <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="100ms">
-                            <div class="thumbnail">
-                                <img src="img/bg-img/pa1.jpg" alt="">
+
                             </div>
-                            <div class="content-">
-                                <p>Sam Smith</p>
-                            </div>
                         </div>
-
-
-                        </div>
-
-                    </div>
-                </div>
-
-        </div>
     </section>
     <!-- ##### Miscellaneous Area End ##### -->
 
 
-
 </div>
 </body>
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>VibeMusic</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="img/core-img/favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/css/style.css">
+
+
+</head>
 
 </html>
 
@@ -245,14 +245,14 @@
     // console.log(auth)
     console.log(auth2)
 
-    function weather(){
+    function weather() {
         JQuery.ajax({
-            url : "/api/weather",
-            type : "get",
+            url: "/api/weather",
+            type: "get",
             timeout: 30000,
             contentType: "application/json",
             dataType: "json",
-            success : function (data,status,xhr) {
+            success: function (data, status, xhr) {
                 let dataHeader = data.result.response.header.resultCode;
 
                 if (dataHeader == "00") {
@@ -263,7 +263,7 @@
                     console.log(data);
                 }
             },
-            error : function (e, status, xhr, data){
+            error: function (e, status, xhr, data) {
                 console.log("error == >");
                 console.log(e);
 
