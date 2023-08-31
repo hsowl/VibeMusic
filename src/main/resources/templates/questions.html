@@ -76,19 +76,19 @@
                                             <thead>
                                             <tr>
                                                 <th scope = "col">Qno</th>
-                                                <th scope = "col">title</th>
-                                                <th scope = "col">writer</th>
+                                                <th scope = "col">Title</th>
+                                                <th scope = "col">Writer</th>
                                                 <th scope = "col">Regdate</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr th:each="dto:${qList.dtoList}">
-                                                <th scope="row">[[${dto.qNo}]]</th>
+                                                <th scope="row">[[${dto.qno}]]</th>
                                                 <td>
                                                     <a class = "text-decoration-none"
-                                                       th:href="@{/questionRead(qNo=${dto.qNo})}">[[${dto.qTitle}]]</a>
+                                                       th:href="@{/questionRead(qno=${dto.qno})}">[[${dto.qTitle}]]</a>
 
-                                                    <!--th:href="|@{/templates/questionRead/qRead(qNo=${dto.qNo})}|">[[${dto.qTitle}]]</a>-->
+                                                    <!--th:href="|@{/templates/questionRead/qRead(qno=${dto.qno})}|">[[${dto.qTitle}]]</a>-->
                                                 </td>
                                                 <td>[[${dto.qWriter}]]</td>
                                                 <td>[[${dto.qWriter}]]</td>

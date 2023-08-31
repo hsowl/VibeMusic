@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 @ToString
 public class QuestionDTO {
 
-    private Long qNo;
+    private Long qno;
     @NotEmpty
     @Size(min = 3, max = 100)
     private String qTitle;

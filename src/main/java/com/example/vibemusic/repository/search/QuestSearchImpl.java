@@ -57,7 +57,7 @@ public class QuestSearchImpl extends QuerydslRepositorySupport implements QuestS
         }
         System.out.println("query ============================>"+ query);
 
-        query.where(question.qNo.gt(0L));
+        query.where(question.qno.gt(0L));
         System.out.println("query ============================>"+ query);
 
         this.getQuerydsl().applyPagination(pageable,query);

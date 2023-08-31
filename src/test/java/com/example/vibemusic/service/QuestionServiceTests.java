@@ -35,14 +35,14 @@ class QuestionServiceTests {
 
     @Test
     public void testInsert(){
-        IntStream.rangeClosed(1, 10).forEach(i -> {
+        IntStream.rangeClosed(1, 50).forEach(i -> {
             Question question = Question.builder()
                     .qTitle("질문..." + i)
                     .qContent("질문내용..." + i)
-                    .qWriter("질문자" + (i % 10))
+                    .qWriter("질문자" + (i % 50))
                     .build();
             Question result = questionRepository.save(question);
-            log.info("QNO : " + result.getQNo());
+            log.info("QNO : " + result.getQno());
 
         });
 
@@ -58,9 +58,9 @@ class QuestionServiceTests {
     @Test
     public void testUpdate(){
 
-        Long qNo = 50L;
+        Long qno = 50L;
 
-        Optional<Question> result = questionRepository.findById(qNo);
+        Optional<Question> result = questionRepository.findById(qno);
 
         Question question = result.orElseThrow();
 

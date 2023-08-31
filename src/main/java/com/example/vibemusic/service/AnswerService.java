@@ -11,19 +11,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-@Service
+
 public interface AnswerService {
-    Long answerRegister(AnswerDTO answerDTO);
+
 
     AnswerDTO answerRead(Long ano);
+
+    Long answerRegister(AnswerDTO answerDTO);
 
     void answerModify(AnswerDTO answerDTO);
 
     void answerRemove(Long ano);
 
-    Page<Answer> answerListOfQuestion(Long qNo, Pageable pageable);
+    Page<Answer> answerListOfQuestion(Long qno, Pageable pageable);
 
-    PageResponseDTO<AnswerDTO> getListOfQuestion(Long qNo, PageRequestDTO pageRequestDTO);
+    PageResponseDTO<AnswerDTO> getListOfQuestion(Long qno, PageRequestDTO pageRequestDTO);
 
 
 

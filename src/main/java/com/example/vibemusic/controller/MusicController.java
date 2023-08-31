@@ -29,6 +29,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 
 
@@ -127,7 +128,6 @@ public class MusicController {
                 case "TMP":
                     tmpValue = item.getInt("fcstValue");
                     break;
-                // Add cases for other weather categories...
             }
         }
 
@@ -148,8 +148,20 @@ public class MusicController {
             isHumidWeather = true;
             weatherMusic = chartService.HipHopGenre(no);
         }
-        //////////////////////////////////////////////////////
 
+        if (isRainyWeather) {
+            model.addAttribute("WeatherMessage", "비");
+        } else if (isCloudyWeather) {
+            model.addAttribute("WeatherMessage", "흐림");
+        } else if (isColdWeather) {
+            model.addAttribute("WeatherMessage", "추움");
+        } else if (isHumidWeather) {
+            model.addAttribute("WeatherMessage", "습함");
+        }
+        /////////////////////날씨 api끝 ////////////////////////////
+
+
+        //////////////////// 요일별 ///////////////////////////
         List<MusicDTO> recommendedMusic = new ArrayList<>();
         switch (currentDay) {
             case MONDAY:
@@ -174,22 +186,37 @@ public class MusicController {
                 recommendedMusic = chartService.BalladeGenre(no);
                 break;
         }
+        //////////////////////요일별 끝/////////////////////////////
 
+        //////////////////////시간대 별/////////////////////////////
+        LocalTime currentTime = LocalTime.now();
+        List<MusicDTO> randomGenreMusic = new ArrayList<>();
+        String message = "";
+
+        if (currentTime.isBefore(LocalTime.of(12, 0))) {
+            randomGenreMusic = chartService.RandomDanceGenre(no);
+            message = messageSource.getMessage("attendance", null, locale);
+        } else if (currentTime.isBefore(LocalTime.of(18, 0))) {
+            randomGenreMusic = chartService.RandomBalladeGenre(no);
+            message = messageSource.getMessage("lunch", null, locale);
+        } else if (currentTime.isBefore(LocalTime.of(22, 0))) {
+            randomGenreMusic = chartService.RandomHipHopGenre(no);
+            message = messageSource.getMessage("leavework", null, locale);
+        } else if (currentTime.isBefore(LocalTime.of(23, 0))) {
+            randomGenreMusic = chartService.RandomPopGenre(no);
+            message = messageSource.getMessage("sleep", null, locale);
+        }
+        ///////////////////시간대 끝////////////////////////////////////
+
+
+        model.addAttribute("timeBasedMessage", message);
+        model.addAttribute("randomGenreMusic", randomGenreMusic);
         model.addAttribute("responseDTO", responseDTO);
         model.addAttribute("recommendedMusic", recommendedMusic);
         model.addAttribute("currentDay", currentDay.toString());
         model.addAttribute("translatedMessage", translatedMessage);
         model.addAttribute("weatherMusic", weatherMusic);
 
-        if (isRainyWeather) {
-            model.addAttribute("WeatherMessage", "비");
-        } else if (isCloudyWeather) {
-            model.addAttribute("WeatherMessage", "흐림");
-        } else if (isColdWeather) {
-            model.addAttribute("WeatherMessage", "추움");
-        } else if (isHumidWeather) {
-            model.addAttribute("WeatherMessage", "습함");
-        }
         return "index";
     }
 
@@ -296,6 +323,8 @@ public class MusicController {
 
         return jsonObj.toString();
     }
+
+
 }
 
 

@@ -10,7 +10,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -82,9 +81,84 @@ public class ChartServiceImpl implements ChartService{
     }
 
 
+    @Override
     public List<Music> getAllMusicSortedByPlayCount() {
         Sort sortByPlayCountDesc = Sort.by(Sort.Direction.DESC, "mPlayCount");
         return musicRepository.findAll(sortByPlayCountDesc);
     }
 
+
+    @Override
+    public List<MusicDTO> RandomDanceGenre(Long no) {
+
+//        Music randomMusic = musicRepository.findById(no).orElse(null);
+
+        List<Music> danceMusics = musicRepository.findBymGenre("dance");
+
+        List<MusicDTO> musicDTO = danceMusics.stream()
+                .map(music -> modelMapper.map(music, MusicDTO.class))
+                .collect(Collectors.toList());
+
+//        if (randomMusic != null) {
+//            MusicDTO randomMusicDTO = modelMapper.map(randomMusic, MusicDTO.class);
+//            musicDTO.add(randomMusicDTO);
+//        }
+
+        return musicDTO;
+    }
+    @Override
+    public List<MusicDTO> RandomHipHopGenre(Long no) {
+
+//        Music randomMusic = musicRepository.findById(no).orElse(null);
+
+        List<Music> danceMusics = musicRepository.findBymGenre("hiphop");
+
+        List<MusicDTO> musicDTO = danceMusics.stream()
+                .map(music -> modelMapper.map(music, MusicDTO.class))
+                .collect(Collectors.toList());
+
+//        if (randomMusic != null) {
+//            MusicDTO randomMusicDTO = modelMapper.map(randomMusic, MusicDTO.class);
+//            musicDTO.add(randomMusicDTO);
+//        }
+
+        return musicDTO;
+    }
+    @Override
+    public List<MusicDTO> RandomPopGenre(Long no) {
+
+//        Music randomMusic = musicRepository.findById(no).orElse(null);
+
+        List<Music> danceMusics = musicRepository.findBymGenre("Pop");
+
+        List<MusicDTO> musicDTO = danceMusics.stream()
+                .map(music -> modelMapper.map(music, MusicDTO.class))
+                .collect(Collectors.toList());
+
+//        if (randomMusic != null) {
+//            MusicDTO randomMusicDTO = modelMapper.map(randomMusic, MusicDTO.class);
+//            musicDTO.add(randomMusicDTO);
+//        }
+
+        return musicDTO;
+    }
+
+    @Override
+    public List<MusicDTO> RandomBalladeGenre(Long no) {
+
+//        Music randomMusic = musicRepository.findById(no).orElse(null);
+
+        List<Music> danceMusics = musicRepository.findBymGenre("Ballade");
+
+        List<MusicDTO> musicDTO = danceMusics.stream()
+                .map(music -> modelMapper.map(music, com.example.vibemusic.dto.MusicDTO.class))
+                .collect(Collectors.toList());
+
+//        if (randomMusic != null) {
+//            com.example.vibemusic.dto.MusicDTO randomMusicDTO = modelMapper.map(randomMusic, com.example.vibemusic.dto.MusicDTO.class);
+//            musicDTO.add(randomMusicDTO);
+//        }
+
+        return musicDTO;
+    }
 }

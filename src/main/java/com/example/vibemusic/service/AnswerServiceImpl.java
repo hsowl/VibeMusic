@@ -1,10 +1,15 @@
 package com.example.vibemusic.service;
 
 import com.example.vibemusic.domain.Answer;
+import com.example.vibemusic.domain.Music;
+import com.example.vibemusic.domain.Question;
+import com.example.vibemusic.domain.Reply;
 import com.example.vibemusic.dto.AnswerDTO;
 import com.example.vibemusic.dto.PageRequestDTO;
 import com.example.vibemusic.dto.PageResponseDTO;
+import com.example.vibemusic.dto.ReplyDTO;
 import com.example.vibemusic.repository.AnswerRepository;
+import com.example.vibemusic.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
@@ -13,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,25 +26,31 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Log4j2
+@Transactional
+
 public class AnswerServiceImpl implements AnswerService{
 
     private final AnswerRepository answerRepository;
-
+    private final QuestionRepository questionRepository;
     private final ModelMapper modelMapper;
 
     @Override
     public Long answerRegister(AnswerDTO answerDTO) {
-
-        Answer answer = modelMapper.map(answerDTO, Answer.class);
+        Optional<Question> byId = questionRepository.findById(answerDTO.getQno());
+        Question question = byId.orElseThrow();
+        Answer answer = Answer.builder()
+                .question(question)
+                .answerer(answerDTO.getAnswerer())
+                .answerText(answerDTO.getAnswerText())
+                .build();
 
         Long ano = answerRepository.save(answer).getAno();
-
         return ano;
     }
 
     @Override
-    public Page<Answer> answerListOfQuestion(Long qNo, Pageable pageable) {
-        return answerRepository.answerListOfQuestion(qNo, pageable);
+    public Page<Answer> answerListOfQuestion(Long qno, Pageable pageable) {
+        return answerRepository.answerListOfQuestion(qno, pageable);
     }
 
     @Override
@@ -72,13 +84,13 @@ public class AnswerServiceImpl implements AnswerService{
     }
 
     @Override
-    public PageResponseDTO<AnswerDTO> getListOfQuestion(Long qNo, PageRequestDTO pageRequestDTO) {
+    public PageResponseDTO<AnswerDTO> getListOfQuestion(Long qno, PageRequestDTO pageRequestDTO) {
 
         Pageable pageable = PageRequest.of(pageRequestDTO.getPage() <=0? 0: pageRequestDTO.getPage() -1,
                 pageRequestDTO.getSize(),
-                Sort.by("rno").ascending());
+                Sort.by("ano").ascending());
 
-        Page<Answer> result = answerRepository.answerListOfQuestion(qNo, pageable);
+        Page<Answer> result = answerRepository.answerListOfQuestion(qno, pageable);
 
         List<AnswerDTO> dtoList =
                 result.getContent().stream().map(answer -> modelMapper.map(answer, AnswerDTO.class))

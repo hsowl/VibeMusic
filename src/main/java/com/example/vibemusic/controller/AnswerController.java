@@ -26,36 +26,34 @@ import java.util.Map;
 @Log4j2
 @RequiredArgsConstructor
 public class AnswerController {
-    // CommentController.java
-
 
     private final AnswerService answerService;
-
-
 
     @ApiOperation(value = "Answers POST", notes = "POST 방식으로 댓글 등록")
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, Long> register(@Valid @RequestBody AnswerDTO answerDTO, BindingResult bindingResult) throws BindException {
 
+        log.info("qno =========================================> {}", answerDTO.getQno());
+
         if(bindingResult.hasErrors()){
             throw new BindException(bindingResult);
         }
 
-        log.info("qNo : {}", answerDTO.getQNo());
+        log.info("qno : {}", answerDTO.getQno());
 
         Map<String, Long> resultMap = new HashMap<>();
 
-        Long qNo = answerService.answerRegister(answerDTO);
+        Long ano = answerService.answerRegister(answerDTO);
 
-        resultMap.put("qNo",qNo);
+        resultMap.put("ano",ano);
 
         return resultMap;
     }
 
     @ApiOperation(value = "answers of Question", notes = "Get 방식으로 특정 게시물의 댓글 목록")
-    @GetMapping(value = "/answerList/{qNo}")
-    public PageResponseDTO<AnswerDTO> getList(@PathVariable("qNo") Long qNo, PageRequestDTO pageRequestDTO){
-        PageResponseDTO<AnswerDTO> responseDTO = answerService.getListOfQuestion(qNo,pageRequestDTO);
+    @GetMapping(value = "/answerList/{qno}")
+    public PageResponseDTO<AnswerDTO> getList(@PathVariable("qno") Long qno, PageRequestDTO pageRequestDTO){
+        PageResponseDTO<AnswerDTO> responseDTO = answerService.getListOfQuestion(qno,pageRequestDTO);
                                                                 //메소드만들어
         return responseDTO;
     }
