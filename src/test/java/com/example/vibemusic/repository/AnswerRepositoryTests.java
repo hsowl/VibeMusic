@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 @SpringBootTest
 @Slf4j
@@ -28,23 +29,24 @@ class AnswerRepositoryTests {
     @Test
     public void testInsert() {
 
-        Long qNo = 50L;
+        Long qno = 10L;
+        IntStream.rangeClosed(1, 50).forEach(i -> {
 
-        Question question = Question.builder().qNo(qNo).build();
+            Question question = Question.builder().qno(qno).build();
 
-        Answer answer = Answer.builder()
-                .question(question)
-                .answerText("답변")
-                .answerer("답변자")
-                .build();
+            Answer answer = Answer.builder()
+                    .question(question)
+                    .answerText("답변2")
+                    .answerer("답변자")
+                    .build();
 
-        answerRepository.save(answer);
-        log.info("answer:"+answer);
+            answerRepository.save(answer);
+            log.info("answer:" + answer);
+        });
     }
-
     @Test
     public void readAll() {
-       answerRepository.findAnswerByQuestion_qNo(50L).forEach(answer -> log.info("answer : {}",answer.getAno()));
+       answerRepository.findAnswerByQuestion_qno(50L).forEach(answer -> log.info("answer : {}",answer.getAno()));
     }
 
     @Test
@@ -64,11 +66,11 @@ class AnswerRepositoryTests {
 
     @Test
     public void testQuestReplies() {
-        Long qNo = 1L;
+        Long qno = 1L;
 
-        Pageable pageable = PageRequest.of(0,10, Sort.by("rno").descending());
+        Pageable pageable = PageRequest.of(0,10, Sort.by("ano").descending());
 
-        Page<Answer> result = answerRepository.answerListOfQuestion(qNo,pageable);
+        Page<Answer> result = answerRepository.answerListOfQuestion(qno,pageable);
 
         result.getContent().forEach(answer -> log.info("answer : {}",answer));
     }

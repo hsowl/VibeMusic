@@ -4,6 +4,7 @@ import lombok.*;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +19,8 @@ public class Question extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
-    private Long qNo;
+    @Column
+    private Long qno;
 
     @Column(length = 500,nullable = false)
     private String qTitle;

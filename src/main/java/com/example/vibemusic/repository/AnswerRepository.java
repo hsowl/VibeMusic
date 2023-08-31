@@ -11,8 +11,8 @@ import java.util.List;
 
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
 
-    List<Answer> findAnswerByQuestion_qNo(Long qNo);
+    List<Answer> findAnswerByQuestion_qno(Long qno);
 
-    @Query("select a from Answer  a where a.question.qNo = :qNo")
-    Page<Answer> answerListOfQuestion(Long qNo, Pageable pageable);
+    @Query("select a from Answer a where a.question.qno = :qno")
+    Page<Answer> answerListOfQuestion(Long qno, Pageable pageable);
 }

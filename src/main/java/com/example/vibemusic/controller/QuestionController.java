@@ -44,16 +44,16 @@ public class QuestionController {
     private final AnswerService answerService;
 
 //    @GetMapping("/questionRead")
-//    public void qRead(Long qNo, Model model) {
-//        log.info("qNo=============> : {}", qNo);
-//        QuestionDTO questionDTO = questionService.read1Quest(qNo);
+//    public void qRead(Long qno, Model model) {
+//        log.info("qno=============> : {}", qno);
+//        QuestionDTO questionDTO = questionService.read1Quest(qno);
 //
 //        model.addAttribute("dto", questionDTO);
 //    }
     @GetMapping({"/questionRead","/questionModify"})
-    public void qRead(@RequestParam Long qNo, Model model, PageRequestDTO pageRequestDTO) {
-        log.info("qNo=============> : {}", qNo);
-        QuestionDTO questionDTO = questionService.read1Quest(qNo);
+    public void qRead(@RequestParam Long qno, Model model, PageRequestDTO pageRequestDTO) {
+        log.info("qno=============> : {}", qno);
+        QuestionDTO questionDTO = questionService.read1Quest(qno);
 
         model.addAttribute("dto", questionDTO);
     }
@@ -107,9 +107,8 @@ public class QuestionController {
             String link = pageRequestDTO.getLink();
             log.info("got link");
 
-            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
 
-            redirectAttributes.addAttribute("qNo",questionDTO.getQNo());//수정할 게시글의 식별번호(qno)를 리다이렉트 파라미터로 추가
+            redirectAttributes.addAttribute("qno",questionDTO.getQno());//수정할 게시글의 식별번호(qno)를 리다이렉트 파라미터로 추가
 
             return "redirect:/questionModify?"+link;
         }
@@ -117,7 +116,7 @@ public class QuestionController {
         questionService.modQuest(questionDTO);
 
         redirectAttributes.addFlashAttribute("result","modified");
-        redirectAttributes.addAttribute("qNo", questionDTO.getQNo());
+        redirectAttributes.addAttribute("qno", questionDTO.getQno());
 
         return "redirect:/questionRead";
 
@@ -125,21 +124,21 @@ public class QuestionController {
     }
 
 //    @GetMapping("/questionModify")
-//    public String qModify(@RequestParam Long qNo, Model model, PageRequestDTO pageRequestDTO) {
-//        log.info("qNo=============> : {}", qNo);
-//        QuestionDTO questionDTO = questionService.read1Quest(qNo);
+//    public String qModify(@RequestParam Long qno, Model model, PageRequestDTO pageRequestDTO) {
+//        log.info("qno=============> : {}", qno);
+//        QuestionDTO questionDTO = questionService.read1Quest(qno);
 //
 //        model.addAttribute("dto", questionDTO);
 //        return "questionModify"; // question_modify.html 뷰 이름
 //    }
 
     @PostMapping("/questionRemove")
-    public String removeQ(@RequestParam Long qNo, RedirectAttributes redirectAttributes){
+    public String removeQ(@RequestParam Long qno, RedirectAttributes redirectAttributes){
         //bno: 삭제할 게시글의 식별번호(Long 타입)입니다.
         //리다이렉트 시에 속성(attribute)를 전달
-        log.info("remove post" + qNo);
+        log.info("remove post" + qno);
 
-        questionService.removeQuest(qNo); //boardService.remove(qNo) 메서드를 호출하여 해당 식별번호의 게시글을 삭제
+        questionService.removeQuest(qno); //boardService.remove(qno) 메서드를 호출하여 해당 식별번호의 게시글을 삭제
         redirectAttributes.addFlashAttribute("result","removed"); //삭제 성공을 나타내는 속성을 리다이렉트 속성에 추가
 
 
@@ -179,10 +178,10 @@ public class QuestionController {
 
         log.info(questionDTO);
 
-        Long qNo =questionService.registerQuest(questionDTO);
+        Long qno =questionService.registerQuest(questionDTO);
 
 
-        redirectAttributes.addFlashAttribute("result", qNo);
+        redirectAttributes.addFlashAttribute("result", qno);
         return "redirect:/questions";
          }
 
