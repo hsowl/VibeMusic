@@ -1,10 +1,13 @@
 package com.example.vibemusic.controller;
 
+import com.example.vibemusic.domain.PlayList;
 import com.example.vibemusic.dto.MusicDTO;
 import com.example.vibemusic.dto.PageRequestDTO;
 import com.example.vibemusic.dto.PageResponseDTO;
+import com.example.vibemusic.security.dto.MemberSecurityDTO;
 import com.example.vibemusic.service.ChartService;
 import com.example.vibemusic.service.MusicService;
+import com.example.vibemusic.service.PlayListService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 
@@ -18,6 +21,7 @@ import org.springframework.context.MessageSource;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,6 +46,7 @@ public class MusicController {
     private final MusicService musicService;
     private final MessageSource messageSource;
     private final ChartService chartService;
+    private final PlayListService playListService;
 
 
     @GetMapping({"/contact", "/elements"})
@@ -63,7 +68,7 @@ public class MusicController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/read")
-    public void readOne(Long no, Model model, Integer mPlayCount) {
+    public void readOne(Long no, Model model, Integer mPlayCount, @AuthenticationPrincipal MemberSecurityDTO authenticatedUser) {
 
         if (mPlayCount == null) {
             mPlayCount = 0; // 기본값을 0으로 설정.
@@ -73,6 +78,10 @@ public class MusicController {
         musicService.increaseViewCount(no);
         MusicDTO musicDTO = musicService.readOne(no);
         model.addAttribute("dto", musicDTO);
+
+        List<PlayList> playlists = playListService.getPlaylist(authenticatedUser);
+        model.addAttribute("playlists", playlists);
+        log.info("playlists ======> {}", playlists);
     }
 
     @GetMapping("/index")

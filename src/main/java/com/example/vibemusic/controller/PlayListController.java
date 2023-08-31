@@ -61,6 +61,7 @@ public class PlayListController {
         return "redirect:/playlist"; // 리스트 페이지로 리다이렉트
     }
 
+
     @PostMapping("/playlist/addToNewPlaylist")
     public String addToNewList(@RequestParam String plName, @RequestParam Long no,@AuthenticationPrincipal MemberSecurityDTO authenticatedUser){
 
