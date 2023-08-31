@@ -1,10 +1,12 @@
 package com.example.vibemusic.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 
 @Data
 @Getter
@@ -28,5 +30,6 @@ public class QuestionDTO {
 
     private int qViewCount;
 
-    private String qRegDate;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime regDate;
 }

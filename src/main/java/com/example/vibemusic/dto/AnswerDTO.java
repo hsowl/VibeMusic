@@ -30,7 +30,6 @@ public class AnswerDTO {
     @JsonIgnore
     private LocalDateTime modDate;
 
-    @NotEmpty
     private Long qno;
 
 }

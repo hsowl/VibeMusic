@@ -17,6 +17,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,6 +64,26 @@ public class AnswerServiceImpl implements AnswerService{
 
         return modelMapper.map(answer, AnswerDTO.class);
     }
+
+//    @Override
+//    public AnswerDTO answerRead(Long ano) {
+//        Optional<Answer> answerOptional = answerRepository.findById(ano);
+//        Answer answer = answerOptional.orElseThrow();
+//
+//        String username = null;
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication != null) {
+//            username = authentication.getName();
+//        }
+//
+//        if (username != null && !answer.getAnswerer().equals(username)) {
+//            // 작성자 아이디와 로그인한 사용자 아이디가 일치하지 않을 경우
+//            AnswerDTO secretAnswer = new AnswerDTO();
+//            secretAnswer.setAnswerText("비밀댓글입니다");
+//            return secretAnswer;        }
+//
+//        return modelMapper.map(answer, AnswerDTO.class);
+//    }
 
     @Override
     public void answerModify(AnswerDTO answerDTO) {

@@ -37,4 +37,14 @@ async function modifyAnswer(answerObj){
 async function removeAnswer(qno) {
     const response = await axios.delete(`/answers/${qno}`)
     return response.data
+
+    async function getCurrentUser() {
+        try {
+            const response = await axios.get('/answers/userinfo'); // 엔드포인트 경로 변경
+            return response.data;
+        } catch (error) {
+            console.error("사용자 정보를 가져오는데 오류가 발생했습니다:", error);
+            return null;
+        }
+    }
 }

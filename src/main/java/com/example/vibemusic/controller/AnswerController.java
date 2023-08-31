@@ -11,6 +11,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
@@ -29,17 +31,18 @@ public class AnswerController {
 
     private final AnswerService answerService;
 
+
     @ApiOperation(value = "Answers POST", notes = "POST 방식으로 댓글 등록")
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, Long> register(@Valid @RequestBody AnswerDTO answerDTO, BindingResult bindingResult) throws BindException {
+    public Map<String,Long> register(
+            @Valid @RequestBody AnswerDTO answerDTO,
+            BindingResult bindingResult)throws BindException{
 
-        log.info("qno =========================================> {}", answerDTO.getQno());
+        log.info(answerDTO);
 
         if(bindingResult.hasErrors()){
             throw new BindException(bindingResult);
         }
-
-        log.info("qno : {}", answerDTO.getQno());
 
         Map<String, Long> resultMap = new HashMap<>();
 
@@ -49,6 +52,28 @@ public class AnswerController {
 
         return resultMap;
     }
+
+
+//
+//    @ApiOperation(value = "Answers POST", notes = "POST 방식으로 댓글 등록")
+//    @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
+//    public Map<String, Long> register(@Valid @RequestBody AnswerDTO answerDTO, BindingResult bindingResult) throws BindException {
+//        log.info("qno =========================================> {}", answerDTO.getQno());
+//
+//        if(bindingResult.hasErrors()){
+//            throw new BindException(bindingResult);
+//        }
+//
+//        log.info("qno : {}", answerDTO.getQno());
+//
+//        Map<String, Long> resultMap = new HashMap<>();
+//
+//        Long ano = answerService.answerRegister(answerDTO);
+//
+//        resultMap.put("ano",ano);
+//
+//        return resultMap;
+//    }
 
     @ApiOperation(value = "answers of Question", notes = "Get 방식으로 특정 게시물의 댓글 목록")
     @GetMapping(value = "/answerList/{qno}")
@@ -73,6 +98,7 @@ public class AnswerController {
         resultMap.put("ano",ano);
         return resultMap;
     }
+
     @ApiOperation(value = "Modify Answer", notes = "Put 방식으로 댓글 수정")
     @PutMapping(value = "/{ano}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public  Map<String, Long> remove(@PathVariable("ano") Long ano, @RequestBody AnswerDTO answerDTO){
@@ -82,8 +108,17 @@ public class AnswerController {
         resultMap.put("ano", ano);
         return resultMap;
     }
+    //유저정보 갖고오기
+    @GetMapping("/userinfo")
+    public ResponseEntity<Map<String, String>> getUserInfo(Authentication authentication) {
+        Map<String, String> userInfo = new HashMap<>();
+        userInfo.put("username", authentication.getName()); // 사용자 아이디를 가져옴
 
-
+        return ResponseEntity.ok(userInfo);
     }
+
+
+
+}
 
 
