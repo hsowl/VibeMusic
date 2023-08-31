@@ -36,10 +36,12 @@ public class PlayListServiceImpl implements PlayListService {
         return playListRepository.findByMember_Mid(member);
     }
 
+
+
     /**
      PlayList 추가하기
      */
-    public void addPlaylist(@RequestParam String plName, @AuthenticationPrincipal MemberSecurityDTO authenticatedUser) {
+    public PlayList addPlaylist(@RequestParam String plName, @AuthenticationPrincipal MemberSecurityDTO authenticatedUser) {
         Member member = memberRepository.findByMid(authenticatedUser.getMid());
 
         PlayList playListItem = PlayList.builder()
@@ -48,6 +50,8 @@ public class PlayListServiceImpl implements PlayListService {
                 .build();
 
         playListRepository.save(playListItem);
+
+        return playListItem;
     }
 
     /**
@@ -71,13 +75,23 @@ public class PlayListServiceImpl implements PlayListService {
     /**
      PlayList에 노래 한곡 추가하기
      */
-    public void addMusicToPlayList(Long plNo, Long no) {
-        PlayList playList = playListRepository.findById(plNo).orElseThrow(EntityNotFoundException::new);
-        Music music = musicRepository.findById(no).orElseThrow(EntityNotFoundException::new);
 
-        playList.getMusics().add(music);
+    public void addMusicToPlayList(Long plno, Long no) {
+        log.info("plno : {}", plno);
+        log.info("no : {}", no);
+
+        Optional<PlayList> playListById = playListRepository.findById(plno);
+        PlayList playList = playListById.orElseThrow();
+
+        Optional<Music> byId = musicRepository.findById(no);
+        Music music = byId.orElseThrow();
+
+        log.info("playList.getMusics() : {}" , playList.getMusics().add(music));
+        log.info("music.getNo() : {}", music.getNo());
+
         playListRepository.save(playList);
     }
+
 
 
 //    @Override

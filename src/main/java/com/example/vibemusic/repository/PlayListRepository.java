@@ -10,6 +10,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PlayListRepository extends JpaRepository<PlayList, Long> {
@@ -23,6 +24,10 @@ public interface PlayListRepository extends JpaRepository<PlayList, Long> {
 
     @Query("select pl from PlayList pl where pl.member = ?1")
     List<PlayList> findByMember_Mid(Member member);
+
+    @Query("select pl from PlayList pl where pl.plName = ?1")
+    List<PlayList> findByPlName(String plName);
+
 
 //    List<PlayList> findAll(Optional<Member> listsByMid);
 }

@@ -11,7 +11,7 @@ import java.util.List;
 public interface PlayListService {
 
     //개인 플레이 리스트 만들기
-    void addPlaylist(@RequestParam String plName, @AuthenticationPrincipal MemberSecurityDTO authenticatedUser);
+    PlayList addPlaylist(@RequestParam String plName, @AuthenticationPrincipal MemberSecurityDTO authenticatedUser);
 
     //플레이 리스트 다 모아서 보여주기
     List<PlayList> getPlaylist(@AuthenticationPrincipal MemberSecurityDTO authenticatedUser);

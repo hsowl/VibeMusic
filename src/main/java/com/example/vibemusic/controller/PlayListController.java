@@ -44,6 +44,7 @@ public class PlayListController {
         return "playlist"; // playlist.html
     }
 
+
 //    @GetMapping("/{no}")
 //    public String showPlaylist(Model model, @AuthenticationPrincipal MemberSecurityDTO authenticatedUser){
 //        List<PlayList> playlists = playListService.getPlaylist(authenticatedUser);
@@ -59,6 +60,22 @@ public class PlayListController {
         playListService.addPlaylist(plName,authenticatedUser);
         return "redirect:/playlist"; // 리스트 페이지로 리다이렉트
     }
+
+    @PostMapping("/playlist/addToNewPlaylist")
+    public String addToNewList(@RequestParam String plName, @RequestParam Long no,@AuthenticationPrincipal MemberSecurityDTO authenticatedUser){
+
+        log.info("plName : {}", plName);
+        log.info("authenticatedUser : {}", authenticatedUser);
+
+        PlayList playList = playListService.addPlaylist(plName, authenticatedUser);
+
+        log.info("playList : {}", playList.getPlNo());
+        log.info("no : {}", no);
+
+        playListService.addMusicToPlayList(playList.getPlNo(),no);
+        return "redirect:/playlist"; // 리스트 페이지로 리다이렉트
+    }
+
 
 //    @GetMapping("/list/{mid}")
 //    public String showPlayListsByMemberId(@PathVariable String mid, Model model) {
