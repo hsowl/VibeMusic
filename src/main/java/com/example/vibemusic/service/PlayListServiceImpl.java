@@ -28,15 +28,13 @@ public class PlayListServiceImpl implements PlayListService {
 
     /**
      * *********** PlayList 생성 부분 ***************
-     * PlayList별 목록 보여주기
+     * PlayList 목록 보여주기
      */
     public List<PlayList> getPlaylist(@AuthenticationPrincipal MemberSecurityDTO authenticatedUser) {
         Member member = memberRepository.findByMid(authenticatedUser.getMid());
         log.info("===member=== : {}",member);
         return playListRepository.findByMember_Mid(member);
     }
-
-
 
     /**
      PlayList 추가하기
@@ -58,14 +56,15 @@ public class PlayListServiceImpl implements PlayListService {
      PlayList 목록 삭제하기
      */
     public void removePlaylist(Long plNo) {
+
         playListRepository.deleteById(plNo);
     }
 
 
 
     /**
-     * *********** 생성된 PlayList에 노래담기 부분 ***************
-     PlayList에 넣은 노래들 목록보기
+     * *********** PlayList에 노래담기 부분 ***************
+     곡 목록보기
      */
     public List<Music> getMusicsInPlayList(Long plNo){
         PlayList playList = playListRepository.findById(plNo).orElseThrow(EntityNotFoundException::new);
@@ -73,9 +72,8 @@ public class PlayListServiceImpl implements PlayListService {
     }
 
     /**
-     PlayList에 노래 한곡 추가하기
+     한곡 추가하기
      */
-
     public void addMusicToPlayList(Long plno, Long no) {
         log.info("plno : {}", plno);
         log.info("no : {}", no);
@@ -92,15 +90,13 @@ public class PlayListServiceImpl implements PlayListService {
         playListRepository.save(playList);
     }
 
-
-
 //    @Override
 //    public List<PlayListDTO> findAllPlaylistsByMember(String username) {
 //        return playListRepository.findAllByMember(username);
 //    }
 
     /**
-     PlayList에 노래 여러곡 추가하기
+     여러곡 추가하기
      */
 //    public void addAllToPlayList(Long plNo, List<Long> nos) {
 //        PlayList playList = playListRepository.findById(plNo).orElseThrow(EntityNotFoundException::new);
@@ -112,7 +108,7 @@ public class PlayListServiceImpl implements PlayListService {
 //    }
 
     /**
-     PlayList에 노래 삭제하기
+     곡 삭제하기
      */
     public void removeMusicFromPlayist(Long plNo, Long no) {
         PlayList playList = playListRepository.findById(plNo).orElseThrow(EntityNotFoundException::new);
@@ -120,7 +116,6 @@ public class PlayListServiceImpl implements PlayListService {
 
         playList.removeMusic(music);
         playListRepository.save(playList);
-
     }
 
 }

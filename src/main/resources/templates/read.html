@@ -231,60 +231,28 @@
     })
 
 
-    // Playlist 모달
+    /////// Playlist 모달
     $(document).ready(function() {
         var selectedOption = "default"
         $("#defaultPlaylistOption").hide();
         $("#existingPlaylistOption").hide();
         $("#newPlaylistOption").hide();
-            $("#addToPlaylistOption").change(function() {
-                selectedOption = $(this).val();
-                if (selectedOption === "default") {
-                    $("#defaultPlaylistOption").show();
-                    $("#existingPlaylistOption").hide();
-                    $("#newPlaylistOption").hide();
-                } else if (selectedOption === "new") {
-                    $("#defaultPlaylistOption").hide();
-                    $("#existingPlaylistOption").hide();
-                    $("#newPlaylistOption").show();
-                } else if (selectedOption === "existing") {
-                    $("#defaultPlaylistOption").hide();
-                    $("#existingPlaylistOption").show();
-                    $("#newPlaylistOption").hide();
-                }
-            });
-
-        //////// 기존 플레이리스트에 담기 버튼 클릭 시
-        $(document).ready(function() {
-            // 기존 플레이리스트 선택 옵션
-            $("#playlistList").on("click", ".add-to-playlist", function(e) {
-                e.preventDefault();
-
-                var playlistId = $(this).data("playlist-id");
-                var no = [[${dto.no}]]; // 선택한 노래의 ID
-                console.info("plno : ///// ", plno)
-                console.info("no : ///// ", no)
-
-                // AJAX 요청 보내기
-                $.ajax({
-                    type: "POST",
-                    url: "/playlist/addToExistPlaylist",
-                    data: {
-                        plno: playlistId,
-                        no: no
-                    },
-                    success: function(response) {
-                        console.log("노래를 플레이리스트에 추가 성공:", response);
-                        // 여기서 원하는 동작 수행 (예: 모달 닫기, 페이지 리로드 등)
-                    },
-                    error: function(error) {
-                        console.error("노래를 플레이리스트에 추가 에러:", error);
-                    }
-                });
-            });
+        $("#addToPlaylistOption").change(function() {
+            selectedOption = $(this).val();
+            if (selectedOption === "default") {
+                $("#defaultPlaylistOption").show();
+                $("#existingPlaylistOption").hide();
+                $("#newPlaylistOption").hide();
+            } else if (selectedOption === "new") {
+                $("#defaultPlaylistOption").hide();
+                $("#existingPlaylistOption").hide();
+                $("#newPlaylistOption").show();
+            } else if (selectedOption === "existing") {
+                $("#defaultPlaylistOption").hide();
+                $("#existingPlaylistOption").show();
+                $("#newPlaylistOption").hide();
+            }
         });
-
-
 
         // 새로운 플레이리스트에 담기 버튼 클릭 시
         $("#addToNewPlaylistButton").click(function() {
@@ -406,7 +374,7 @@
                 <div class="modal-body">
                     <select id="addToPlaylistOption" class="form-control">
                         <option value="default" selected="selected"> 담을 플레이리스트 선택</option>
-                        <option value="existing"> ▶ 기존 플레이리스트 선택</option>
+                        <option value="existing"> ▶ 기존 플레이리스트에 음악담기</option>
                         <option value="new"> ▶ 새로운 플레이리스트 생성 후 음악담기</option>
                     </select>
 
@@ -420,8 +388,10 @@
                         <ul id="playlistList">
                             <!-- 플레이리스트 아이템을 출력 -->
                             <li th:each="playlist : ${playlists}">
-                                <a href="#" data-playlist-id="${playlist.no}" class="add-to-playlist">
-                                    <p><span th:text="${playlist.plName}"></span></p>
+                                <a th:href="@{/playlist/addToExistPlaylist(plno=${playlist.plNo}, no=${dto.no})}">
+                                    <p>
+                                        <span th:text="${playlist.plName}"></span>
+                                    </p>
                                 </a>
                             </li>
                         </ul>

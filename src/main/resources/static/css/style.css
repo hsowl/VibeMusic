@@ -1124,6 +1124,57 @@ img {
     .new-hits-area .single-new-item .audioplayer-bar {
       display: none; }
 
+.my-playlist-area {
+  position: relative;
+  z-index: 1;
+  padding: 45px 30px;
+  -webkit-transition-duration: 500ms;
+  transition-duration: 500ms;
+  border: 1px solid #d8d8d8;
+  background-color: #f5f9fa; }
+.my-playlist-area .single-new-item {
+  position: relative;
+  z-index: 1;
+  border-bottom: 1px solid #d8d8d8;
+  margin-bottom: 10px;
+  padding-bottom: 10px; }
+.my-playlist-area .single-new-item:last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+  padding-bottom: 0; }
+.my-playlist-area .single-new-item .thumbnail {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 73px;
+  flex: 0 0 73px;
+  max-width: 73px;
+  width: 73px;
+  margin-right: 20px; }
+.my-playlist-area .single-new-item .content- h6 {
+  text-transform: uppercase;
+  margin-bottom: 0; }
+.my-playlist-area .single-new-item .content- p {
+  font-size: 14px;
+  margin-bottom: 0; }
+.my-playlist-area .single-new-item .audioplayer {
+  margin: 0;
+  padding: 0;
+  width: auto;
+  height: auto;
+  border: none;
+  border-radius: 0;
+  background: transparent; }
+.my-playlist-area .single-new-item .audioplayer-playing .audioplayer-playpause,
+.my-playlist-area .single-new-item .audioplayer:not(.audioplayer-playing) .audioplayer-playpause:hover,
+.my-playlist-area .single-new-item .audioplayer:not(.audioplayer-playing) .audioplayer-playpause {
+  background: #d6d6d6; }
+.my-playlist-area .single-new-item .audioplayer:not(.audioplayer-playing) .audioplayer-playpause a {
+  border-left: 12px solid #fff; }
+.my-playlist-area .single-new-item .audioplayer-time,
+.my-playlist-area .single-new-item .audioplayer-volume,
+.my-playlist-area .single-new-item .audioplayer-bar {
+  display: none; }
+
+
 /* :: 12.0 Login Area CSS */
 .login-content {
   -webkit-transition-duration: 500ms;
