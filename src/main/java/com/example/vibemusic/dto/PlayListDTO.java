@@ -1,5 +1,7 @@
 package com.example.vibemusic.dto;
 
+import com.example.vibemusic.domain.Member;
+import com.example.vibemusic.domain.Music;
 import lombok.*;
 
 import java.util.List;
@@ -10,8 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class PlayListDTO {
-    private Long pl_no;
-    private String pl_name;
-    private String pl_Recommend;
+    private Long plNo;
+    private String plName;
+    private Member member;
+    private List<Music> musics;
 
 }

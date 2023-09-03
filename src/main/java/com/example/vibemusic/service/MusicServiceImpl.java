@@ -1,6 +1,7 @@
 package com.example.vibemusic.service;
 
 import com.example.vibemusic.domain.Music;
+import com.example.vibemusic.domain.News;
 import com.example.vibemusic.dto.MusicDTO;
 import com.example.vibemusic.dto.PageRequestDTO;
 import com.example.vibemusic.dto.PageResponseDTO;
@@ -31,8 +32,8 @@ public class MusicServiceImpl implements MusicService {
     public MusicDTO readOne(Long bno) {
         Optional<Music> result = musicRepository.findById(bno);
         Music music = result.orElseThrow();
-        MusicDTO musicDTO = modelMapper.map(music,MusicDTO.class);
-        log.info("rDate = {}",musicDTO.getRDate());
+        MusicDTO musicDTO = modelMapper.map(music, MusicDTO.class);
+        log.info("rDate = {}", musicDTO.getRDate());
 
         return musicDTO;
     }
@@ -48,7 +49,7 @@ public class MusicServiceImpl implements MusicService {
 
         List<MusicDTO> dtoList = result.getContent().stream().map(music -> modelMapper.map(music, MusicDTO.class)).collect(Collectors.toList());
 
-        PageResponseDTO<MusicDTO> pageResponseDTO = new PageResponseDTO<>(pageRequestDTO, dtoList, (int)result.getTotalElements());
+        PageResponseDTO<MusicDTO> pageResponseDTO = new PageResponseDTO<>(pageRequestDTO, dtoList, (int) result.getTotalElements());
 
         return pageResponseDTO;
     }
@@ -64,9 +65,27 @@ public class MusicServiceImpl implements MusicService {
 
         List<MusicDTO> dtoList = result.getContent().stream().map(music -> modelMapper.map(music, MusicDTO.class)).collect(Collectors.toList());
 
-        PageResponseDTO<MusicDTO> pageResponseDTO = new PageResponseDTO<>(pageRequestDTO, dtoList, (int)result.getTotalElements());
+        PageResponseDTO<MusicDTO> pageResponseDTO = new PageResponseDTO<>(pageRequestDTO, dtoList, (int) result.getTotalElements());
 
         return pageResponseDTO;
     }
 
+    @Transactional
+    @Override
+    public void increaseViewCount(Long no) {
+        Music music = musicRepository.findById(no)
+                .orElseThrow(() -> new IllegalArgumentException("News not found with nNo: " + no));
+
+        int currentViewCount = music.getMPlayCount();
+        music.setMPlayCount(currentViewCount + 1);
+
+        musicRepository.save(music);
+    }
+
+
+
 }
+
+
+
+

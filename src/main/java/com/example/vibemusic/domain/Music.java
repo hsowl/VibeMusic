@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Setter
 public class Music {
 
     @Id
@@ -28,7 +29,7 @@ public class Music {
     private String m_artist;
 
     @Column
-    private String m_genre;
+    private String mGenre;
 
     @Column
     private int rDate;
@@ -40,7 +41,7 @@ public class Music {
     private String m_image;
 
     @Column
-    private int m_playCount;
+    private int mPlayCount;
 
     @Column
     private String m_Recommend;
@@ -48,7 +49,7 @@ public class Music {
     @OneToMany(mappedBy = "music", cascade = CascadeType.ALL)
     private List<Reply> replies;
 
-    @ManyToMany(mappedBy = "music")
+    @ManyToMany(mappedBy = "musics")
     private List<PlayList> playLists;
 
     public void updateImgUrl(String m_image){

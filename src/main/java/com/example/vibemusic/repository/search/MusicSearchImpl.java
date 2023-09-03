@@ -48,7 +48,7 @@ public class MusicSearchImpl extends QuerydslRepositorySupport implements MusicS
                         booleanBuilder.or(music.m_artist.contains(keyword));
                         break;
                     case "g" :
-                        booleanBuilder.or(music.m_genre.contains(keyword));
+                        booleanBuilder.or(music.mGenre.contains(keyword));
                         break;
                 }
             }

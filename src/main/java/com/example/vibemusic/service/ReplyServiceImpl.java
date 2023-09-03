@@ -9,6 +9,7 @@ import com.example.vibemusic.dto.ReplyDTO;
 import com.example.vibemusic.repository.MusicRepository;
 import com.example.vibemusic.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.*;
@@ -21,8 +22,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
+@Log4j2
 @Transactional
 public class ReplyServiceImpl implements ReplyService{
 
@@ -45,6 +46,13 @@ public class ReplyServiceImpl implements ReplyService{
         PageResponseDTO<ReplyDTO> pageResponseDTO = new PageResponseDTO<>(pageRequestDTO, dtoList, (int)result.getTotalElements());
 
         return pageResponseDTO;
+    }
+
+    @Override
+    public ReplyDTO read(Long rno){
+        Optional<Reply> replyOptional = replyRepository.findById(rno);
+        Reply reply = replyOptional.orElseThrow();
+        return modelMapper.map(reply, ReplyDTO.class);
     }
 
     @Override

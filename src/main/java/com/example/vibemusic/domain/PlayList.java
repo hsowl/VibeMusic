@@ -3,33 +3,49 @@ package com.example.vibemusic.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List; // List를 사용하기 위해 추가
 
 @Entity
 @Builder
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(exclude = "musics") // 출력에서 musics 필드를 제외
 public class PlayList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pl_no")
-    private Long pl_no;
+    @Column(name = "plNo")
+    private Long plNo;
 
-    private String pl_name;
+    private String plName;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "u_no")
-    private User user; // User 엔터티와의 관계
+    @JoinColumn(name = "mid")
+    private Member member; // User 엔터티와의 관계
 
     // fk키
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "playlist_music", // 중간 테이블 이름
-            joinColumns = @JoinColumn(name = "pl_no"), // PlayList와 연결된 컬럼
-            inverseJoinColumns = @JoinColumn(name = "m_no") // Music과 연결된 컬럼
+            joinColumns = @JoinColumn(name = "plNo"), // PlayList와 연결된 컬럼
+            inverseJoinColumns = @JoinColumn(name = "no") // Music과 연결된 컬럼
     )
-    private List<Music> music; // Music 엔터티와의 관계
+    private List<Music> musics; // Music 엔터티와의 관계//
+    public List<Music> getMusics(){
+        if (musics == null) {
+            musics = new ArrayList<>();
+        }
+        return musics;
+    }
+
+    public void setPlName(String plName) {
+    }
+
+    public void removeMusic(Music music) {
+        musics.remove(music);
+    }
+
 }

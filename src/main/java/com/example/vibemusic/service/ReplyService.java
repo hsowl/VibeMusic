@@ -10,13 +10,16 @@ import org.springframework.data.domain.Pageable;
 
 public interface ReplyService {
 
-    PageResponseDTO<ReplyDTO> replyListWithPaging(PageRequestDTO pageRequestDTO);
-
     Long register(ReplyDTO replyDTO);
+
+    ReplyDTO read(Long rno);
 
     void modify(ReplyDTO replyDTO);
 
     void remove(Long rno);
+
+    PageResponseDTO<ReplyDTO> replyListWithPaging(PageRequestDTO pageRequestDTO);
+
 
     Page<Reply> replyListOfMusic(Long no, Pageable pageable);
 
