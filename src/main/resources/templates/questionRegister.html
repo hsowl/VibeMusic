@@ -66,25 +66,25 @@
 
                                     <div class ="input-group-mb-3">
                                         <span>Title</span>
-                                        <input type="text" name="qTitle" id="qTitle" class="form-control" placeholder="Title">
+                                        <input type="text" name="qTitle" id="qTitle" class="border border-light bg-light p-4 col-sm-12" placeholder="Title">
                                     </div>
 
                                     <div class ="input-group-mb-3">
                                         <span>Content</span>
-                                        <textarea class="form-control col-sm-13" rows="5" id="qContent" name="qContent" ></textarea>
+                                        <textarea class="border border-light bg-light p-4 col-sm-12" rows="5" id="qContent" name="qContent" ></textarea>
                                     </div>
 
                                     <div class ="input-group-mb-3">
                                         <span>Writer</span>
 
-                                        <input type="text" id="qWriter" name="qWriter" class="form-control" placeholder="Writer"
+                                        <input type="text" id="qWriter" name="qWriter" class="border border-light bg-light p-4 col-sm-12" placeholder="Writer"
                                                th:value="${#authentication.principal.username}" readonly>
                                     </div>
 
                                     <div class="my-4">
-                                        <div class="float-end">
-                                            <button type="submit" class = "btn btn-primary">Submit</button>
-                                            <button type="reset" class = "btn btn-secondary">Reset</button>
+                                        <div class="float-end d-flex justify-content-center mb-3">
+                                            <button type="submit" class = "btn oneMusic-btn">Submit</button>
+                                            <button type="reset" class = "btn oneMusic-btn">Reset</button>
                                         </div>
                                     </div>
                                 </form>

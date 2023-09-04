@@ -93,7 +93,7 @@ public class QuestionController {
 
     }
 
-    @PreAuthorize("principal.username == #QuestionDTO.qWriter")
+//    @PreAuthorize("#QuestionDTO.getQWriter() == principal.username")
     @PostMapping("/questionModify")
     public String modQ(
             @Valid QuestionDTO questionDTO,       //수정할 게시글의 데이터를 담고 있는 DTO

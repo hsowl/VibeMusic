@@ -68,21 +68,21 @@
 
                       <div>
                       <span >Title</span>
-                  <input type="text" th:value="${dto.qTitle}" name="qTitle" id="qTitle" class="form-control col-sm-12">
+                  <input type="text" th:value="${dto.qTitle}" name="qTitle" id="qTitle" class="border border-light bg-light p-4 col-sm-12">
                 </div>
 
                 <div >
                   <span >Content</span>
-                  <textarea class="form-control col-sm-12" id="qContent" name="qContent" rows="5">[[${dto.qContent}]]</textarea>
+                  <textarea class="border border-light bg-light p-4 col-sm-12" id="qContent" name="qContent" rows="5">[[${dto.qContent}]]</textarea>
                 </div>
 
                 <div >
                   <span>Writer</span>
-                  <input type="text" th:value="${dto.qWriter}" id="qWriter" name="qWriter" class="form-control col-sm-12">
+                  <input type="text" th:value="${dto.qWriter}" id="qWriter" name="qWriter" class="border border-light bg-light p-4 col-sm-12">
                 </div>
 
                   <div class="my-4">
-                    <div class="float-end">
+                    <div class="float-end d-flex justify-content-center mb-3">
                       <a th:href="|@{/questions}?${link}|" class="text-decoration-none">
                         <button type="button" class="btn oneMusic-btn" data-bs-dismiss="modal">List</button>
                       </a>
