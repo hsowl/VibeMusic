@@ -99,7 +99,6 @@ public class MemberController {
         log.info("memberLoginDTO.getName() : {}", memberLoginDTO.getName());
 
         try {
-            log.info("try 들어옴");
             memberService.modifyInformation(memberLoginDTO);
             log.info("회원 정보 변경 하기 성공~!");
         } catch (MemberService.MidExistException e){

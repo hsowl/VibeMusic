@@ -42,12 +42,12 @@ public class Member extends BaseEntity{
         this.mpw = mpw;
     }
 
-    public void changeAllInformation(Member member) {
-        this.phone = member.getPhone();
-        this.address = member.getAddress();
-        this.birthDate = member.getBirthDate();
-        this.name = member.getName();
-        this.mpw = member.getMpw();
+    public void changeAllInformation(MemberLoginDTO memberLoginDTO) {
+        this.phone = memberLoginDTO.getPhone();
+        this.address = memberLoginDTO.getAddress();
+        this.birthDate = memberLoginDTO.getBirthDate();
+        this.name = memberLoginDTO.getName();
+//        this.mpw = memberLoginDTO.getMpw();
     }
 
     public void changeDel(boolean del){

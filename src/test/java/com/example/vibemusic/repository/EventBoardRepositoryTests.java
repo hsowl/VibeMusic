@@ -113,4 +113,20 @@ class EventBoardRepositoryTests {
 
         p.getContent().forEach(eventBoard -> log.info(eventBoard));
     }
+
+    @Test
+    public void testInputEvents() {
+        IntStream.rangeClosed(1,200).forEach(i -> {
+            EventBoard eventBoard = EventBoard.builder()
+                    .title("8월 이용권 세일 안내")
+                    .writer("관리자"+(i%10)+1)
+                    .content("8월 01일 부터 8워 31일까지 Vibe Music 모든 회원에게 50% 할인 된 금액으로 이용권 구매 가능 혜택을 드립니다.")
+                    .build();
+            eventBoardRepository.save(eventBoard);
+        });
+
+
+    }
+
+
 }

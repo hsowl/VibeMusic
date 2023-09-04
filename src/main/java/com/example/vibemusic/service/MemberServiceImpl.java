@@ -13,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -79,12 +81,17 @@ public class MemberServiceImpl implements MemberService{
             throw new MidExistException();
         }
 
-        String phone = memberLoginDTO.getPhone();
-        String address = memberLoginDTO.getAddress();
-        String birthDate = memberLoginDTO.getBirthDate();
-        String name = memberLoginDTO.getName();
+        Optional<Member> byId = memberRepository.findById(mid);
+        Member member = byId.orElseThrow();
+        member.changeAllInformation(memberLoginDTO);
+        memberRepository.save(member);
 
-        memberRepository.updateInformation(phone, address, birthDate, name, mid);
+//        String phone = memberLoginDTO.getPhone();
+//        String address = memberLoginDTO.getAddress();
+//        String birthDate = memberLoginDTO.getBirthDate();
+//        String name = memberLoginDTO.getName();
+
+//        memberRepository.updateInformation(phone, address, birthDate, name, mid);
 
     }
 }
