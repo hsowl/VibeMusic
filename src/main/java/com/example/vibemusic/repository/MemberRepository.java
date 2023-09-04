@@ -25,4 +25,9 @@ public interface MemberRepository extends JpaRepository<Member, String> {
     void updatePassword(@Param("mpw") String password, @Param("mid") String mid);
 
     Member findByMid(String mid);
+
+    @Modifying
+    @Transactional
+    @Query("update Member m set m.address = :address, m.name = :name, m.phone = :phone, m.birthDate = :birthDate where m.mid = :mid")
+    void updateInformation(String phone, String address, String birthDate, String name, String mid);
 }

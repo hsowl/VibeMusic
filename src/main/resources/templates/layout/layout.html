@@ -76,6 +76,10 @@
                                     <a href="/logout">Logout</a>
                                 </div>
 
+                                <div class="login-register-btn mr-50" th:if="${#authentication.principal} != 'anonymousUser'">
+                                    <a href="/member/modify">회원정보수정</a>
+                                </div>
+
                                 <!-- My PlayLists Button -->
                                 <div class="d-flex gap-2 mb-3">
                                     <a href="playlist">

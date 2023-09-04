@@ -1,10 +1,13 @@
 package com.example.vibemusic.service;
 
+import com.example.vibemusic.domain.Member;
 import com.example.vibemusic.dto.MemberJoinDTO;
 import com.example.vibemusic.dto.MemberLoginDTO;
 import com.example.vibemusic.security.dto.MemberSecurityDTO;
 
 public interface MemberService {
+
+    Member findByUsername(String username);
 
     static class MidExistException extends Exception {
 
@@ -13,5 +16,7 @@ public interface MemberService {
     void join(MemberJoinDTO memberJoinDTO) throws MidExistException;
 
     void login(MemberLoginDTO memberLoginDTO) throws MidExistException;
+
+    void modifyInformation(MemberLoginDTO memberLoginDTO) throws MidExistException;
 
 }
