@@ -139,18 +139,26 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div id="existingPlaylistOption" class="mt-3">
-                        <ul id="playlistList">
-                            <!-- 플레이리스트 아이템을 출력 -->
-                            <li th:each="playlist : ${playlists}">
-                                <a th:href="@{/playlist/deletePlaylist(plno=${playlist.plNo})}">
-                                    <p>
-                                        <span id="existPlaylistNo" th:text="${playlist.plNo}"></span>
-                                        <span th:text="${playlist.plName}"></span>
-                                    </p>
-                                </a>
-                            </li>
-                        </ul>
+                    <!-- Display failure message if ListPlaylist is null -->
+                    <div th:if="${failureMessage != null}" class="alert alert-danger mt-3">
+                        <p>기존 PlayList가 존재하지 않습니다.</p>
+                    </div>
+
+                    <!-- Display playlists if ListPlaylist is not null -->
+                    <div th:if="${failureMessage == null}">
+                        <div id="existingPlaylistOption" class="mt-3">
+                            <ul id="playlistList">
+                                <!-- 플레이리스트 아이템을 출력 -->
+                                <li th:each="playlist : ${playlists}">
+                                    <a th:href="@{/playlist/deletePlaylist(plno=${playlist.plNo})}">
+                                        <p>
+                                            <span id="existPlaylistNo" th:text="${playlist.plNo}"></span>
+                                            <span th:text="${playlist.plName}"></span>
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
