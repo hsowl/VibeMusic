@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -92,6 +93,7 @@ public class QuestionController {
 
     }
 
+    @PreAuthorize("principal.username == #QuestionDTO.qWriter")
     @PostMapping("/questionModify")
     public String modQ(
             @Valid QuestionDTO questionDTO,       //수정할 게시글의 데이터를 담고 있는 DTO

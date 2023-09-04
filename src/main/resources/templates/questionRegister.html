@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout.html}">
+
 
 <head>
     <meta charset="UTF-8">
@@ -69,12 +71,14 @@
 
                                     <div class ="input-group-mb-3">
                                         <span>Content</span>
-                                        <textarea class="form-control col-sm-11" rows="5" id="qContent" name="qContent" ></textarea>
+                                        <textarea class="form-control col-sm-13" rows="5" id="qContent" name="qContent" ></textarea>
                                     </div>
 
                                     <div class ="input-group-mb-3">
                                         <span>Writer</span>
-                                        <input type="text" id="qWriter" name="qWriter" class="form-control" placeholder="Writer">
+
+                                        <input type="text" id="qWriter" name="qWriter" class="form-control" placeholder="Writer"
+                                               th:value="${#authentication.principal.username}" readonly>
                                     </div>
 
                                     <div class="my-4">
@@ -195,6 +199,10 @@
 
     }
 
+
+    const auth = [[${#authentication.principal}]]
+    const errors = [[${errors}]]
+    console.log(errors)
 </script>
 
 </body>
