@@ -66,7 +66,7 @@ public class MusicController {
         model.addAttribute("responseDTO", responseDTO);
     }
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @GetMapping("/read")
     public void readOne(Long no, Model model, Integer mPlayCount, @AuthenticationPrincipal MemberSecurityDTO authenticatedUser) {
 
