@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 
+
 @Controller
 @RequestMapping
 @RequiredArgsConstructor
@@ -22,7 +23,10 @@ public class PlayListController {
 
     private final PlayListService playListService;
 
-
+    /**
+     * *********** PlayList 생성 부분 ***************
+     * PlayList 목록 보여주기
+     */
     @GetMapping("/playlist")
     public String showPlaylist(Model model, @AuthenticationPrincipal MemberSecurityDTO authenticatedUser){
         List<PlayList> playlists = playListService.getPlaylist(authenticatedUser);
@@ -33,12 +37,18 @@ public class PlayListController {
         return "playlist"; // playlist.html
     }
 
+    /**
+     PlayList 추가하기
+     */
     @PostMapping("/playlist/add")
     public String addList(@RequestParam String plName, @AuthenticationPrincipal MemberSecurityDTO authenticatedUser){
         playListService.addPlaylist(plName,authenticatedUser);
         return "redirect:/playlist"; // 리스트 페이지로 리다이렉트
     }
 
+    /**
+     기존 플레이리스트에 곡 추가하기
+     */
     @GetMapping("/playlist/addToExistPlaylist")
     public String addToExistList(@RequestParam Long plno, @RequestParam Long no, @AuthenticationPrincipal MemberSecurityDTO authenticatedUser){
         log.info("plNo......GET{}", plno);
@@ -47,10 +57,14 @@ public class PlayListController {
         List<PlayList> ListPlaylist = playListService.getPlaylist(authenticatedUser);
         log.info("ListPlaylist ---------- {}", ListPlaylist);
 
-        playListService.addMusicToPlayList(plno,no);
+        playListService.addMusicToPlayList(plno, no);
+
         return "redirect:/playlist"; // 리스트 페이지로 리다이렉트
     }
 
+    /**
+     새로운 플레이리스트에 곡 추가하기
+     */
     @PostMapping("/playlist/addToNewPlaylist")
     public String addToNewList(@RequestParam String plName, @RequestParam Long no, @AuthenticationPrincipal MemberSecurityDTO authenticatedUser, RedirectAttributes redirectAttributes){
 
@@ -59,17 +73,21 @@ public class PlayListController {
 
         PlayList playList = playListService.addPlaylist(plName, authenticatedUser);
 
-        if(playList.getPlName() == plName){
-            log.info("playList : {}", playList.getPlNo());
-            log.info("no : {}", no);
-            redirectAttributes.addFlashAttribute("failureMessage", "같은 이름의 PlayList가 이미 존재합니다. 다른 이름을 지정해 주세요.");
-        } else{
-            playListService.addMusicToPlayList(playList.getPlNo(),no);
-        }
+        playListService.addMusicToPlayList(playList.getPlNo(),no);
+//        if(playList.getPlName() == plName){
+//            log.info("playList : {}", playList.getPlNo());
+//            log.info("no : {}", no);
+//            redirectAttributes.addFlashAttribute("failureMessage", "같은 이름의 PlayList가 이미 존재합니다. 다른 이름을 지정해 주세요.");
+//        } else{
+//            playListService.addMusicToPlayList(playList.getPlNo(),no);
+//        }
 
         return "redirect:/playlist"; // 리스트 페이지로 리다이렉트
     }
 
+    /**
+     기존 플레이리스트 삭제하기
+     */
     @GetMapping("/playlist/deletePlaylist")
     public String deletePlaylist(@RequestParam Long plno, @AuthenticationPrincipal MemberSecurityDTO authenticatedUser){
         log.info("plNo......GET{}", plno);

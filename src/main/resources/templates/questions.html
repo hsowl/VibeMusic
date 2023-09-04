@@ -78,7 +78,6 @@
                                                 <th scope = "col">Qno</th>
                                                 <th scope = "col">Title</th>
                                                 <th scope = "col">Writer</th>
-                                                <th scope = "col">Regdate</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -91,7 +90,6 @@
                                                     <!--th:href="|@{/templates/questionRead/qRead(qno=${dto.qno})}|">[[${dto.qTitle}]]</a>-->
                                                 </td>
                                                 <td>[[${dto.qWriter}]]</td>
-                                                <td>[[${dto.qWriter}]]</td>
                                             </tr>
 
                                             </tbody>
@@ -101,25 +99,42 @@
                             </div>
                         </div>
 
-                         Pagination
                         <div th:if="${questionPage}" class="oneMusic-pagination-area wow fadeInUp" data-wow-delay="300ms">
                             <nav>
-                                <ul class="questions-pagination">
-                                    <li th:class="${questionPage.first ? 'disabled' : ''}" class="page-item active">
+                                <ul class="questions-pagination" style="display: flex;">
+                                    <li th:class="${questionPage.first ? 'disabled' : ''}" class="page-item active" style="flex: 1;">
                                         <a th:href="@{/questions(page=0, size=${questionPage.size})}">◀◀ First Page</a>
                                     </li>
-                                    <li th:class="${questionPage.hasPrevious ? '' : 'disabled'}" class="page-item">
+                                    <li th:class="${questionPage.hasPrevious ? '' : 'disabled'}" class="page-item" style="flex: 1;">
                                         <a th:href="@{/questions(page=${questionPage.number - 1}, size=${questionPage.size})}">◀ Previous Page</a>
                                     </li>
-                                    <li th:class="${questionPage.hasNext ? '' : 'disabled'}" class="page-item">
+                                    <li th:class="${questionPage.hasNext ? '' : 'disabled'}" class="page-item" style="flex: 1;">
                                         <a th:href="@{/questions(page=${questionPage.number + 1}, size=${questionPage.size})}">Next Page ▶</a>
                                     </li>
-                                    <li th:class="${questionPage.last ? 'disabled' : ''}" class="page-item">
+                                    <li th:class="${questionPage.last ? 'disabled' : ''}" class="page-item" style="flex: 1;">
                                         <a th:href="@{/questions(page=${questionPage.totalPages - 1}, size=${questionPage.size})}">Last Page ▶▶</a>
                                     </li>
                                 </ul>
                             </nav>
                         </div>
+<!--                        <div th:if="${questionPage}" class="oneMusic-pagination-area wow fadeInUp" data-wow-delay="300ms">-->
+<!--                            <nav>-->
+<!--                                <ul class="questions-pagination">-->
+<!--                                    <li th:class="${questionPage.first ? 'disabled' : ''}" class="page-item active">-->
+<!--                                        <a th:href="@{/questions(page=0, size=${questionPage.size})}">◀◀ First Page</a>-->
+<!--                                    </li>-->
+<!--                                    <li th:class="${questionPage.hasPrevious ? '' : 'disabled'}" class="page-item">-->
+<!--                                        <a th:href="@{/questions(page=${questionPage.number - 1}, size=${questionPage.size})}">◀ Previous Page</a>-->
+<!--                                    </li>-->
+<!--                                    <li th:class="${questionPage.hasNext ? '' : 'disabled'}" class="page-item">-->
+<!--                                        <a th:href="@{/questions(page=${questionPage.number + 1}, size=${questionPage.size})}">Next Page ▶</a>-->
+<!--                                    </li>-->
+<!--                                    <li th:class="${questionPage.last ? 'disabled' : ''}" class="page-item">-->
+<!--                                        <a th:href="@{/questions(page=${questionPage.totalPages - 1}, size=${questionPage.size})}">Last Page ▶▶</a>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+<!--                            </nav>-->
+<!--                        </div>-->
                     </div>
 
                     <div class="col-12 col-lg-3">
@@ -207,9 +222,5 @@
 <script src="js/plugins/plugins.js"></script>
 <!-- Active js -->
 <script src="js/active.js"></script>
-
-<script>
-
-</script>
 </body>
 </html>

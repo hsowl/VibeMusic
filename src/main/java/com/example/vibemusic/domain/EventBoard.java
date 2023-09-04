@@ -7,6 +7,7 @@ import javax.persistence.*;
 @Entity
 @Builder
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -24,6 +25,9 @@ public class EventBoard extends BaseEntity {
 
     @Column(length = 50, nullable = false)
     private String writer;
+
+    @Column(nullable = false)
+    private int eViewCount; // 조회수 초기값은 0으로 설정
 
     public void change(String title, String content) {
         this.title = title;

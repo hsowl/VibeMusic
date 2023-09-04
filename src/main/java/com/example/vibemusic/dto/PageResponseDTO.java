@@ -16,6 +16,7 @@ public class PageResponseDTO<E> {
 
     private int start;
     private int end;
+    private int totalPage;
 
     private boolean prev;
     private boolean next;
@@ -39,6 +40,8 @@ public class PageResponseDTO<E> {
         this.start = this.end - 9;
 
         int last = (int)(Math.ceil(total/(double)size));
+
+        this.totalPage = (int)(Math.ceil(total/(double)size));
 
         this.end = end > last ? last : end;
         this.prev = this.start > 1;

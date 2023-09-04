@@ -1,12 +1,16 @@
 package com.example.vibemusic.controller;
 
 import com.example.vibemusic.domain.EventBoard;
+import com.example.vibemusic.domain.Member;
+import com.example.vibemusic.domain.MemberRole;
 import com.example.vibemusic.dto.EventBoardDTO;
 import com.example.vibemusic.dto.PageRequestDTO;
 import com.example.vibemusic.dto.PageResponseDTO;
 import com.example.vibemusic.service.EventBoardService;
+import com.example.vibemusic.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,24 +32,32 @@ import javax.validation.Valid;
 public class EventController {
 
     private final EventBoardService eventBoardService;
+//    private final MemberRole memberRole;
+    private final MemberService memberService;
 
     @GetMapping("/event")
-    public String Elist(Pageable pageable, Model model, PageRequestDTO pageRequestDTO) {
-
-        int pageSize = 10;
-        pageable = PageRequest.of(pageable.getPageNumber(), pageSize);
-
-        Page<EventBoard> eventPage = eventBoardService.Elist(pageable);
-
-        model.addAttribute("eventPage", eventPage);
-
-        if (pageRequestDTO.getPage() < 1) {
-            pageRequestDTO.setPage(1);
-        }
+    public String list(Pageable pageable, Model model, PageRequestDTO pageRequestDTO) {
 
         PageResponseDTO<EventBoardDTO> responseDTO = eventBoardService.list(pageRequestDTO);
+        model.addAttribute("responseDTO", responseDTO);
 
-        model.addAttribute("eList", responseDTO);
+//        int pageSize = 10;
+//        pageable = PageRequest.of(pageable.getPageNumber(), pageSize);
+//
+//        Page<EventBoard> eventPage = eventBoardService.Elist(pageable);
+//
+//        model.addAttribute("eventPage", eventPage);
+//
+//        if (pageRequestDTO.getPage() < 1) {
+//            pageRequestDTO.setPage(1);
+//        }
+//
+//        PageResponseDTO<EventBoardDTO> responseDTO = eventBoardService.list(pageRequestDTO);
+//
+//        model.addAttribute("eList", responseDTO);
+
+//        int maxPage = Math.min(eventPage.getTotalPages(), 10);
+//        model.addAttribute("maxPage", maxPage);
 
 //        boolean loggedIn = true;
 //        model.addAttribute("loggedIn", loggedIn);
@@ -63,6 +75,7 @@ public class EventController {
         model.addAttribute("dto", eventBoardDTO);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/eventregister")
     public void registerGET() {
 

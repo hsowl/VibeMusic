@@ -1,6 +1,8 @@
 package com.example.vibemusic.domain;
 
+import com.example.vibemusic.dto.MemberLoginDTO;
 import lombok.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -40,8 +42,12 @@ public class Member extends BaseEntity{
         this.mpw = mpw;
     }
 
-    public void changeEmail(String email){
-        this.email = email;
+    public void changeAllInformation(MemberLoginDTO memberLoginDTO) {
+        this.phone = memberLoginDTO.getPhone();
+        this.address = memberLoginDTO.getAddress();
+        this.birthDate = memberLoginDTO.getBirthDate();
+        this.name = memberLoginDTO.getName();
+//        this.mpw = memberLoginDTO.getMpw();
     }
 
     public void changeDel(boolean del){

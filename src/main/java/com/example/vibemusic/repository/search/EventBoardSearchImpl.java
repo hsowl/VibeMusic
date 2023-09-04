@@ -24,13 +24,22 @@ public class EventBoardSearchImpl extends QuerydslRepositorySupport implements E
 
         JPQLQuery<EventBoard> query = from(qEventBoard);
 
+        BooleanBuilder booleanBuilder = new BooleanBuilder();//
+
+        booleanBuilder.or(qEventBoard.title.contains("11"));//
+
+        booleanBuilder.or(qEventBoard.content.contains("11"));//
+
+        query.where(booleanBuilder);//
+        query.where(qEventBoard.ebno.gt(0L));//
+
         query.where(qEventBoard.title.contains("1"));
 
         this.getQuerydsl().applyPagination(pageable, query);
 
         List<EventBoard> list = query.fetch();
 
-        Long count = query.fetchCount();
+        Long eViewCount = query.fetchCount();
 
         return null;
     }
@@ -56,6 +65,8 @@ public class EventBoardSearchImpl extends QuerydslRepositorySupport implements E
                     case "w" :
                         booleanBuilder.or(qEventBoard.writer.contains(keyword));
                         break;
+//                    case "D" :
+//                        booleanBuilder.or(qEventBoard.modDate)
                 }
             }
             query.where(booleanBuilder);

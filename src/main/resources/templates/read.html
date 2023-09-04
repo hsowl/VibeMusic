@@ -327,39 +327,33 @@
         </div>
     </section>
 
-    <!-- music information table Start -->
-    <table style="display: inline-block">
-        <tr>
-            <td>
-                <img th:src="${dto.m_image}">
-            </td>
-        </tr>
-    </table>
-    <table style="display: inline-block">
-        <tr>
-            <td>Title</td>
-            <td>Artist</td>
-            <td>Release Date</td>
-            <td>PlayTime</td>
-            <td>Views</td>
-        </tr>
-        <tr>
-            <td th:text="${dto.m_title}"></td>
-            <td th:text="${dto.m_artist}"></td>
-            <td th:text="${dto.rDate}"></td>
-            <td th:text="${dto.m_playtime}"></td>
-            <td th:text="${dto.mPlayCount}"></td>
-        </tr>
-    </table>
-    <!-- music information table Start -->
 
+    <!-- Single Music Info Start -->
+    <div class="single-blog-post mb-100 wow fadeInUp" data-wow-delay="100ms">
+        <!-- Post Thumb -->
+        <div class="blog-post-thumb mt-30">
+            <img style="width: 200px; padding: 0 0 0 30px" th:src="${dto.m_image}">
 
-    <!-- ##### PlayList : 버튼 클릭시 모달창 열림 ##### -->
-    <div class="row mt-3">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addToPlaylistModal">
-            MyPlaylist 담기
-        </button>
-    </div>
+            <!-- ##### PlayList : 버튼 클릭시 모달창 열림 ##### -->
+            <div class="row">
+                <button style="min-width: 180px; margin: 0 0 0 40px" type="button" class="btn oneMusic-btn mt-30" data-toggle="modal" data-target="#addToPlaylistModal">
+                    MyPlaylist 담기
+                </button>
+            </div>
+        </div>
+        <br>
+
+        <!-- Content -->
+        <div class="blog-content">
+            <!-- Post Excerpt -->
+            <h5>Title : [[${dto.m_title}]]</h5>
+            <h6>Artist : [[${dto.m_artist}]]</h6>
+            <br>
+            <p>PlayTime : [[${dto.m_playtime}]]</p>
+            <p>Release Date : [[${dto.rDate}]]</p>
+            <p>Views : [[${dto.mPlayCount}]]</p>
+        </div>
+    </div> <!-- Single Music Info End -->
 
     <!-- 모달 창 -->
     <div class="modal fade" id="addToPlaylistModal" tabindex="-1" role="dialog" aria-labelledby="addToPlaylistModalLabel" aria-hidden="true">
@@ -404,7 +398,6 @@
                         <button id="addToNewPlaylistButton" class="btn btn-success mt-2">담기</button>
                     </div>
                 </div>
-
             </div>
         </div>
     </div> <!-- 모달 창 -->
@@ -413,9 +406,9 @@
     <div class="row mt-3">
         <div class="col-md-12">
             <div class="my-4">
-                <button class="btn btn-info addReplyBtn">댓글 추가</button>
+                <button style="min-width: 180px; margin: 0 0 0 100px" class="btn oneMusic-btn mt-30 addReplyBtn">댓글 추가</button>
             </div>
-            <ul class="list-group replyList">
+            <ul style="width: 80%; margin: 0 0 0 100px" class="list-group replyList">
             </ul>
         </div>
     </div>

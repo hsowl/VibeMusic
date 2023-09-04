@@ -11,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -20,6 +23,14 @@ public class MemberServiceImpl implements MemberService{
     private final ModelMapper modelMapper;
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+
+    @Override
+    public Member findByUsername(String username) {
+
+        Member byMid = memberRepository.findByMid(username);
+
+        return byMid;
+    }
 
     @Override
     public void join(MemberJoinDTO memberJoinDTO) throws MidExistException {
@@ -54,6 +65,33 @@ public class MemberServiceImpl implements MemberService{
         member.changePassword(passwordEncoder.encode(memberLoginDTO.getMpw()));
 
         memberRepository.getWithRoles(mid);
+
+    }
+
+    @Override
+    @Transactional
+    public void modifyInformation(MemberLoginDTO memberLoginDTO) throws MidExistException {
+        String mid = memberLoginDTO.getMid();
+
+        log.info("Service Mid : {}", mid);
+        boolean exist = memberRepository.existsById(mid);
+        log.info("ID 존재 여부  : {}", exist);
+
+        if(!exist){
+            throw new MidExistException();
+        }
+
+        Optional<Member> byId = memberRepository.findById(mid);
+        Member member = byId.orElseThrow();
+        member.changeAllInformation(memberLoginDTO);
+        memberRepository.save(member);
+
+//        String phone = memberLoginDTO.getPhone();
+//        String address = memberLoginDTO.getAddress();
+//        String birthDate = memberLoginDTO.getBirthDate();
+//        String name = memberLoginDTO.getName();
+
+//        memberRepository.updateInformation(phone, address, birthDate, name, mid);
 
     }
 }

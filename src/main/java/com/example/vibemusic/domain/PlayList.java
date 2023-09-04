@@ -1,5 +1,6 @@
 package com.example.vibemusic.domain;
 
+import com.example.vibemusic.dto.MusicDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -40,7 +41,6 @@ public class PlayList {
         }
         return musics;
     }
-
     public void setPlName(String plName) {
     }
 
