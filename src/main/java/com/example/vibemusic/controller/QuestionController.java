@@ -10,6 +10,7 @@ import com.example.vibemusic.dto.PageRequestDTO;
 import com.example.vibemusic.dto.PageResponseDTO;
 import com.example.vibemusic.dto.QuestionDTO;
 
+import com.example.vibemusic.security.dto.MemberSecurityDTO;
 import com.example.vibemusic.service.AnswerService;
 import com.example.vibemusic.service.QuestionService;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -51,13 +53,15 @@ public class QuestionController {
 //
 //        model.addAttribute("dto", questionDTO);
 //    }
-    @GetMapping({"/questionRead","/questionModify"})
-    public void qRead(@RequestParam Long qno, Model model, PageRequestDTO pageRequestDTO) {
+@PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
+@GetMapping({"/questionRead","/questionModify"})
+    public void qRead(@RequestParam Long qno, Model model, PageRequestDTO pageRequestDTO, @AuthenticationPrincipal MemberSecurityDTO authenticatedUser) {
         log.info("qno=============> : {}", qno);
         QuestionDTO questionDTO = questionService.read1Quest(qno);
 
         model.addAttribute("dto", questionDTO);
     }
+
 
 //    @GetMapping("/questions")
 //    public void list(PageRequestDTO pageRequestDTO, Model model, Pageable pageable) {
@@ -147,9 +151,9 @@ public class QuestionController {
         return "redirect:/questions";
         //게시글 목록 페이지로 리다이렉트합니다.
     }
-
+    @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
     @GetMapping("/questionRegister")
-    public void registerQuestGET(){
+    public void registerQuestGET(@AuthenticationPrincipal MemberSecurityDTO authenticatedUser){
 
         log.info("=============================등록GET============================");
 
