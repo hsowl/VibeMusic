@@ -20,6 +20,7 @@ public interface MusicService {
     // 조회수 기능
     void increaseViewCount(Long no);
 
+    List<MusicDTO> getAllMusic();
 
 
 

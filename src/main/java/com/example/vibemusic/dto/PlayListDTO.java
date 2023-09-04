@@ -17,4 +17,9 @@ public class PlayListDTO {
     private Member member;
     private List<Music> musics;
 
+    private List<MusicDTO> musicList;
+    public List<MusicDTO> getMusicList() {
+        return musicList;
+    }
+
 }

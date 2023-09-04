@@ -1,5 +1,6 @@
 package com.example.vibemusic.controller;
 
+import com.example.vibemusic.domain.Music;
 import com.example.vibemusic.domain.PlayList;
 import com.example.vibemusic.dto.MusicDTO;
 import com.example.vibemusic.dto.PageRequestDTO;
@@ -17,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.MessageSource;
 
 import org.springframework.data.domain.Pageable;
@@ -35,6 +37,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -47,6 +50,7 @@ public class MusicController {
     private final MessageSource messageSource;
     private final ChartService chartService;
     private final PlayListService playListService;
+    private final ModelMapper modelMapper;
 
 
     @GetMapping({"/contact", "/elements"})
@@ -85,7 +89,7 @@ public class MusicController {
     }
 
     @GetMapping("/index")
-    public String getIndexPage(Long no, PageRequestDTO pageRequestDTO, Model model, Locale locale) throws Exception {
+    public String getIndexPage( @AuthenticationPrincipal MemberSecurityDTO authenticatedUser,Long no, PageRequestDTO pageRequestDTO, Model model, Locale locale) throws Exception {
         PageResponseDTO<MusicDTO> responseDTO = musicService.listWithNewMusic(pageRequestDTO);
 
         DayOfWeek currentDay = LocalDate.now().getDayOfWeek();
@@ -218,6 +222,21 @@ public class MusicController {
         ///////////////////시간대 끝////////////////////////////////////
 
 
+        ///////////////////플리 3번째 알고리즘//////////////////////////
+
+        List<PlayList> playlists = null;
+        if (authenticatedUser != null) {
+            playlists = playListService.getPlaylist(authenticatedUser);
+        }
+
+        List<MusicDTO> allMusic = musicService.getAllMusic();
+        List<MusicDTO> remainingMusic = new ArrayList<>();
+
+        if (playlists != null) {
+            remainingMusic = filterRemainingMusic(allMusic, playlists);
+        }
+
+        model.addAttribute("remainingMusic", remainingMusic);
         model.addAttribute("timeBasedMessage", message);
         model.addAttribute("randomGenreMusic", randomGenreMusic);
         model.addAttribute("responseDTO", responseDTO);
@@ -229,6 +248,20 @@ public class MusicController {
         return "index";
     }
 
+    private List<MusicDTO> filterRemainingMusic(List<MusicDTO> allMusic, List<PlayList> playlists) {
+        List<MusicDTO> remainingMusic = new ArrayList<>(allMusic);
+
+        for (PlayList playlist : playlists) {
+            List<Music> playlistMusic = playlist.getMusics(); // Use getMusics() to retrieve music associated with the playlist
+            List<MusicDTO> playlistMusicDTOs = playlistMusic.stream()
+                    .map(music -> modelMapper.map(music, MusicDTO.class))
+                    .collect(Collectors.toList());
+
+            remainingMusic.removeAll(playlistMusicDTOs);
+        }
+
+        return remainingMusic;
+    }
     private String getMessageForDay(DayOfWeek day, Locale locale) {
         return messageSource.getMessage(day.toString().toLowerCase(), null, day.toString(), locale);
     }

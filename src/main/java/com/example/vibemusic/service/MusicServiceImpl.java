@@ -1,7 +1,6 @@
 package com.example.vibemusic.service;
 
 import com.example.vibemusic.domain.Music;
-import com.example.vibemusic.domain.News;
 import com.example.vibemusic.dto.MusicDTO;
 import com.example.vibemusic.dto.PageRequestDTO;
 import com.example.vibemusic.dto.PageResponseDTO;
@@ -26,6 +25,14 @@ public class MusicServiceImpl implements MusicService {
 
     private final MusicRepository musicRepository;
     private final ModelMapper modelMapper;
+
+    @Override
+    public List<MusicDTO> getAllMusic() {
+        List<Music> allMusic = musicRepository.findAll();
+        return allMusic.stream()
+                .map(music -> modelMapper.map(music, MusicDTO.class))
+                .collect(Collectors.toList());
+    }
 
 
     @Override

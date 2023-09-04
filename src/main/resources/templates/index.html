@@ -183,58 +183,51 @@
 
 
                         <!-- ***** Popular Artists ***** -->
-                        <div class="col-12 col-lg-4">
-                            <div class="popular-artists-area mb-100">
-                                <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms" th:if="${#authentication.principal} == 'anonymousUser'">
-                                    <h2 th:text="${timeBasedMessage}"></h2>
+                <div class="col-12 col-lg-4">
+                    <div class="popular-artists-area mb-100">
+                        <!-- Display remainingMusic when logged in -->
+                        <div th:if="${#authentication.principal != 'anonymousUser'}">
+                            <h2 th:text="${#authentication.principal.username}">님에게 추천하는 노래들!!</h2>
+                            <div class="single-artists d-flex align-items-center wow fadeInUp"
+                                 data-wow-delay="100ms"
+                                 th:each="remainingMusic, remainingMusicStat : ${remainingMusic}"
+                                 th:if="${remainingMusicStat.index lt 11}">
+                                <div class="thumbnail">
+                                    <img th:src="${remainingMusic.m_image}" alt="">
                                 </div>
-
-<!--                                <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms" th:if="${#authentication.principal} != 'anonymousUser'">-->
-<!--                                    <h2 th:text="${timeBasedMessage}"></h2>-->
-<!--                                </div>-->
-
-                                <!-- Single Artist -->
-                                <div class="single-artists d-flex align-items-center wow fadeInUp"
-                                     data-wow-delay="100ms"
-                                     th:each="randomGenreMusic, randomGenreMusicStat : ${randomGenreMusic}"
-                                     th:if="${randomGenreMusicStat.index lt 10 and #authentication.principal == 'anonymousUser'}">
-                                    <div class="thumbnail">
-                                        <img th:src="${randomGenreMusic.m_image}" alt="">
-                                    </div>
+                                <div class="content-">
                                     <div class="content-">
-                                        <div class="content-">
-                                            <a th:href="|@{/read(no=${randomGenreMusic.no})}|">
-                                                <h6 th:text="${randomGenreMusic.m_title}"></h6>
-                                            </a>
-                                            <p th:text="${randomGenreMusic.m_artist}"></p>
-                                        </div>
+                                        <a th:href="@{/read(no=${remainingMusic.no})}">
+                                            <h6 th:text="${remainingMusic.m_title}"></h6>
+                                        </a>
+                                        <p th:text="${remainingMusic.m_artist}"></p>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
 
-
-
-<!--                <div class="single-artists d-flex align-items-center wow fadeInUp"-->
-<!--                     data-wow-delay="100ms"-->
-<!--                     th:each="randomGenreMusic, randomGenreMusicStat : ${randomGenreMusic}"-->
-<!--                     th:if="${플레이리스트기반.index lt 10 and #authentication.principal != 'anonymousUser'}">-->
-<!--                    <div class="thumbnail">-->
-<!--                        <img th:src="${randomGenreMusic.m_image}" alt="">-->
-<!--                    </div>-->
-<!--                    <div class="content-">-->
-<!--                        <div class="content-">-->
-<!--                            <a th:href="|@{/read(no=${randomGenreMusic.no})}|">-->
-<!--                                <h6 th:text="${randomGenreMusic.m_title}"></h6>-->
-<!--                            </a>-->
-<!--                            <p th:text="${randomGenreMusic.m_artist}"></p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-
-
+                        <!-- Display randomGenreMusic when not logged in and index is less than 10 -->
+                        <div th:if="${#authentication.principal == 'anonymousUser'}">
+                            <h2 th:text="${timeBasedMessage}"></h2>
+                            <div class="single-artists d-flex align-items-center wow fadeInUp"
+                                 data-wow-delay="100ms"
+                                 th:each="randomGenreMusic, randomGenreMusicStat : ${randomGenreMusic}"
+                                th:if="${randomGenreMusicStat.index lt 11}">
+                                <div class="thumbnail">
+                                    <img th:src="${randomGenreMusic.m_image}" alt="">
+                                </div>
+                                <div class="content-">
+                                    <div class="content-">
+                                        <a th:href="@{/read(no=${randomGenreMusic.no})}">
+                                            <h6 th:text="${randomGenreMusic.m_title}"></h6>
+                                        </a>
+                                        <p th:text="${randomGenreMusic.m_artist}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
