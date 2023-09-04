@@ -76,12 +76,12 @@ public class EventBoardServiceImpl implements EventBoardService{
 
         Page<EventBoard> result = eventBoardRepository.searchAll(types, keyword, pageable);
 
-        log.info("-----------------------------------------------");
-        log.info("getTotalPages = " + result.getTotalPages());
-        log.info("getSize = " + result.getSize());
-        log.info("getTotalElements = " + result.getTotalElements());
-        result.getContent().forEach(eventBoard -> log.info(eventBoard));
-        log.info("------------------------------------------------");
+//        log.info("-----------------------------------------------");
+//        log.info("getTotalPages = " + result.getTotalPages());
+//        log.info("getSize = " + result.getSize());
+//        log.info("getTotalElements = " + result.getTotalElements());
+//        result.getContent().forEach(eventBoard -> log.info(eventBoard));
+//        log.info("------------------------------------------------");
 
         List<EventBoardDTO> dtoList = result.getContent().stream()
                 .map(eventBoard -> modelMapper.map(eventBoard, EventBoardDTO.class)).collect(Collectors.toList());
@@ -92,10 +92,21 @@ public class EventBoardServiceImpl implements EventBoardService{
         return pageResponseDTO;
     }
 
-    @Override
-    public Page<EventBoard> Elist(Pageable pageable) {
-        return eventBoardRepository.findAll(pageable);
-    }
+//    @Override
+//    public Page<EventBoard> Elist(Pageable pageable) {
+//        return eventBoardRepository.findAll(pageable);
+//    }
 
+    @Transactional
+    @Override
+    public void eViewCount(Long ebno) {
+        EventBoard eventBoard = eventBoardRepository.findById(ebno)
+                .orElseThrow(() -> new IllegalArgumentException("News not found with ebno: " + ebno));
+
+        int eViewCount = eventBoard.getEViewCount();
+        eventBoard.setEViewCount(eViewCount + 1);
+
+        eventBoardRepository.save(eventBoard);
+    }
 
 }

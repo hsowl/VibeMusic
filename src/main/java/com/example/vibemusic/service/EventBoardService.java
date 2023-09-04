@@ -11,11 +11,11 @@ public interface EventBoardService {
 
     Long register(EventBoardDTO eventBoardDTO);
     EventBoardDTO select(Long ebno);
+//    EventBoardDTO selectAll(Long ebno);
     void modify(EventBoardDTO eventBoardDTO);
     void remove(Long ebno);
     PageResponseDTO<EventBoardDTO> list(PageRequestDTO pageRequestDTO);
-    Page<EventBoard> Elist(Pageable pageable);
-
-
+//    Page<EventBoard> Elist(Pageable pageable);
+    void eViewCount(Long ebno);
 
 }
