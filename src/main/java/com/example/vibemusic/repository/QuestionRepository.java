@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 
 @Transactional
 public interface QuestionRepository extends JpaRepository<Question, Long>, QuestSearch {
-        Page<Question> findByQWriterContaining(String writerKeyword, Pageable pageable);
+//        Page<Question> findByQWriterContaining(String writerKeyword, Pageable pageable);
 
 //        Page<Question> findByUsername(String username, Pageable pageable);
 
