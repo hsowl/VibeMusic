@@ -63,7 +63,24 @@
 
                                     <div class="card-body">
                                         <h5 class="card-title">Q&A List</h5>
+                                        <div class="col">
 
+                                            <input type="hidden" name="size" th:value="${pageRequestDTO.size}">
+                                            <div class="input-group col-lg-7 mx-auto">
+                                                <div class="input-group-prepend">
+                                                    <select class="form-select" name="type" style="display: none;">
+                                                        <option value="t" th:selected="${pageRequestDTO.type =='t'}"></option>
+                                                    </select>
+                                                </div>
+                                                <input type="text" class="form-control" name="keyword" placeholder="Writer"
+                                                       th:value="${pageRequestDTO.keyword}">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-secondary searchBtn" type="submit">Search</button>
+                                                    <button class="btn btn-outline-secondary clearBtn" type="button">Clear</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
                                         <div class="my-4">
                                             <div class="float-end">
                                                 <a th:href="|@{/questionRegister}|" class="text-decoration-none">

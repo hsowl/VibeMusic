@@ -5,10 +5,7 @@ package com.example.vibemusic.controller;
 import com.example.vibemusic.domain.News;
 import com.example.vibemusic.domain.Question;
 
-import com.example.vibemusic.dto.MusicDTO;
-import com.example.vibemusic.dto.PageRequestDTO;
-import com.example.vibemusic.dto.PageResponseDTO;
-import com.example.vibemusic.dto.QuestionDTO;
+import com.example.vibemusic.dto.*;
 
 import com.example.vibemusic.security.dto.MemberSecurityDTO;
 import com.example.vibemusic.service.AnswerService;
@@ -32,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -53,6 +51,7 @@ public class QuestionController {
 //
 //        model.addAttribute("dto", questionDTO);
 //    }
+
 @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
 @GetMapping({"/questionRead","/questionModify"})
     public void qRead(@RequestParam Long qno, Model model, PageRequestDTO pageRequestDTO, @AuthenticationPrincipal MemberSecurityDTO authenticatedUser) {
