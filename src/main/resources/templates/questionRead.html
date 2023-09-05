@@ -53,7 +53,7 @@
   <div class="blog-area section-padding-100">
     <div class="container">
       <div class="row">
-        <div class="single-blog-post col-lg-9">
+        <div class="single-blog-post col-lg-12">
           <div class ="single-blog-post" >
             <!-- Single Post Start -->
             <h5 class="card-title">Q&A Read</h5>
@@ -72,7 +72,7 @@
 
             <div >
               <span>Writer</span>
-              <input type="text" th:value="${dto.qWriter}" class="border border-light bg-light p-4 col-sm-12" readonly>
+              <input type="text" th:value="${dto.qWriter}" class="border border-light bg-light p-4 col-sm-12 qWriter" readonly>
             </div>
 
 
@@ -111,67 +111,67 @@
           </div><!--single-blog-post end-->
         </div><!--single-blog-post col-lg-9-->
 
-        <div class="col-12 col-lg-3">
-          <div class="blog-sidebar-area">
+<!--        <div class="col-12 col-lg-3">-->
+<!--          <div class="blog-sidebar-area" style="display: none;">-->
 
-            <!-- Widget Area -->
-            <div class="single-widget-area mb-30">
-              <div class="widget-title">
-                <h5>Categories</h5>
-              </div>
-              <div class="widget-content">
-                <ul>
-                  <li><a href="#">Music</a></li>
-                  <li><a href="#">Events &amp; Press</a></li>
-                  <li><a href="#">Festivals</a></li>
-                  <li><a href="#">Lyfestyle</a></li>
-                  <li><a href="#">Uncategorized</a></li>
-                </ul>
-              </div>
-            </div><!--single-widget-area mb-30-->
+<!--            &lt;!&ndash; Widget Area &ndash;&gt;-->
+<!--            <div class="single-widget-area mb-30">-->
+<!--              <div class="widget-title">-->
+<!--                <h5>Categories</h5>-->
+<!--              </div>-->
+<!--              <div class="widget-content">-->
+<!--                <ul>-->
+<!--                  <li><a href="#">Music</a></li>-->
+<!--                  <li><a href="#">Events &amp; Press</a></li>-->
+<!--                  <li><a href="#">Festivals</a></li>-->
+<!--                  <li><a href="#">Lyfestyle</a></li>-->
+<!--                  <li><a href="#">Uncategorized</a></li>-->
+<!--                </ul>-->
+<!--              </div>-->
+<!--            </div>&lt;!&ndash;single-widget-area mb-30&ndash;&gt;-->
 
-            <!-- Widget Area -->
-            <div class="single-widget-area mb-30">
-              <div class="widget-title">
-                <h5>Archive</h5>
-              </div>
-              <div class="widget-content">
-                <ul>
-                  <li><a href="#">February 2018</a></li>
-                  <li><a href="#">March 2018</a></li>
-                  <li><a href="#">April 2018</a></li>
-                  <li><a href="#">May 2018</a></li>
-                  <li><a href="#">June 2018</a></li>
-                </ul>
-              </div>
-            </div>
+<!--            &lt;!&ndash; Widget Area &ndash;&gt;-->
+<!--            <div class="single-widget-area mb-30">-->
+<!--              <div class="widget-title">-->
+<!--                <h5>Archive</h5>-->
+<!--              </div>-->
+<!--              <div class="widget-content">-->
+<!--                <ul>-->
+<!--                  <li><a href="#">February 2018</a></li>-->
+<!--                  <li><a href="#">March 2018</a></li>-->
+<!--                  <li><a href="#">April 2018</a></li>-->
+<!--                  <li><a href="#">May 2018</a></li>-->
+<!--                  <li><a href="#">June 2018</a></li>-->
+<!--                </ul>-->
+<!--              </div>-->
+<!--            </div>-->
 
-            <!-- Widget Area -->
-            <div class="single-widget-area mb-30">
-              <div class="widget-title">
-                <h5>Tags</h5>
-              </div>
-              <div class="widget-content">
-                <ul class="tags">
-                  <li><a href="#">music</a></li>
-                  <li><a href="#">events</a></li>
-                  <li><a href="#">artists</a></li>
-                  <li><a href="#">press</a></li>
-                  <li><a href="#">mp3</a></li>
-                  <li><a href="#">videos</a></li>
-                  <li><a href="#">concerts</a></li>
-                  <li><a href="#">performers</a></li>
-                </ul>
-              </div>
-            </div>
+<!--            &lt;!&ndash; Widget Area &ndash;&gt;-->
+<!--            <div class="single-widget-area mb-30">-->
+<!--              <div class="widget-title">-->
+<!--                <h5>Tags</h5>-->
+<!--              </div>-->
+<!--              <div class="widget-content">-->
+<!--                <ul class="tags">-->
+<!--                  <li><a href="#">music</a></li>-->
+<!--                  <li><a href="#">events</a></li>-->
+<!--                  <li><a href="#">artists</a></li>-->
+<!--                  <li><a href="#">press</a></li>-->
+<!--                  <li><a href="#">mp3</a></li>-->
+<!--                  <li><a href="#">videos</a></li>-->
+<!--                  <li><a href="#">concerts</a></li>-->
+<!--                  <li><a href="#">performers</a></li>-->
+<!--                </ul>-->
+<!--              </div>-->
+<!--            </div>-->
 
-            <!-- Widget Area -->
-            <div class="single-widget-area mb-30">
-              <a href="#"><img src="img/bg-img/add2.gif" alt=""></a>
-            </div><!--single-widget-area mb-30-->
+<!--            &lt;!&ndash; Widget Area &ndash;&gt;-->
+<!--            <div class="single-widget-area mb-30">-->
+<!--              <a href="#"><img src="img/bg-img/add2.gif" alt=""></a>-->
+<!--            </div>&lt;!&ndash;single-widget-area mb-30&ndash;&gt;-->
 
-          </div><!--blog-sidebar-area-->
-        </div><!--col-12 col-lg-3-->
+<!--          </div>&lt;!&ndash;blog-sidebar-area&ndash;&gt;-->
+<!--        </div>&lt;!&ndash;col-12 col-lg-3&ndash;&gt;-->
 
       </div><!--class="row"-->
     </div><!--div class="container"-->
@@ -271,19 +271,22 @@
   const registerBtn = document.querySelector(".registerBtn")
   const answerText = document.querySelector(".answerText")
   const answerer = document.querySelector(".answerer")
+  const writer = document.querySelector(".qWriter")
 
   const closeRegisterBtn = document.querySelector(".closeRegisterBtn")
   //modifyModal
 
   const modifyModal = new bootstrap.Modal(document.querySelector(".modifyModal"))
-  const modQ = document.querySelector(".ModQ")
+
   const answerHeader = document.querySelector(".answerHeader")
   const modifyText = document.querySelector(".modifyText")
   const modifyBtn = document.querySelector(".modifyBtn")
   const removeBtn = document.querySelector(".removeBtn")
   const closeModifyBtn = document.querySelector(".closeModifyBtn")
 
+
   let hasAuth = false
+  let hasAuth2 = false
 
   function printList(dtoList) {
     let str = '';
@@ -407,6 +410,8 @@
     }).catch(e => alert('^^ㅣ발 왜 안돼'))
   }, false)
 
+
+
   //댓글 수정
   modifyBtn.addEventListener("click", function (e) {
     if (!hasAuth) {
@@ -432,6 +437,7 @@
     })
   }, false)
 
+
   removeBtn.addEventListener("click", function (e) {
 
     if (!hasAuth) {
@@ -439,13 +445,7 @@
       modifyModal.hide()
       return
     }
-    modQ.addEventListener("click", function (e) {
 
-      if (!hasAuth) {
-        alert("작성자만 수정이 가능합니다.")
-        modifyModal.hide()
-        return
-      }
     removeAnswer(answerHeader.innerHTML).then(result => {
       alert(result.ano + '번의 댓글이 삭제되었습니다.')
       answerText.value = ''
@@ -464,6 +464,18 @@
     modifyModal.hide()
   })
 
+
+  const currentUserID = [[${#authentication.principal}]]
+
+  // 가상의 게시글 아이디
+  const postID = [[${dto.qWriter}]]
+
+  // 현재 로그인한 사용자와 게시글의 아이디 비교
+  if (currentUserID === postID) {
+    console.log("현재 로그인한 사용자와 게시글의 아이디가 일치합니다.");
+  } else {
+    console.log("현재 로그인한 사용자와 게시글의 아이디가 일치하지 않습니다.");
+  }
 
 </script>
 
