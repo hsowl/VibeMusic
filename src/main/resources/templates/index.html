@@ -187,11 +187,11 @@
                     <div class="popular-artists-area mb-100">
                         <!-- Display remainingMusic when logged in -->
                         <div th:if="${#authentication.principal != 'anonymousUser'}">
-                            <h2 th:text="${#authentication.principal.username}">님에게 추천하는 노래들!!</h2>
+                            <h6 th:text="${#authentication.principal.username}+'님에게 추천하는 노래 '" ></h6>
                             <div class="single-artists d-flex align-items-center wow fadeInUp"
                                  data-wow-delay="100ms"
                                  th:each="remainingMusic, remainingMusicStat : ${remainingMusic}"
-                                 th:if="${remainingMusicStat.index lt 11}">
+                                 th:if="${remainingMusicStat.index lt 13}">
                                 <div class="thumbnail">
                                     <img th:src="${remainingMusic.m_image}" alt="">
                                 </div>
@@ -208,11 +208,11 @@
 
                         <!-- Display randomGenreMusic when not logged in and index is less than 10 -->
                         <div th:if="${#authentication.principal == 'anonymousUser'}">
-                            <h2 th:text="${timeBasedMessage}"></h2>
+                            <h5 th:text="${timeBasedMessage}"></h5>
                             <div class="single-artists d-flex align-items-center wow fadeInUp"
                                  data-wow-delay="100ms"
                                  th:each="randomGenreMusic, randomGenreMusicStat : ${randomGenreMusic}"
-                                th:if="${randomGenreMusicStat.index lt 11}">
+                                th:if="${randomGenreMusicStat.index lt 13}">
                                 <div class="thumbnail">
                                     <img th:src="${randomGenreMusic.m_image}" alt="">
                                 </div>
