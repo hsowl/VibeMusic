@@ -25,13 +25,11 @@ public interface QuestionService {
 
     void increaseQViewCount(Long qno);
 
-
     PageResponseDTO<QuestionDTO> listWithNewQuestion(PageRequestDTO pageRequestDTO);
-
 
     Page<Question> list(Pageable pageable);
 
     //question 리스트 불러오는 메소드 qList라고 선언
-
+//    PageResponseDTO<QuestionDTO> getMyQuestions(PageRequestDTO pageRequestDTO, String username);
 
 }
