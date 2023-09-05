@@ -13,7 +13,9 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping
@@ -56,6 +61,38 @@ public class QuestionController {
     }
 
 
+    @GetMapping("/questions")
+    public String list(Pageable pageable, Model model, PageRequestDTO pageRequestDTO) {
+
+        PageResponseDTO<QuestionDTO> responseDTO = questionService.listWithNewQuestion(pageRequestDTO);
+        model.addAttribute("responseDTO", responseDTO);
+
+        return "questions";
+    }
+
+    @GetMapping("/userinfo2")
+    public ResponseEntity<Map<String, String>> getUserInfo(Authentication authentication) {
+        Map<String, String> userInfo = new HashMap<>();
+        userInfo.put("username", authentication.getName()); // 사용자 아이디를 가져옴
+
+        return ResponseEntity.ok(userInfo);
+    }
+
+//    @GetMapping("/myQuestions")
+//    public String myQuestions(PageRequestDTO pageRequestDTO, Model model, @AuthenticationPrincipal MemberSecurityDTO authenticatedUser) {
+//        // 현재 로그인한 사용자의 아이디를 가져옵니다.
+//        String username = authenticatedUser.getUsername();
+//
+//        // 사용자가 작성한 글을 가져오는 서비스 메서드를 호출합니다.
+//        PageResponseDTO<QuestionDTO> myQuestions = questionService.getMyQuestions(pageRequestDTO, username);
+//
+//        model.addAttribute("myQuestions", myQuestions);
+//
+//        return "/myQuestions"; // 내가 쓴 글 목록을 보여줄 뷰 이름
+//    }
+
+
+
 //    @GetMapping("/questions")
 //    public void list(PageRequestDTO pageRequestDTO, Model model, Pageable pageable) {
 //        PageResponseDTO<QuestionDTO> responseDTO = questionService.listWithNewQuestion(pageRequestDTO);
@@ -63,32 +100,32 @@ public class QuestionController {
 //    }
 
 
-    @GetMapping("/questions") // DTO포함해야 표까지 정상적인 출력 가능
-    public String list(Pageable pageable, Model model, PageRequestDTO pageRequestDTO) {
-
-        // Set the number of items per page
-        int pageSize = 12;
-        pageable = PageRequest.of(pageable.getPageNumber(), pageSize);
-
-        // Retrieve a Page of news items using the NewsService
-        Page<Question> questionPage = questionService.list(pageable);
-
-        // Add the Page of news items to the model
-        model.addAttribute("questionPage", questionPage);
-
-        // Ensure page number is not less than 1
-        if (pageRequestDTO.getPage() < 1) {
-            pageRequestDTO.setPage(1);
-        }
-
-        PageResponseDTO<QuestionDTO> responseDTO = questionService.listWithNewQuestion(pageRequestDTO);
-        //DTO때문에 충돌 일어남
-        model.addAttribute("qList", responseDTO);
-
-//         Return the view name for rendering
-        return "questions";  // questions.html
-
-    }
+//    @GetMapping("/questions") // DTO포함해야 표까지 정상적인 출력 가능
+//    public String list(Pageable pageable, Model model, PageRequestDTO pageRequestDTO) {
+//
+//        // Set the number of items per page
+//        int pageSize = 12;
+//        pageable = PageRequest.of(pageable.getPageNumber(), pageSize);
+//
+//        // Retrieve a Page of news items using the NewsService
+//        Page<Question> questionPage = questionService.list(pageable);
+//
+//        // Add the Page of news items to the model
+//        model.addAttribute("questionPage", questionPage);
+//
+//        // Ensure page number is not less than 1
+//        if (pageRequestDTO.getPage() < 1) {
+//            pageRequestDTO.setPage(1);
+//        }
+//
+//        PageResponseDTO<QuestionDTO> responseDTO = questionService.listWithNewQuestion(pageRequestDTO);
+//        //DTO때문에 충돌 일어남
+//        model.addAttribute("qList", responseDTO);
+//
+////         Return the view name for rendering
+//        return "questions";  // questions.html
+//
+//    }
 
 //    @PreAuthorize("#QuestionDTO.getQWriter() == principal.username")
     @PostMapping("/questionModify")

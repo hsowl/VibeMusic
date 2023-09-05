@@ -73,12 +73,12 @@
 
                 <div >
                   <span >Content</span>
-                  <textarea class="border border-light bg-light p-4 col-sm-12" id="qContent" name="qContent" rows="5">[[${dto.qContent}]]</textarea>
+                  <textarea class="border border-light bg-light p-4 col-sm-12 qContent" id="qContent" name="qContent" rows="5">[[${dto.qContent}]]</textarea>
                 </div>
 
                 <div >
                   <span>Writer</span>
-                  <input type="text" th:value="${dto.qWriter}" id="qWriter" name="qWriter" class="border border-light bg-light p-4 col-sm-12">
+                  <input type="text" th:value="${dto.qWriter}" id="qWriter" name="qWriter" class="border border-light bg-light p-4 col-sm-12 qWriter">
                 </div>
 
                   <div class="my-4">
@@ -223,8 +223,73 @@
         formObj.action = `/questionRemove`
         formObj.method = 'post'
         formObj.submit()
-      },false)
+      },false);
+
+
+      const qno = [[${dto.qno}]]
+      let i = 1;
+
+      const auth = [[${#authentication.principal}]]
+      const currentUser = [[${#authentication.principal.username}]]
+      const error = [[${errors}]]
+
+      console.log(error);
+      //댓글 리스트, 페이징 처리
+
+      //registerModal
+      const qContent = document.querySelector(".qContent")
+      const qWriter = document.querySelector(".qWriter")
+
+
+      const modifyModal = new bootstrap.Modal(document.querySelector(".modifyModal"))
+
+      const questionHeader = document.querySelector(".answerHeader")
+      const modifyBtn = document.querySelector(".modifyBtn")
+      const removeBtn = document.querySelector(".removeBtn")
+      const closeModifyBtn = document.querySelector(".closeModifyBtn")
+
+      let hasAuth = false
+
+
+
+      //댓글 수정
+      modifyBtn.addEventListener("click", function (e) {
+          if (!hasAuth) {
+              alert("작성자만 수정이 가능합니다.")
+              modifyModal.hide()
+              return
+          }
+
+
+          });
+
+      removeBtn.addEventListener("click", function (e) {
+
+          if (!hasAuth) {
+              alert("작성자만 삭제 가능합니다.")
+              modifyModal.hide()
+              return
+          }
+
+          removeQuestion(questionHeader.innerHTML).then(result => {
+              alert(result.qno + '번의 게시글이 삭제되었습니다.')
+              qContent.value = ''
+              modifyModal.hide()
+
+              location.reload()
+          }).catch(e => {
+              console.log(e)
+          })
+      }, false)
+
+      closeModifyBtn.addEventListener("click", function (e) {
+          modifyModal.hide()
+      })
+
 
     </script>
+
+
+</script>
 </body>
 </html>

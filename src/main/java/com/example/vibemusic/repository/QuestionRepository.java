@@ -8,6 +8,10 @@ import javax.transaction.Transactional;
 
 @Transactional
 public interface QuestionRepository extends JpaRepository<Question, Long>, QuestSearch {
+        Page<Question> findByQWriterContaining(String writerKeyword, Pageable pageable);
+
+//        Page<Question> findByUsername(String username, Pageable pageable);
+
 
 //    @Query("SELECT q FROM Question q WHERE (:types IS NULL OR q.qWriter IN :types) AND " +
 //            "(:keyword IS NULL OR q.qTitle LIKE %:keyword% OR q.qContent LIKE %:keyword%)")
