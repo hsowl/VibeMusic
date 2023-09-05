@@ -3,25 +3,16 @@ package com.example.vibemusic.repository;
 import com.example.vibemusic.domain.Member;
 import com.example.vibemusic.domain.Music;
 import com.example.vibemusic.domain.PlayList;
-import com.example.vibemusic.dto.PlayListDTO;
-import com.example.vibemusic.repository.MemberRepository;
-import com.example.vibemusic.repository.MusicRepository;
-import com.example.vibemusic.repository.PlayListRepository;
-import com.example.vibemusic.security.dto.MemberSecurityDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-
-import static ognl.DynamicSubscript.mid;
 
 @SpringBootTest
 @Slf4j

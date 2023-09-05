@@ -2,7 +2,6 @@ package com.example.vibemusic.domain;
 
 import com.example.vibemusic.dto.MemberLoginDTO;
 import lombok.*;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.HashSet;

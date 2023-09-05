@@ -1,20 +1,15 @@
 package com.example.vibemusic.controller;
 
 
-
-import com.example.vibemusic.domain.News;
 import com.example.vibemusic.domain.Question;
-
-import com.example.vibemusic.dto.*;
-
+import com.example.vibemusic.dto.PageRequestDTO;
+import com.example.vibemusic.dto.PageResponseDTO;
+import com.example.vibemusic.dto.QuestionDTO;
 import com.example.vibemusic.security.dto.MemberSecurityDTO;
 import com.example.vibemusic.service.AnswerService;
 import com.example.vibemusic.service.QuestionService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 

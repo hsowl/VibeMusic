@@ -1,7 +1,6 @@
 package com.example.vibemusic.service;
 
 import com.example.vibemusic.domain.Answer;
-import com.example.vibemusic.domain.Reply;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

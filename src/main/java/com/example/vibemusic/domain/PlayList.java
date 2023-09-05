@@ -1,11 +1,10 @@
 package com.example.vibemusic.domain;
 
-import com.example.vibemusic.dto.MusicDTO;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.List; // List를 사용하기 위해 추가
+import java.util.List;
 
 @Entity
 @Builder
