@@ -84,6 +84,7 @@ public class MemberServiceImpl implements MemberService{
         Optional<Member> byId = memberRepository.findById(mid);
         Member member = byId.orElseThrow();
         member.changeAllInformation(memberLoginDTO);
+        member.changePassword(passwordEncoder.encode(memberLoginDTO.getMpw()));
         memberRepository.save(member);
 
 //        String phone = memberLoginDTO.getPhone();

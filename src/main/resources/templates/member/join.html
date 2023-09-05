@@ -103,12 +103,7 @@
 
     document.querySelector(".submitBtn").addEventListener("click", function (e){
 
-        console.log("mid : ",mid)
-        console.log("mpw : ", mpw.value)
-        console.log("mpwCheck : ", mpwCheck.value)
-
         if(mpw.value === mpwCheck.value){
-            console.log("이리왕~~~~~~~~~~")
             passwordCheck = true;
         }
 
@@ -129,9 +124,6 @@
             e.stopPropagation()
             alert("이름은 필수 입력 사항입니다. 입력해주세요.")
         }
-
-        console.log("이메일 인증 여부 : ",result)
-        console.log("비밀번호 체크 여부 : ",passwordCheck)
 
         if(result == false){
             e.preventDefault();
