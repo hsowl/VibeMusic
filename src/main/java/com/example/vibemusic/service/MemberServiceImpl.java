@@ -5,7 +5,6 @@ import com.example.vibemusic.domain.MemberRole;
 import com.example.vibemusic.dto.MemberJoinDTO;
 import com.example.vibemusic.dto.MemberLoginDTO;
 import com.example.vibemusic.repository.MemberRepository;
-import com.example.vibemusic.security.dto.MemberSecurityDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;

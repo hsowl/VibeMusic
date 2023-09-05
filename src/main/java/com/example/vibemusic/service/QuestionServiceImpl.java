@@ -1,14 +1,10 @@
 package com.example.vibemusic.service;
 
-import com.example.vibemusic.domain.Music;
 import com.example.vibemusic.domain.Question;
-
-import com.example.vibemusic.dto.MusicDTO;
 import com.example.vibemusic.dto.PageRequestDTO;
 import com.example.vibemusic.dto.PageResponseDTO;
 import com.example.vibemusic.dto.QuestionDTO;
 import com.example.vibemusic.repository.QuestionRepository;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -16,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 
 import java.util.List;
 import java.util.Optional;
@@ -109,25 +104,5 @@ public class QuestionServiceImpl implements QuestionService{
     @Override
     public Page<Question> list(Pageable pageable) {
         return questionRepository.findAll(pageable);    }
-
-
-//    @Override
-//    public PageResponseDTO<QuestionDTO> getMyQuestions(PageRequestDTO pageRequestDTO, String username) {
-//        // username을 기반으로 사용자가 작성한 글을 데이터베이스에서 가져옵니다.
-//        String[] types = pageRequestDTO.getTypes();
-//        String keyword = pageRequestDTO.getKeyword();
-//        Pageable pageable = pageRequestDTO.getPageable("qno");
-//        Page<Question> myQuestions = questionRepository.findByUsername(username, pageable);
-////        Page<Question> result = questionRepository.searchAll(types, keyword, pageable);
-//
-//        List<QuestionDTO> dtoList = myQuestions.getContent().stream()
-//                .map(question -> modelMapper.map(question, QuestionDTO.class))
-//                .collect(Collectors.toList());
-//
-//        PageResponseDTO<QuestionDTO> pageResponseDTO = new PageResponseDTO<>(pageRequestDTO, dtoList, (int)myQuestions.getTotalElements());
-//
-//        return pageResponseDTO;
-//
-//    }
 
 }

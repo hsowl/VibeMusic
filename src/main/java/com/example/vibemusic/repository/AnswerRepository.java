@@ -1,7 +1,6 @@
 package com.example.vibemusic.repository;
 
 import com.example.vibemusic.domain.Answer;
-import com.example.vibemusic.domain.Reply;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -2,24 +2,16 @@ package com.example.vibemusic.controller;
 
 import com.example.vibemusic.domain.News;
 import com.example.vibemusic.dto.NewsDTO;
-import com.example.vibemusic.dto.PageRequestDTO;
-import com.example.vibemusic.dto.PageResponseDTO;
 import com.example.vibemusic.service.NewsService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @Controller
 @RequestMapping

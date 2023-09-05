@@ -1,6 +1,5 @@
 package com.example.vibemusic.service;
 
-import com.example.vibemusic.domain.Member;
 import com.example.vibemusic.domain.Music;
 import com.example.vibemusic.domain.PlayList;
 import com.example.vibemusic.security.dto.MemberSecurityDTO;

@@ -2,8 +2,6 @@ package com.example.vibemusic.dto;
 
 import lombok.*;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @NoArgsConstructor

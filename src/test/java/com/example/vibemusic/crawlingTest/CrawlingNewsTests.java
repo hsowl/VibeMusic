@@ -1,8 +1,6 @@
 package com.example.vibemusic.crawlingTest;
 
-import com.example.vibemusic.domain.Music;
 import com.example.vibemusic.domain.News;
-import com.example.vibemusic.dto.NewsDTO;
 import com.example.vibemusic.repository.NewsRepository;
 import com.example.vibemusic.service.NewsService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,13 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.transaction.Transactional;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
-
-import static com.example.vibemusic.domain.QNews.news;
 
 @SpringBootTest
 @Slf4j

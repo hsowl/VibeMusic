@@ -1,7 +1,6 @@
 package com.example.vibemusic.controller;
 
 import com.example.vibemusic.domain.Music;
-import com.example.vibemusic.dto.MusicDTO;
 import com.example.vibemusic.service.ChartService;
 import com.example.vibemusic.service.MusicService;
 import lombok.RequiredArgsConstructor;
@@ -12,11 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @Controller
 @RequestMapping

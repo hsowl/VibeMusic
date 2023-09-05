@@ -2,9 +2,7 @@ package com.example.vibemusic.domain;
 
 import lombok.*;
 
-
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import java.util.ArrayList;
 import java.util.List;
 

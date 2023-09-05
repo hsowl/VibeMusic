@@ -1,7 +1,5 @@
 package com.example.vibemusic.repository.search;
 
-import com.example.vibemusic.domain.Music;
-import com.example.vibemusic.domain.QMusic;
 import com.example.vibemusic.domain.QQuestion;
 import com.example.vibemusic.domain.Question;
 import com.querydsl.core.BooleanBuilder;

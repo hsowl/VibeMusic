@@ -1,26 +1,15 @@
 package com.example.vibemusic.service;
 
-import com.example.vibemusic.domain.Music;
 import com.example.vibemusic.domain.Question;
-import com.example.vibemusic.domain.Reply;
 import com.example.vibemusic.repository.QuestionRepository;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.test.web.servlet.MockMvc;
 
-import java.awt.print.Pageable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
-
-import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 
 @Log4j2

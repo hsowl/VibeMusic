@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.stream.IntStream;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -21,7 +19,7 @@ class EventBoardServiceImplTests {
     public void testRegister() {
 
         log.info(eventBoardService.getClass().getName());
-        IntStream.rangeClosed(1, 50).forEach(i -> {
+
         EventBoardDTO eventBoardDTO = EventBoardDTO.builder()
                 .title("Title이당~")
                 .content("Content이당~")
@@ -31,8 +29,8 @@ class EventBoardServiceImplTests {
         Long ebno = eventBoardService.register(eventBoardDTO);
 
         log.info("eventBoardDTO========>"+eventBoardDTO);
-    });
     }
+
     @Test
     public void testSelect() {
 
