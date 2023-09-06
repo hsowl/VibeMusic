@@ -60,16 +60,14 @@ public class PlayListServiceImpl implements PlayListService {
         playListRepository.deleteById(plNo);
     }
 
-
-
     /**
      * *********** PlayList에 노래담기 부분 ***************
      곡 목록보기
      */
-    public List<Music> getMusicsInPlayList(Long plNo){
-        PlayList playList = playListRepository.findById(plNo).orElseThrow(EntityNotFoundException::new);
-        return playList.getMusics();
-    }
+//    public List<Music> getMusicsInPlayList(Long plNo){
+//        PlayList playList = playListRepository.findById(plNo).orElseThrow(EntityNotFoundException::new);
+//        return playList.getMusics();
+//    }
 
     /**
      한곡 추가하기
@@ -89,11 +87,6 @@ public class PlayListServiceImpl implements PlayListService {
 
         playListRepository.save(playList);
     }
-
-//    @Override
-//    public List<PlayListDTO> findAllPlaylistsByMember(String username) {
-//        return playListRepository.findAllByMember(username);
-//    }
 
     /**
      여러곡 추가하기
@@ -117,5 +110,4 @@ public class PlayListServiceImpl implements PlayListService {
         playList.removeMusic(music);
         playListRepository.save(playList);
     }
-
 }

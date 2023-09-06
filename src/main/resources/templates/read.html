@@ -271,7 +271,7 @@
                     success: function(response) {
                         console.log("플레이리스트 생성 및 담기 성공:", response);
                         $("#addToPlaylistModal").modal("hide");
-                        location.reload();
+                        window.location.href = "/playlist"; // 리다이렉션
                     },
                     error: function(error) {
                         console.error("플레이리스트 생성 및 담기 에러:", error);

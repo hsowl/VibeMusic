@@ -70,22 +70,14 @@ public class PlayListController {
      */
     @PostMapping("/playlist/addToNewPlaylist")
     public String addToNewList(@RequestParam String plName, @RequestParam Long no, @AuthenticationPrincipal MemberSecurityDTO authenticatedUser, RedirectAttributes redirectAttributes){
-
-        log.info("plName : {}", plName);
-        log.info("authenticatedUser : {}", authenticatedUser);
+        log.info("plName ------: {}", plName);
+        log.info("authenticatedUser -------: {}", authenticatedUser);
 
         PlayList playList = playListService.addPlaylist(plName, authenticatedUser);
 
         playListService.addMusicToPlayList(playList.getPlNo(),no);
-//        if(playList.getPlName() == plName){
-//            log.info("playList : {}", playList.getPlNo());
-//            log.info("no : {}", no);
-//            redirectAttributes.addFlashAttribute("failureMessage", "같은 이름의 PlayList가 이미 존재합니다. 다른 이름을 지정해 주세요.");
-//        } else{
-//            playListService.addMusicToPlayList(playList.getPlNo(),no);
-//        }
 
-        return "redirect:/playlist"; // 리스트 페이지로 리다이렉트
+        return "redirect:/playlist"; // 리스트 페이지로 리다이렉트 but JS에서 redirect로 끝냄.
     }
 
     /**
@@ -96,6 +88,7 @@ public class PlayListController {
         log.info("plNo......GET{}", plno);
 
         playListService.removePlaylist(plno);
+
         return "redirect:/playlist"; // 리스트 페이지로 리다이렉트
     }
 

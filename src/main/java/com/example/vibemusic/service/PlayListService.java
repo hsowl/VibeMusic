@@ -18,7 +18,5 @@ public interface PlayListService {
 
     void addMusicToPlayList(Long plNo, Long no);
 
-    List<Music> getMusicsInPlayList(Long plNo);
-
     void removePlaylist(Long plno);
 }
