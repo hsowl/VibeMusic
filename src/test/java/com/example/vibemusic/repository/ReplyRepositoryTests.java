@@ -32,8 +32,8 @@ class ReplyRepositoryTests {
 
         Reply reply = Reply.builder()
                 .music(music)
-                .r_replyText("개개개ㅐ개개개ㅐ개개추!")
-                .rreplyer("종진팍")
+                .r_replyText("노래가 너무 좋아요!")
+                .rreplyer("sam")
                 .build();
 
         replyRepository.save(reply);

@@ -78,7 +78,7 @@
 
             <div class="my-4">
 <!--              <div class="float-end d-flex justify-content-center mb-3" th:with="link = ${pageRequestDTO.getLink()}" >-->
-              <div class="float-end d-flex justify-content-center mb-3" th:with="link = ${pageRequestDTO.getLink()}" >
+              <div class="float-end d-flex justify-content-center mb-3" th:with="link = ${pageRequestDTO.getLink()}">
                 <button class="btn oneMusic-btn mt-30 addAnswerBtn" sec:authorize="hasRole('ADMIN')">댓글 추가</button>
                 <a th:href="|@{/questionModify(qno=${dto.qno})}&${link}|" class="text-decoration-none">
                   <button type="button" class="btn oneMusic-btn mt-30 ModQ">modify</button>
